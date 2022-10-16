@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package model;
 
 abstract public class Persona {
@@ -40,4 +41,38 @@ abstract public class Persona {
 	}
 	
 }
+=======
+package model;
 
+abstract public class Persona {
+	
+	private String user;
+	private String password;
+	
+	public Persona() {
+		
+	}
+	
+	public Persona(String user,String password) {
+		this.user=user;
+		this.password=password;
+	}
+	
+	public String getUser() {
+		return this.user;
+	}
+	
+	public void setUser(String user) {
+		this.user=user;
+	}
+	
+	public String getPassword() {
+		return this.password;
+	}
+	
+	public void setPassword(String password) {
+		this.password=password;
+	}
+	
+}
+>>>>>>> 21c3ba3f3a53f447232a09c0626ad7796b8d793f

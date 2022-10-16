@@ -1,3 +1,4 @@
+
 package configuration;
 
 import java.sql.*;
@@ -48,3 +49,4 @@ public class Conexion extends Persona implements CrudRepository{
 		  }		
 							
 }
+
