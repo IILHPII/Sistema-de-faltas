@@ -1,24 +1,26 @@
 package interfaz;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.ImageIcon;
+import javax.swing.border.EmptyBorder;
 import java.awt.Color;
-
-
-import configuration.Conexion;
-
 import javax.swing.JTabbedPane;
+import java.awt.Font;
 import javax.swing.border.LineBorder;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.JSeparator;
 
-public class Menu{
+public class Menu extends JFrame {
 
-	private JFrame frmAgendaDocente;
-	Conexion conexion=new Conexion();
+	private JPanel contentPane;
+	private JTextField textField;
 
-	
 	/**
 	 * Launch the application.
 	 */
@@ -26,8 +28,8 @@ public class Menu{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Menu window = new Menu();
-					window.frmAgendaDocente.setVisible(true);
+					Menu frame = new Menu();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -36,44 +38,52 @@ public class Menu{
 	}
 
 	/**
-	 * Create the application.
+	 * Create the frame.
 	 */
 	public Menu() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frmAgendaDocente = new JFrame();
-		frmAgendaDocente.setTitle("Agenda docente");
-		frmAgendaDocente.getContentPane().setBackground(Color.WHITE);
-		frmAgendaDocente.setResizable(false);
-		frmAgendaDocente.setBounds(100, 100, 772, 597);
-		frmAgendaDocente.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmAgendaDocente.getContentPane().setLayout(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 772, 597);
+		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		tabbedPane.setFont(new Font("DialogInput", Font.PLAIN, 11));
+		tabbedPane.setBounds(0, 0, 756, 558);
+		contentPane.add(tabbedPane);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
-		panel.setBounds(0, 0, 756, 558);
-		frmAgendaDocente.getContentPane().add(panel);
+		tabbedPane.addTab("Add new user\r\n", new ImageIcon(Menu.class.getResource("/imgs/prueba2.png")), panel, null);
 		panel.setLayout(null);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
-		tabbedPane.setBounds(0, 0, 756, 558);
-		tabbedPane.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-		tabbedPane.setBackground(Color.BLUE);
-		panel.add(tabbedPane);
+		textField = new JTextField();
+		textField.setOpaque(false);
+		textField.setHorizontalAlignment(SwingConstants.CENTER);
+		textField.setFont(new Font("DialogInput", Font.PLAIN, 18));
+		textField.setColumns(10);
+		textField.setBorder(null);
+		textField.setBounds(223, 119, 276, 30);
+		panel.add(textField);
 		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Menu.class.getResource("/imgs/fondoMenu.png")));
+		lblNewLabel.setBackground(Color.BLUE);
+		lblNewLabel.setBounds(0, 0, 749, 534);
+		panel.add(lblNewLabel);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(223, 147, 276, 2);
+		panel.add(separator);
+		tabbedPane.setEnabledAt(0, true);
+		tabbedPane.setBackgroundAt(0, Color.WHITE);
 		
 		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("Registro de falta", new ImageIcon(Menu.class.getResource("/imgs/21.png")), panel_1, null);
-		panel_1.setLayout(null);
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(Color.ORANGE);
-		tabbedPane.addTab("New tab", null, panel_2, null);
+		tabbedPane.addTab("New tab", null, panel_1, null);
+		this.setLocationRelativeTo(null);
 		
 	}
 }

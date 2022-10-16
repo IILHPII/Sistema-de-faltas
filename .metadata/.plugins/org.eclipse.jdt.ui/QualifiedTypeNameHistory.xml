@@ -12,4 +12,9 @@
     <fullyQualifiedTypeName name="configuration.Persona"/>
     <fullyQualifiedTypeName name="repository.CrudRepository"/>
     <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+    <fullyQualifiedTypeName name="interfaz.QWq"/>
+    <fullyQualifiedTypeName name="interfaz.Prueba2"/>
+    <fullyQualifiedTypeName name="interfaz.Menu_Login"/>
+    <fullyQualifiedTypeName name="java.awt.Toolkit"/>
+    <fullyQualifiedTypeName name="java.awt.Dimension"/>
 </qualifiedTypeNameHistroy>

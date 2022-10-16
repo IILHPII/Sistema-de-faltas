@@ -2,7 +2,7 @@ package model;
 
 abstract public class Persona {
 	
-	private String user;
+	private int user;
 	private String password;
 	private Persona type;
 	
@@ -10,16 +10,16 @@ abstract public class Persona {
 		
 	}
 	
-	public Persona(String user,String password) {
+	public Persona(int user,String password) {
 		this.user=user;
 		this.password=password;
 	}
 	
-	public String getUser() {
+	public int getUser() {
 		return this.user;
 	}
 	
-	public void setUser(String user) {
+	public void setUser(int user) {
 		this.user=user;
 	}
 	
