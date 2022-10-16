@@ -1,0 +1,124 @@
+package interfaz;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import java.awt.Color;
+import javax.swing.JTextField;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
+import javax.swing.JPasswordField;
+import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class Login {
+
+	private JFrame frame;
+	private JTextField textField_Login;
+	private JPasswordField passwordField_Password;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Login window = new Login();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public Login() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.getContentPane().setBackground(Color.WHITE);
+		frame.setResizable(false);
+		frame.setBounds(100, 100, 772, 597);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(514, 0, 242, 558);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JLabel background_Right = new JLabel("");
+		background_Right.setIcon(new ImageIcon(Login.class.getResource("/imgs/logoDerechaLogin.jpg")));
+		background_Right.setBounds(0, 0, 242, 558);
+		panel.add(background_Right);
+		
+		textField_Login = new JTextField();
+		textField_Login.setBorder(null);
+		textField_Login.setOpaque(false);
+		textField_Login.setBounds(110, 190, 322, 33);
+		frame.getContentPane().add(textField_Login);
+		textField_Login.setColumns(10);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBackground(Color.BLACK);
+		separator.setBounds(110, 221, 322, 2);
+		frame.getContentPane().add(separator);
+		
+		JLabel prettyTextField_1 = new JLabel("New label");
+		prettyTextField_1.setIcon(new ImageIcon(Login.class.getResource("/imgs/textFieldDecoration.png")));
+		prettyTextField_1.setBounds(110, 190, 322, 33);
+		frame.getContentPane().add(prettyTextField_1);
+		
+		passwordField_Password = new JPasswordField();
+		passwordField_Password.setOpaque(false);
+		passwordField_Password.setColumns(10);
+		passwordField_Password.setBorder(null);
+		passwordField_Password.setBounds(110, 308, 322, 33);
+		frame.getContentPane().add(passwordField_Password);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBackground(Color.BLACK);
+		separator_1.setBounds(110, 339, 322, 2);
+		frame.getContentPane().add(separator_1);
+		
+		JLabel prettyTextField_2 = new JLabel("New label");
+		prettyTextField_2.setIcon(new ImageIcon(Login.class.getResource("/imgs/textFieldDecoration.png")));
+		prettyTextField_2.setBounds(110, 308, 322, 33);
+		frame.getContentPane().add(prettyTextField_2);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/imgs/logoLogin.png")));
+		lblNewLabel.setBounds(193, 20, 141, 133);
+		frame.getContentPane().add(lblNewLabel);
+		
+		JButton btnLogin = new JButton("");
+		btnLogin.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				btnLogin.setIcon(new ImageIcon(Login.class.getResource("/imgs/botonLogin2.png")));
+			}
+		});
+		btnLogin.setContentAreaFilled(false);
+		btnLogin.setFocusPainted(false);
+		btnLogin.setIcon(new ImageIcon(Login.class.getResource("/imgs/botonLogin1.png")));
+		btnLogin.setBorderPainted(false);
+		btnLogin.setBorder(null);
+		btnLogin.setOpaque(false);
+		btnLogin.setBounds(193, 394, 141, 92);
+		frame.getContentPane().add(btnLogin);
+	}
+}

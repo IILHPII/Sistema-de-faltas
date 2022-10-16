@@ -1,0 +1,87 @@
+package interfaz;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
+import java.awt.Color;
+import javax.swing.JTextField;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
+
+import configuration.Conexion;
+
+import javax.swing.JPasswordField;
+import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JMenuBar;
+import javax.swing.JTabbedPane;
+
+public class Menu{
+
+	private JFrame frmAgendaDocente;
+	Conexion conexion=new Conexion();
+
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Menu window = new Menu();
+					window.frmAgendaDocente.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public Menu() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frmAgendaDocente = new JFrame();
+		frmAgendaDocente.setTitle("Agenda docente");
+		frmAgendaDocente.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/imgs/botonLogin1.png")));
+		frmAgendaDocente.getContentPane().setBackground(Color.WHITE);
+		frmAgendaDocente.setResizable(false);
+		frmAgendaDocente.setBounds(100, 100, 772, 597);
+		frmAgendaDocente.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmAgendaDocente.getContentPane().setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(0, 0, 756, 558);
+		frmAgendaDocente.getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
+		tabbedPane.setBackground(Color.BLUE);
+		tabbedPane.setBounds(0, -11, 64, 569);
+		panel.add(tabbedPane);
+		
+	}
+}

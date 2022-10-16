@@ -1,0 +1,34 @@
+package configuration;
+
+import java.sql.*;
+
+
+public class Conexion {
+		
+		static boolean confirmacion;
+		private String url="jdbc:mysql//localhost/registro".concat("root".concat("Hernandez430785!"));
+		
+		
+		public static boolean consultaProfesor(String user,String password){
+			try {
+			Connection conexion=DriverManager.getConnection("jdbc:mysql//localhost/registro","root","Hernandez430785!");
+			Statement comando=conexion.createStatement();
+			ResultSet consulta=comando.executeQuery("SELECT cedula, password, `type` FROM registro.personas where cedula='"+user+"' and password='"+password+"'");
+			if(consulta.next()==true) {
+				confirmacion=true;
+			}
+			else {
+				confirmacion=false;
+			}
+			conexion.close();
+			
+			}catch(SQLException ex) {
+				System.out.println("Mal");
+			}
+			return confirmacion;
+		}
+		
+
+
+								
+}

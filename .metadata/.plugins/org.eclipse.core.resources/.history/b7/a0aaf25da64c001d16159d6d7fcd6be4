@@ -1,0 +1,41 @@
+package configuration;
+
+import java.sql.*;
+
+
+public class Conexion extends Persona {
+		
+		static boolean confirmacion;
+		private String url="jdbc:mysql//localhost/registro";
+		private String userDB="root";
+		private String passwordDB="root";
+		
+		
+		public Conexion() {
+			
+		}
+		
+		public Conexion(String user,String password) {
+			super(user,password);
+			consulta();
+		}
+		
+		
+		public boolean consulta(){
+			try {
+				Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
+				Statement command=conexion.createStatement();
+				ResultSet result=command.executeQuery("SELECT user, password, `type` FROM registro.personas where user='"+getUser()+"' and password='"+getPassword()+"'");
+				if(result.next()==true) {
+					confirmacion=true;
+				}else {
+					confirmacion=false;
+				}
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			return confirmacion;
+		}
+		
+								
+}

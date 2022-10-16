@@ -1,0 +1,39 @@
+package configuration;
+
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Conexion {
+		
+			
+		private String url="jdbc:mysql//localhost/registro".concat("root".concat("Hernandez430785!"));
+		
+		
+		public static String conexionUsuarios(String user,String password) throws SQLException {
+			boolean confirmacion = false;
+			try {
+				Connection conexion=DriverManager.getConnection("jdbc:mysql//localhost/registro","root","Hernandez430785!");
+				Statement comando=conexion.createStatement();
+				ResultSet consulta=comando.executeQuery("SELECT cedula, password, `type` FROM registro.personas where cedula='"+user+"' and password='"+password+"'");
+				if(consulta.next()==true) {
+					confirmacion=true;
+				}else {
+					confirmacion=false;
+				}
+			}catch(SQLException ex) {
+				System.out.println("No se ha logrado la conexion.");
+			}
+				
+			String hola="Es: "+confirmacion;
+			
+			return hola;	
+		}
+		
+
+
+								
+}
