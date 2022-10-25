@@ -70,7 +70,7 @@ public class Login extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/imgs/fondoDerecha.jpg")));
-		lblNewLabel.setBounds(514, 0, 258, 597);
+		lblNewLabel.setBounds(514, 0, 242, 597);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("New label");
