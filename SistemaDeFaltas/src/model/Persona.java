@@ -1,42 +1,49 @@
 package model;
 
-abstract public class Persona {
+ public class Persona {
 	
-	private int user;
-	private String password;
-	private Persona type;
+	private int ci;
+	private String contraseña;
+	private String nombre;
+	private String rol;
 	
 	public Persona() {
 		
 	}
 	
-	public Persona(int user,String password) {
-		this.user=user;
-		this.password=password;
+	public Persona(int ci,String nombre,String rol,String contraseña) {
+		this.ci=ci;
+		this.nombre=nombre;
+		this.rol=rol;
+		this.contraseña=contraseña;
 	}
 	
-	public int getUser() {
-		return this.user;
+	public int getCi() {
+		return this.ci;
 	}
 	
-	public void setUser(int user) {
-		this.user=user;
+	public void setCi(int user) {
+		this.ci=user;
 	}
 	
 	public String getPassword() {
-		return this.password;
+		return this.contraseña;
 	}
 	
 	public void setPassword(String password) {
-		this.password=password;
+		this.contraseña=password;
 	}
 	
-	public void setType(Persona type) {
-		this.type=type;
+	public void setRol(String rol) {
+		this.rol=rol;
 	}
 	
-	public Persona getType() {
-		return this.type;
+	public String getRol() {
+		return this.rol;
+	}
+	
+	public String getNombre() {
+		return this.nombre;
 	}
 	
 }

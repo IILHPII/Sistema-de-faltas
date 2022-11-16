@@ -117,7 +117,7 @@ public class Login extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					conexion.setUser(Integer.parseInt(textField.getText()));
+					conexion.setCi(Integer.parseInt(textField.getText()));
 					conexion.setPassword(String.valueOf(textField_1.getPassword()));
 				}catch(java.lang.NumberFormatException ex) {}
 				
