@@ -31,6 +31,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JCalendar;
+import com.toedter.components.JSpinField;
 
 public class Menu extends JFrame {
 
@@ -40,6 +41,8 @@ public class Menu extends JFrame {
 	private JTextField textField_2;
 	private Conexion carga=new Conexion();
 	private Persona registroPersona=new Persona();
+	private JTextField textField_3;
+	private JTextField textField_4;
 
 	/**
 	 * Launch the application.
@@ -81,7 +84,7 @@ public class Menu extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
-		tabbedPane.addTab("Add new user\r\n", new ImageIcon(Menu.class.getResource("/imgs/prueba2.png")), panel, null);
+		tabbedPane.addTab("Agregar nuevo usuario", new ImageIcon(Menu.class.getResource("/imgs/prueba2.png")), panel, null);
 		tabbedPane.setEnabledAt(1, true);
 		tabbedPane.setBackgroundAt(1, Color.WHITE);
 		panel.setLayout(null);
@@ -214,6 +217,100 @@ public class Menu extends JFrame {
 		lblNewLabel.setBackground(Color.BLUE);
 		lblNewLabel.setBounds(0, 0, 765, 547);
 		panel.add(lblNewLabel);
+		
+		JPanel panel_2 = new JPanel();
+		tabbedPane.addTab("Ingresar inasistencia", null, panel_2, null);
+		panel_2.setLayout(null);
+		
+		JLabel lblCedulaDeIdentidad_1 = new JLabel("Cedula de identidad");
+		lblCedulaDeIdentidad_1.setBounds(49, 91, 159, 24);
+		panel_2.add(lblCedulaDeIdentidad_1);
+		
+		JLabel lblCedulaDeIdentidad_1_1 = new JLabel("Asignatura");
+		lblCedulaDeIdentidad_1_1.setBounds(49, 163, 159, 24);
+		panel_2.add(lblCedulaDeIdentidad_1_1);
+		
+		JLabel lblCedulaDeIdentidad_1_1_1 = new JLabel("Grupo");
+		lblCedulaDeIdentidad_1_1_1.setBounds(49, 213, 159, 24);
+		panel_2.add(lblCedulaDeIdentidad_1_1_1);
+		
+		JLabel lblCedulaDeIdentidad_1_1_1_1 = new JLabel("Motivo");
+		lblCedulaDeIdentidad_1_1_1_1.setBounds(38, 409, 159, 24);
+		panel_2.add(lblCedulaDeIdentidad_1_1_1_1);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(227, 163, 276, 24);
+		panel_2.add(comboBox_1);
+		for(String s : carga.llenarComboAsignatura()) {
+			comboBox_1.addItem(s);
+		}
+		
+		
+		JComboBox comboBox_1_1 = new JComboBox();
+		comboBox_1_1.setBounds(227, 227, 276, 24);
+		panel_2.add(comboBox_1_1);
+		for(String s : carga.llenarComboGrupo()) {
+			comboBox_1_1.addItem(s);
+		}
+		
+		textField_3 = new JTextField();
+		textField_3.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char caracter= e.getKeyChar();
+				if(caracter<'0' || caracter>'9' && caracter!='\b') {
+					e.consume();
+				}
+			}
+		});
+		textField_3.setOpaque(false);
+		textField_3.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_3.setFont(new Font("DialogInput", Font.PLAIN, 18));
+		textField_3.setColumns(10);
+		textField_3.setBorder(null);
+		textField_3.setBounds(227, 87, 276, 30);
+		panel_2.add(textField_3);
+		
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setBounds(227, 115, 276, 2);
+		panel_2.add(separator_2);
+		
+		textField_4 = new JTextField();
+		textField_4.setOpaque(false);
+		textField_4.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_4.setFont(new Font("DialogInput", Font.PLAIN, 18));
+		textField_4.setColumns(10);
+		textField_4.setBorder(null);
+		textField_4.setBounds(227, 394, 276, 30);
+		panel_2.add(textField_4);
+		
+		JSeparator separator_2_1 = new JSeparator();
+		separator_2_1.setBounds(227, 409, 276, 2);
+		panel_2.add(separator_2_1);
+		
+		JButton btnCargarFecha = new JButton("Cargar fecha");
+		btnCargarFecha.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+	
+			}
+		});
+		btnCargarFecha.setBounds(522, 192, 150, 25);
+		panel_2.add(btnCargarFecha);
+		
+		JComboBox comboBox_1_1_1 = new JComboBox();
+		comboBox_1_1_1.setBounds(227, 282, 276, 24);
+		panel_2.add(comboBox_1_1_1);
+		
+		JLabel lblCedulaDeIdentidad_1_1_1_2 = new JLabel("Fecha de clase");
+		lblCedulaDeIdentidad_1_1_1_2.setBounds(49, 282, 159, 24);
+		panel_2.add(lblCedulaDeIdentidad_1_1_1_2);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setBounds(0, 5, 765, 528);
+		lblNewLabel_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/fondoPrueba42.png")));
+		lblNewLabel_1.setBackground(Color.BLUE);
+		panel_2.add(lblNewLabel_1);
 		this.setLocationRelativeTo(null);
 		
 	}
