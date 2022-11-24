@@ -38,8 +38,6 @@ public class Menu extends JFrame {
 	private JPanel contentPane;
 	private Conexion carga=new Conexion();
 	private Persona registroPersona=new Persona();
-	private JTextField textField_3;
-	private JTextField textField_4;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -87,7 +85,7 @@ public class Menu extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
-		tabbedPane.addTab("Agregar nuevo usuario", new ImageIcon(Menu.class.getResource("/imgs/prueba2.png")), panel, null);
+		tabbedPane.addTab("Administrar Usuarios", new ImageIcon(Menu.class.getResource("/imgs/prueba2.png")), panel, null);
 		tabbedPane.setEnabledAt(1, true);
 		tabbedPane.setBackgroundAt(1, Color.WHITE);
 		panel.setLayout(null);
@@ -97,7 +95,7 @@ public class Menu extends JFrame {
 		panel.add(separator_1_1);
 		
 		JLabel lblAltaDeUsuario = new JLabel("Alta de usuario");
-		lblAltaDeUsuario.setBounds(110, 12, 148, 15);
+		lblAltaDeUsuario.setBounds(148, 19, 148, 15);
 		panel.add(lblAltaDeUsuario);
 		
 		JLabel lblCedula = new JLabel("Cedula");
@@ -114,7 +112,7 @@ public class Menu extends JFrame {
 				}
 			}
 		});
-		textField.setBounds(89, 39, 171, 29);
+		textField.setBounds(133, 39, 171, 29);
 		panel.add(textField);
 		textField.setColumns(10);
 		
@@ -136,16 +134,16 @@ public class Menu extends JFrame {
 			}
 		});
 		textField_1.setColumns(10);
-		textField_1.setBounds(87, 80, 171, 29);
+		textField_1.setBounds(133, 80, 171, 29);
 		panel.add(textField_1);
 		
 		JLabel lblCedula_1_1 = new JLabel("Contraseña");
-		lblCedula_1_1.setBounds(0, 136, 148, 15);
+		lblCedula_1_1.setBounds(12, 136, 148, 15);
 		panel.add(lblCedula_1_1);
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
-		textField_2.setBounds(87, 129, 171, 29);
+		textField_2.setBounds(133, 129, 171, 29);
 		panel.add(textField_2);
 		
 		JLabel lblUsuario = new JLabel("Usuario");
@@ -153,12 +151,12 @@ public class Menu extends JFrame {
 		panel.add(lblUsuario);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(89, 190, 171, 29);
+		comboBox.setBounds(133, 190, 171, 29);
 		panel.add(comboBox);
 		
 		
 		JButton btnCargar = new JButton("");
-		btnCargar.setBounds(120, 231, 91, 94);
+		btnCargar.setBounds(178, 216, 91, 94);
 		btnCargar.setBorderPainted(false);
 		btnCargar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -190,11 +188,11 @@ public class Menu extends JFrame {
 		
 		JSeparator separator_1_1_1 = new JSeparator();
 		separator_1_1_1.setOrientation(SwingConstants.VERTICAL);
-		separator_1_1_1.setBounds(310, 12, 2, 298);
+		separator_1_1_1.setBounds(459, 12, 2, 298);
 		panel.add(separator_1_1_1);
 		
 		JLabel lblEditarUsuario = new JLabel("Editar usuario");
-		lblEditarUsuario.setBounds(110, 325, 148, 15);
+		lblEditarUsuario.setBounds(158, 322, 148, 15);
 		panel.add(lblEditarUsuario);
 		
 		JLabel lblCedulaDelUsuario = new JLabel("Cedula del usuario");
@@ -218,12 +216,16 @@ public class Menu extends JFrame {
 		JButton btnNewButton = new JButton("");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				carga.setCi(Integer.parseInt(textField_5.getText()));
-				boolean existe=carga.consultaCiU();
-				if(existe==true) {
-					JOptionPane.showMessageDialog(null,"El usuario esta registrado! Puede proceder a modificar","Hey!",JOptionPane.INFORMATION_MESSAGE);
-				}else {
-					JOptionPane.showMessageDialog(null,"El usuario no esta registrado!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+				try {
+					carga.setCi(Integer.parseInt(textField_5.getText()));
+					boolean existe=carga.consultaCiU();
+					if(existe==true) {
+						JOptionPane.showMessageDialog(null,"El usuario esta registrado! Puede proceder a modificar","Hey!",JOptionPane.INFORMATION_MESSAGE);
+					}else {
+						JOptionPane.showMessageDialog(null,"El usuario no esta registrado!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+					}	
+				}catch(java.lang.NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null,"Valores ingresados nulos o incorrectos","Hey!",JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -301,101 +303,19 @@ public class Menu extends JFrame {
 		btnNewButton_1.setBounds(330, 463, 124, 27);
 		panel.add(btnNewButton_1);
 		
+		JLabel lblBajaDeUsuario = new JLabel("Baja de usuario");
+		lblBajaDeUsuario.setBounds(569, 12, 148, 15);
+		panel.add(lblBajaDeUsuario);
+		
+		JLabel lblCedulaDelUsuario_1 = new JLabel("Cedula del usuario");
+		lblCedulaDelUsuario_1.setBounds(468, 39, 148, 15);
+		panel.add(lblCedulaDelUsuario_1);
+		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(0, -14, 893, 600);
 		panel.add(lblNewLabel);
 		lblNewLabel.setIcon(new ImageIcon(Menu.class.getResource("/imgs/fondoMenu23.png")));
 		lblNewLabel.setBackground(Color.BLUE);
-		
-		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("Ingresar inasistencia", null, panel_2, null);
-		panel_2.setLayout(null);
-		
-		JLabel lblCedulaDeIdentidad_1 = new JLabel("Cedula de identidad");
-		lblCedulaDeIdentidad_1.setBounds(49, 91, 159, 24);
-		panel_2.add(lblCedulaDeIdentidad_1);
-		
-		JLabel lblCedulaDeIdentidad_1_1 = new JLabel("Asignatura");
-		lblCedulaDeIdentidad_1_1.setBounds(49, 163, 159, 24);
-		panel_2.add(lblCedulaDeIdentidad_1_1);
-		
-		JLabel lblCedulaDeIdentidad_1_1_1 = new JLabel("Grupo");
-		lblCedulaDeIdentidad_1_1_1.setBounds(49, 213, 159, 24);
-		panel_2.add(lblCedulaDeIdentidad_1_1_1);
-		
-		JLabel lblCedulaDeIdentidad_1_1_1_1 = new JLabel("Motivo");
-		lblCedulaDeIdentidad_1_1_1_1.setBounds(38, 409, 159, 24);
-		panel_2.add(lblCedulaDeIdentidad_1_1_1_1);
-		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(227, 163, 276, 24);
-		panel_2.add(comboBox_1);
-		
-		
-		
-		JComboBox comboBox_1_1 = new JComboBox();
-		comboBox_1_1.setBounds(227, 227, 276, 24);
-		panel_2.add(comboBox_1_1);
-		
-		
-		textField_3 = new JTextField();
-		textField_3.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				char caracter= e.getKeyChar();
-				if(caracter<'0' || caracter>'9' && caracter!='\b') {
-					e.consume();
-				}
-			}
-		});
-		textField_3.setOpaque(false);
-		textField_3.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_3.setFont(new Font("DialogInput", Font.PLAIN, 18));
-		textField_3.setColumns(10);
-		textField_3.setBorder(null);
-		textField_3.setBounds(227, 87, 276, 30);
-		panel_2.add(textField_3);
-		
-		JSeparator separator_2 = new JSeparator();
-		separator_2.setBounds(227, 115, 276, 2);
-		panel_2.add(separator_2);
-		
-		textField_4 = new JTextField();
-		textField_4.setOpaque(false);
-		textField_4.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_4.setFont(new Font("DialogInput", Font.PLAIN, 18));
-		textField_4.setColumns(10);
-		textField_4.setBorder(null);
-		textField_4.setBounds(227, 394, 276, 30);
-		panel_2.add(textField_4);
-		
-		JSeparator separator_2_1 = new JSeparator();
-		separator_2_1.setBounds(227, 409, 276, 2);
-		panel_2.add(separator_2_1);
-		
-		JButton btnCargarFecha = new JButton("Cargar fecha");
-		btnCargarFecha.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			
-	
-			}
-		});
-		btnCargarFecha.setBounds(522, 192, 150, 25);
-		panel_2.add(btnCargarFecha);
-		
-		JComboBox comboBox_1_1_1 = new JComboBox();
-		comboBox_1_1_1.setBounds(227, 282, 276, 24);
-		panel_2.add(comboBox_1_1_1);
-		
-		JLabel lblCedulaDeIdentidad_1_1_1_2 = new JLabel("Fecha de clase");
-		lblCedulaDeIdentidad_1_1_1_2.setBounds(49, 282, 159, 24);
-		panel_2.add(lblCedulaDeIdentidad_1_1_1_2);
-		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/fondoMenu23.png")));
-		lblNewLabel_1.setBackground(Color.BLUE);
-		lblNewLabel_1.setBounds(0, 0, 900, 614);
-		panel_2.add(lblNewLabel_1);
 		this.setLocationRelativeTo(null);
 		
 	}
