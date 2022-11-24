@@ -34,7 +34,7 @@ public class Conexion extends Persona implements CrudRepository{
 			try {
 				Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
 				Statement command=conexion.createStatement();
-				ResultSet result=command.executeQuery("SELECT ci, contraseña, `rol` FROM proyectoListaDB.persona where ci='"+getCi()+"' and contraseña='"+getPassword()+"'");
+				ResultSet result=command.executeQuery("SELECT ciU, password FROM proyectoProgramacionDocentes.usuarios where ciU='"+getCi()+"' and password='"+getPassword()+"'");
 				if(result.next()==true) {
 					confirmacionConsulta=true;
 				}else {
@@ -67,7 +67,7 @@ public class Conexion extends Persona implements CrudRepository{
 			try {
 				Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
 				Statement command=conexion.createStatement();
-				ResultSet result=command.executeQuery("SELECT rol_persona FROM proyectoListaDB.rol");
+				ResultSet result=command.executeQuery("SELECT tipo FROM proyectoProgramacionDocentes.tipos");
 				
 				while(result.next()) {
 					listType.add(result.getString(1));
