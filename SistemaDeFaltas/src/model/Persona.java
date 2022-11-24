@@ -22,8 +22,8 @@ package model;
 		return this.ci;
 	}
 	
-	public void setCi(int user) {
-		this.ci=user;
+	public void setCi(int ci) {
+		this.ci=ci;
 	}
 	
 	public String getPassword() {

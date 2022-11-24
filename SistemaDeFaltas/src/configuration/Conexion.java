@@ -19,9 +19,11 @@ public class Conexion extends Persona implements CrudRepository{
 		private List<String>listGroup;
 		private List<String>listCourse;
 		private List<String>listInitDate;
-
+		
+		
 		
 		public Conexion() {
+			super();
 			cargarDriver();
 			listType=new ArrayList<String>();
 			listGroup=new ArrayList<String>();
@@ -48,12 +50,11 @@ public class Conexion extends Persona implements CrudRepository{
 		}
 		
 		@Override
-		public void alta(int ci,String nombre,String rol,String password) {
+		public void alta() {
 			try {
 				Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
 				Statement command=conexion.createStatement();
-				command.executeUpdate("INSERT INTO proyectoListaDB.persona (ci, nombre, rol, contraseña) "
-						+ "VALUES("+ci+", '"+nombre+"', '"+rol+"', '"+password+"')");
+				command.executeUpdate("INSERT INTO proyectoProgramacionDocentes.usuarios (ciU, nombre, tipo, password) VALUES('"+getCi()+"', '"+getNombre()+"', '"+getRol()+"', '"+getPassword()+"')");
 				conexion.close();
 				
 			}catch(SQLException ex) {

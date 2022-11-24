@@ -44,6 +44,7 @@ public class Menu extends JFrame {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_5;
+	private JTextField textField_6;
 
 	/**
 	 * Launch the application.
@@ -94,33 +95,6 @@ public class Menu extends JFrame {
 		separator_1_1.setBounds(12, 322, 857, 2);
 		panel.add(separator_1_1);
 		
-		
-		JButton btnCargar = new JButton("");
-		btnCargar.setBounds(120, 231, 91, 94);
-		btnCargar.setBorderPainted(false);
-		btnCargar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				btnCargar.setIcon(new ImageIcon(Menu.class.getResource("/imgs/confirmo111.png")));
-			}
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				btnCargar.setIcon(new ImageIcon(Menu.class.getResource("/imgs/confirmo222.png")));
-			}
-		});
-		btnCargar.setIcon(new ImageIcon(Menu.class.getResource("/imgs/confirmo222.png")));
-		btnCargar.setContentAreaFilled(false);
-		btnCargar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				registroPersona.setCi(Integer.parseInt(textField.getText()));
-				registroPersona.setNombre(textField_1.getText());
-				registroPersona.setPassword(textField_2.getText());
-				
-			
-			}
-		});
-		panel.add(btnCargar);
-		
 		JLabel lblAltaDeUsuario = new JLabel("Alta de usuario");
 		lblAltaDeUsuario.setBounds(110, 12, 148, 15);
 		panel.add(lblAltaDeUsuario);
@@ -130,6 +104,15 @@ public class Menu extends JFrame {
 		panel.add(lblCedula);
 		
 		textField = new JTextField();
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char caracter=e.getKeyChar();
+				if(caracter<'0' || caracter>'9' && caracter!='\b') {
+					e.consume();
+				}
+			}
+		});
 		textField.setBounds(89, 39, 171, 29);
 		panel.add(textField);
 		textField.setColumns(10);
@@ -139,6 +122,18 @@ public class Menu extends JFrame {
 		panel.add(lblCedula_1);
 		
 		textField_1 = new JTextField();
+		textField_1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char caracter=e.getKeyChar();
+				 boolean mayusculas = caracter >= 65 && caracter <= 90;
+				 boolean minusculas = caracter >= 97 && caracter <= 122;
+				 boolean espacio = caracter == 32;
+				if(!(minusculas || mayusculas || espacio)) {
+					e.consume();
+				}
+			}
+		});
 		textField_1.setColumns(10);
 		textField_1.setBounds(87, 80, 171, 29);
 		panel.add(textField_1);
@@ -163,6 +158,38 @@ public class Menu extends JFrame {
 			comboBox.addItem(s);
 		}
 		
+		
+		JButton btnCargar = new JButton("");
+		btnCargar.setBounds(120, 231, 91, 94);
+		btnCargar.setBorderPainted(false);
+		btnCargar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnCargar.setIcon(new ImageIcon(Menu.class.getResource("/imgs/confirmo111.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnCargar.setIcon(new ImageIcon(Menu.class.getResource("/imgs/confirmo222.png")));
+			}
+		});
+		btnCargar.setIcon(new ImageIcon(Menu.class.getResource("/imgs/confirmo222.png")));
+		btnCargar.setContentAreaFilled(false);
+		btnCargar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					carga.setCi(Integer.parseInt(textField.getText()));
+					carga.setNombre(textField_1.getText());
+					carga.setPassword(textField_2.getText());
+					carga.setRol(comboBox.getSelectedItem().toString());
+					carga.alta();
+				}catch(java.lang.NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null,"Valores ingresados nulos o incorrectos","Hey!",JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		panel.add(btnCargar);
+		
 		JSeparator separator_1_1_1 = new JSeparator();
 		separator_1_1_1.setOrientation(SwingConstants.VERTICAL);
 		separator_1_1_1.setBounds(310, 12, 2, 298);
@@ -181,8 +208,68 @@ public class Menu extends JFrame {
 		textField_5.setBounds(178, 357, 171, 29);
 		panel.add(textField_5);
 		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnNewButton.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar2.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnNewButton.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
+			}
+		});
+		btnNewButton.setContentAreaFilled(false);
+		btnNewButton.setBorderPainted(false);
+		btnNewButton.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
+		btnNewButton.setBounds(373, 357, 41, 28);
+		panel.add(btnNewButton);
+		
+		JLabel lblEditarNombre = new JLabel("Editar nombre");
+		lblEditarNombre.setBounds(12, 430, 148, 15);
+		panel.add(lblEditarNombre);
+		
+		textField_6 = new JTextField();
+		textField_6.setColumns(10);
+		textField_6.setBounds(12, 463, 114, 29);
+		panel.add(textField_6);
+		
+		JComboBox comboBox_2 = new JComboBox();
+		comboBox_2.setBounds(148, 463, 171, 29);
+		panel.add(comboBox_2);
+		
+		JLabel lblCambiarTipoUsuario = new JLabel("Cambiar Tipo Usuario");
+		lblCambiarTipoUsuario.setBounds(158, 431, 173, 15);
+		panel.add(lblCambiarTipoUsuario);
+		
+		JSeparator separator_1_1_2 = new JSeparator();
+		separator_1_1_2.setBounds(9, 414, 431, 4);
+		panel.add(separator_1_1_2);
+		
+		JSeparator separator_1_1_1_1 = new JSeparator();
+		separator_1_1_1_1.setOrientation(SwingConstants.VERTICAL);
+		separator_1_1_1_1.setBounds(458, 329, 3, 193);
+		panel.add(separator_1_1_1_1);
+		
+		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnNewButton_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/22332.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnNewButton_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/submit1.png")));
+			}
+		});
+		btnNewButton_1.setContentAreaFilled(false);
+		btnNewButton_1.setBorderPainted(false);
+		btnNewButton_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/submit1.png")));
+		btnNewButton_1.setBounds(330, 463, 124, 27);
+		panel.add(btnNewButton_1);
+		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBounds(0, -17, 893, 643);
+		lblNewLabel.setBounds(0, -14, 893, 600);
 		panel.add(lblNewLabel);
 		lblNewLabel.setIcon(new ImageIcon(Menu.class.getResource("/imgs/fondoMenu23.png")));
 		lblNewLabel.setBackground(Color.BLUE);
