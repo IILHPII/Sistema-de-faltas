@@ -11,6 +11,7 @@ public interface CrudRepository {
 	 public void alta();
 	 
 	 public void modificacion();
-	
+	 
+	 public void eliminacion();	
 	
 }

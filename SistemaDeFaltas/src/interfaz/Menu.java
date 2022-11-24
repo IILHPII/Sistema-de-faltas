@@ -44,6 +44,10 @@ public class Menu extends JFrame {
 	private JTextField textField_5;
 	private JTextField textField_6;
 	private static int ciU;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_7;
+	private JTextField textField_8;
 
 	/**
 	 * Launch the application.
@@ -77,7 +81,7 @@ public class Menu extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		tabbedPane.setFont(new Font("DialogInput", Font.PLAIN, 11));
-		tabbedPane.setBounds(0, 0, 900, 560);
+		tabbedPane.setBounds(0, 0, 900, 573);
 		contentPane.add(tabbedPane);
 		
 		JPanel panel_1 = new JPanel();
@@ -307,15 +311,122 @@ public class Menu extends JFrame {
 		lblBajaDeUsuario.setBounds(569, 12, 148, 15);
 		panel.add(lblBajaDeUsuario);
 		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(611, 32, 171, 29);
+		panel.add(textField_3);
+		
+		JButton btnNewButton_2 = new JButton("");
+		btnNewButton_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnNewButton_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar2.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnNewButton_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
+			}
+		});
+		btnNewButton_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
+		btnNewButton_2.setContentAreaFilled(false);
+		btnNewButton_2.setBorderPainted(false);
+		btnNewButton_2.setBounds(744, 74, 41, 28);
+		panel.add(btnNewButton_2);
+		
+		JLabel lblCedulaDelUsuario_1_1 = new JLabel("Nombre del usuario");
+		lblCedulaDelUsuario_1_1.setBounds(479, 169, 148, 15);
+		panel.add(lblCedulaDelUsuario_1_1);
+		
 		JLabel lblCedulaDelUsuario_1 = new JLabel("Cedula del usuario");
 		lblCedulaDelUsuario_1.setBounds(468, 39, 148, 15);
 		panel.add(lblCedulaDelUsuario_1);
 		
+		JLabel lblCedulaDelUsuario_1_1_1 = new JLabel(".....");
+		lblCedulaDelUsuario_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCedulaDelUsuario_1_1_1.setBounds(479, 230, 148, 15);
+		panel.add(lblCedulaDelUsuario_1_1_1);
+		
+		JButton btnConfirmarBaja = new JButton("Confirmar baja");
+		btnConfirmarBaja.setForeground(Color.WHITE);
+		btnConfirmarBaja.setBackground(new Color(153, 193, 241));
+		btnConfirmarBaja.setBounds(699, 164, 182, 25);
+		panel.add(btnConfirmarBaja);
+		
+		JButton btnConfirmarBaja_1 = new JButton("Cancelar");
+		btnConfirmarBaja_1.setForeground(Color.WHITE);
+		btnConfirmarBaja_1.setBackground(new Color(153, 193, 241));
+		btnConfirmarBaja_1.setBounds(721, 225, 148, 25);
+		panel.add(btnConfirmarBaja_1);
+		
+		JLabel lblCedulaDelUsuario_1_1_2 = new JLabel("Cambio de contraseña");
+		lblCedulaDelUsuario_1_1_2.setBounds(600, 322, 182, 15);
+		panel.add(lblCedulaDelUsuario_1_1_2);
+		
+		JLabel lblCedulaDelUsuario_1_2 = new JLabel("Cedula del usuario");
+		lblCedulaDelUsuario_1_2.setBounds(479, 364, 148, 15);
+		panel.add(lblCedulaDelUsuario_1_2);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		textField_4.setBounds(629, 357, 171, 29);
+		panel.add(textField_4);
+		
+		JButton btnNewButton_2_1 = new JButton("");
+		btnNewButton_2_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnNewButton_2_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar2.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnNewButton_2_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
+			}
+		});
+		btnNewButton_2_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
+		btnNewButton_2_1.setContentAreaFilled(false);
+		btnNewButton_2_1.setBorderPainted(false);
+		btnNewButton_2_1.setBounds(825, 357, 41, 28);
+		panel.add(btnNewButton_2_1);
+		
+		JSeparator separator_1_1_2_1 = new JSeparator();
+		separator_1_1_2_1.setBounds(459, 414, 410, 2);
+		panel.add(separator_1_1_2_1);
+		
+		textField_7 = new JTextField();
+		textField_7.setColumns(10);
+		textField_7.setBounds(477, 460, 177, 29);
+		panel.add(textField_7);
+		
+		textField_8 = new JTextField();
+		textField_8.setColumns(10);
+		textField_8.setBounds(682, 461, 171, 29);
+		panel.add(textField_8);
+		
+		JLabel lblCedulaDelUsuario_1_2_1 = new JLabel("Nueva contraseña");
+		lblCedulaDelUsuario_1_2_1.setBounds(494, 424, 148, 15);
+		panel.add(lblCedulaDelUsuario_1_2_1);
+		
+		JLabel lblCedulaDelUsuario_1_2_1_1 = new JLabel("Repita contraseña");
+		lblCedulaDelUsuario_1_2_1_1.setBounds(695, 425, 148, 15);
+		panel.add(lblCedulaDelUsuario_1_2_1_1);
+		
+		JButton btnConfirmar = new JButton("Confirmar");
+		btnConfirmar.setForeground(Color.WHITE);
+		btnConfirmar.setBackground(new Color(153, 193, 241));
+		btnConfirmar.setBounds(475, 501, 177, 25);
+		panel.add(btnConfirmar);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setForeground(Color.WHITE);
+		btnCancelar.setBackground(new Color(153, 193, 241));
+		btnCancelar.setBounds(678, 501, 176, 25);
+		panel.add(btnCancelar);
+		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBounds(0, -14, 893, 600);
+		lblNewLabel.setBounds(0, 0, 893, 600);
 		panel.add(lblNewLabel);
 		lblNewLabel.setIcon(new ImageIcon(Menu.class.getResource("/imgs/fondoMenu23.png")));
-		lblNewLabel.setBackground(Color.BLUE);
+		lblNewLabel.setBackground(new Color(45, 173, 222));
 		this.setLocationRelativeTo(null);
 		
 	}

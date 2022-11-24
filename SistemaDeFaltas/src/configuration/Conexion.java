@@ -94,6 +94,11 @@ public class Conexion extends Persona implements CrudRepository{
 			}
 		}
 		
+		@Override
+		public void eliminacion() {
+			
+		}
+		
 		
 		// Lleno los comboBox
 		public List<String> llenarCombo() {
