@@ -49,6 +49,26 @@ public class Conexion extends Persona implements CrudRepository{
 			return confirmacionConsulta;
 		}
 		
+		
+		public boolean consultaCiU(){
+			try {
+				Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
+				Statement command=conexion.createStatement();
+				ResultSet result=command.executeQuery("SELECT ciU FROM proyectoProgramacionDocentes.usuarios where ciU='"+getCi()+"'");
+				if(result.next()==true) {
+					confirmacionConsulta=true;
+				}else {
+					confirmacionConsulta=false;
+				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}			
+			return confirmacionConsulta;
+		}
+		
+		
+		
 		@Override
 		public void alta() {
 			try {
@@ -57,6 +77,18 @@ public class Conexion extends Persona implements CrudRepository{
 				command.executeUpdate("INSERT INTO proyectoProgramacionDocentes.usuarios (ciU, nombre, tipo, password) VALUES('"+getCi()+"', '"+getNombre()+"', '"+getRol()+"', '"+getPassword()+"')");
 				conexion.close();
 				
+			}catch(SQLException ex) {
+				
+			}
+		}
+		
+		@Override
+		public void modificacion() {
+			try {
+				Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
+				Statement command=conexion.createStatement();
+				command.executeUpdate("UPDATE proyectoProgramacionDocentes.usuarios SET nombre='"+getNombre()+"', tipo='"+getRol()+"' WHERE ciU='"+getCi()+"'");
+				conexion.close();
 			}catch(SQLException ex) {
 				
 			}

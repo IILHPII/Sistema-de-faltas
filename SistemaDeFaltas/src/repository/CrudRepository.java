@@ -9,6 +9,8 @@ public interface CrudRepository {
 	 public boolean consulta();
 	 
 	 public void alta();
+	 
+	 public void modificacion();
 	
 	
 }

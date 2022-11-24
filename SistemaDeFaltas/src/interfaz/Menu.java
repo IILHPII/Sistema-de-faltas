@@ -45,6 +45,7 @@ public class Menu extends JFrame {
 	private JTextField textField_2;
 	private JTextField textField_5;
 	private JTextField textField_6;
+	private static int ciU;
 
 	/**
 	 * Launch the application.
@@ -154,9 +155,6 @@ public class Menu extends JFrame {
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(89, 190, 171, 29);
 		panel.add(comboBox);
-		for(String s : carga.llenarCombo()) {
-			comboBox.addItem(s);
-		}
 		
 		
 		JButton btnCargar = new JButton("");
@@ -204,11 +202,31 @@ public class Menu extends JFrame {
 		panel.add(lblCedulaDelUsuario);
 		
 		textField_5 = new JTextField();
+		textField_5.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char caracter=e.getKeyChar();
+				if(caracter<'0' || caracter>'9' && caracter!='\b') {
+					e.consume();
+				}
+			}
+		});
 		textField_5.setColumns(10);
 		textField_5.setBounds(178, 357, 171, 29);
 		panel.add(textField_5);
 		
 		JButton btnNewButton = new JButton("");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				carga.setCi(Integer.parseInt(textField_5.getText()));
+				boolean existe=carga.consultaCiU();
+				if(existe==true) {
+					JOptionPane.showMessageDialog(null,"El usuario esta registrado! Puede proceder a modificar","Hey!",JOptionPane.INFORMATION_MESSAGE);
+				}else {
+					JOptionPane.showMessageDialog(null,"El usuario no esta registrado!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -237,6 +255,10 @@ public class Menu extends JFrame {
 		JComboBox comboBox_2 = new JComboBox();
 		comboBox_2.setBounds(148, 463, 171, 29);
 		panel.add(comboBox_2);
+		for(String s : carga.llenarCombo()) {
+			comboBox.addItem(s);
+			comboBox_2.addItem(s);
+		}
 		
 		JLabel lblCambiarTipoUsuario = new JLabel("Cambiar Tipo Usuario");
 		lblCambiarTipoUsuario.setBounds(158, 431, 173, 15);
@@ -252,6 +274,17 @@ public class Menu extends JFrame {
 		panel.add(separator_1_1_1_1);
 		
 		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					carga.setNombre(textField_6.getText());
+					carga.setRol(comboBox_2.getSelectedItem().toString());
+					carga.modificacion();
+				}catch(java.lang.NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null,"Ingreso nulo o invalido!","Hey!",JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
