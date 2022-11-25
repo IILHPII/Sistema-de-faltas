@@ -13,7 +13,9 @@ import javax.swing.JTabbedPane;
 import java.awt.Font;
 import javax.swing.border.LineBorder;
 
+import configuration.CombosConexion;
 import configuration.Conexion;
+import configuration.CrudDB;
 import model.Persona;
 
 import javax.swing.ImageIcon;
@@ -38,16 +40,18 @@ public class Menu extends JFrame {
 	private JPanel contentPane;
 	private Conexion carga=new Conexion();
 	private Persona registroPersona=new Persona();
+	private CrudDB  crud=new CrudDB();
+	private CombosConexion combosConexion=new CombosConexion();
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_5;
 	private JTextField textField_6;
-	private static int ciU;
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_7;
 	private JTextField textField_8;
+	private JLabel lblCedulaDelUsuario_1_1_1;
 
 	/**
 	 * Launch the application.
@@ -178,11 +182,11 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
-					carga.setCi(Integer.parseInt(textField.getText()));
-					carga.setNombre(textField_1.getText());
-					carga.setPassword(textField_2.getText());
-					carga.setRol(comboBox.getSelectedItem().toString());
-					carga.alta();
+					crud.setCi(Integer.parseInt(textField.getText()));
+					crud.setNombre(textField_1.getText());
+					crud.setPassword(textField_2.getText());
+					crud.setRol(comboBox.getSelectedItem().toString());
+					crud.alta();
 				}catch(java.lang.NumberFormatException ex) {
 					JOptionPane.showMessageDialog(null,"Valores ingresados nulos o incorrectos","Hey!",JOptionPane.ERROR_MESSAGE);
 				}
@@ -261,7 +265,7 @@ public class Menu extends JFrame {
 		JComboBox comboBox_2 = new JComboBox();
 		comboBox_2.setBounds(148, 463, 171, 29);
 		panel.add(comboBox_2);
-		for(String s : carga.llenarCombo()) {
+		for(String s : combosConexion.llenarCombo()) {
 			comboBox.addItem(s);
 			comboBox_2.addItem(s);
 		}
@@ -283,9 +287,9 @@ public class Menu extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					carga.setNombre(textField_6.getText());
-					carga.setRol(comboBox_2.getSelectedItem().toString());
-					carga.modificacion();
+					crud.setNombre(textField_6.getText());
+					crud.setRol(comboBox_2.getSelectedItem().toString());
+					crud.modificacion();
 				}catch(java.lang.NumberFormatException ex) {
 					JOptionPane.showMessageDialog(null,"Ingreso nulo o invalido!","Hey!",JOptionPane.ERROR_MESSAGE);
 				}
@@ -312,11 +316,74 @@ public class Menu extends JFrame {
 		panel.add(lblBajaDeUsuario);
 		
 		textField_3 = new JTextField();
+		textField_3.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char caracter=e.getKeyChar();
+				if(caracter<'0' || caracter>'9' && caracter!='\b') {
+					e.consume();
+				}
+			}
+		});
 		textField_3.setColumns(10);
 		textField_3.setBounds(611, 32, 171, 29);
 		panel.add(textField_3);
 		
+		JLabel lblCedulaDelUsuario_1_1 = new JLabel("Nombre del usuario");
+		lblCedulaDelUsuario_1_1.setBounds(479, 169, 148, 15);
+		panel.add(lblCedulaDelUsuario_1_1);
+		
+		JLabel lblCedulaDelUsuario_1 = new JLabel("Cedula del usuario");
+		lblCedulaDelUsuario_1.setBounds(468, 39, 148, 15);
+		panel.add(lblCedulaDelUsuario_1);
+		
+		lblCedulaDelUsuario_1_1_1 = new JLabel(".....");
+		lblCedulaDelUsuario_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCedulaDelUsuario_1_1_1.setBounds(479, 230, 148, 15);
+		panel.add(lblCedulaDelUsuario_1_1_1);
+		
+		JButton btnConfirmarBaja = new JButton("Confirmar baja");
+		btnConfirmarBaja.setEnabled(false);
+		btnConfirmarBaja.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int eleccion=JOptionPane.showConfirmDialog(null,"¿Esta seguro que desea eliminar el siguiente docente? "+crud.getCi(),"Confirmacion",JOptionPane.YES_NO_OPTION);
+				if(eleccion==0) {
+					crud.eliminacion();
+					JOptionPane.showMessageDialog(null,"Acabas de eliminar al docente:"+crud.getCi(),"Hey!",JOptionPane.INFORMATION_MESSAGE);
+					btnConfirmarBaja.setEnabled(false);
+				}else if(eleccion==1) {
+					JOptionPane.showMessageDialog(null,"Presionaste en no eliminar al docente:"+carga.getCi(),"Hey!",JOptionPane.INFORMATION_MESSAGE);
+					textField_3.setText("");
+					crud.setCi(0);
+					btnConfirmarBaja.setEnabled(false);
+				}
+			}
+		});
+		btnConfirmarBaja.setForeground(Color.WHITE);
+		btnConfirmarBaja.setBackground(new Color(153, 193, 241));
+		btnConfirmarBaja.setBounds(687, 225, 182, 25);
+		panel.add(btnConfirmarBaja);
+		
 		JButton btnNewButton_2 = new JButton("");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					carga.setCi(Integer.parseInt(textField_3.getText()));
+					boolean existe=carga.consultaCiU();
+					if(existe==true) {
+						JOptionPane.showMessageDialog(null,"El usuario esta registrado! Puede proceder a eliminar","Hey!",JOptionPane.INFORMATION_MESSAGE);
+						crud.setCi(Integer.parseInt(textField_3.getText()));
+						btnConfirmarBaja.setEnabled(true);
+					}else {
+						JOptionPane.showMessageDialog(null,"El usuario no esta registrado!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+						textField_3.setText("");
+					}	
+				}catch(java.lang.NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null,"Ingreso incorrecto o valido!","Hey!",JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+		});
 		btnNewButton_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -332,31 +399,6 @@ public class Menu extends JFrame {
 		btnNewButton_2.setBorderPainted(false);
 		btnNewButton_2.setBounds(744, 74, 41, 28);
 		panel.add(btnNewButton_2);
-		
-		JLabel lblCedulaDelUsuario_1_1 = new JLabel("Nombre del usuario");
-		lblCedulaDelUsuario_1_1.setBounds(479, 169, 148, 15);
-		panel.add(lblCedulaDelUsuario_1_1);
-		
-		JLabel lblCedulaDelUsuario_1 = new JLabel("Cedula del usuario");
-		lblCedulaDelUsuario_1.setBounds(468, 39, 148, 15);
-		panel.add(lblCedulaDelUsuario_1);
-		
-		JLabel lblCedulaDelUsuario_1_1_1 = new JLabel(".....");
-		lblCedulaDelUsuario_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCedulaDelUsuario_1_1_1.setBounds(479, 230, 148, 15);
-		panel.add(lblCedulaDelUsuario_1_1_1);
-		
-		JButton btnConfirmarBaja = new JButton("Confirmar baja");
-		btnConfirmarBaja.setForeground(Color.WHITE);
-		btnConfirmarBaja.setBackground(new Color(153, 193, 241));
-		btnConfirmarBaja.setBounds(699, 164, 182, 25);
-		panel.add(btnConfirmarBaja);
-		
-		JButton btnConfirmarBaja_1 = new JButton("Cancelar");
-		btnConfirmarBaja_1.setForeground(Color.WHITE);
-		btnConfirmarBaja_1.setBackground(new Color(153, 193, 241));
-		btnConfirmarBaja_1.setBounds(721, 225, 148, 25);
-		panel.add(btnConfirmarBaja_1);
 		
 		JLabel lblCedulaDelUsuario_1_1_2 = new JLabel("Cambio de contraseña");
 		lblCedulaDelUsuario_1_1_2.setBounds(600, 322, 182, 15);
@@ -389,7 +431,7 @@ public class Menu extends JFrame {
 		panel.add(btnNewButton_2_1);
 		
 		JSeparator separator_1_1_2_1 = new JSeparator();
-		separator_1_1_2_1.setBounds(459, 414, 410, 2);
+		separator_1_1_2_1.setBounds(473, 414, 396, 2);
 		panel.add(separator_1_1_2_1);
 		
 		textField_7 = new JTextField();
