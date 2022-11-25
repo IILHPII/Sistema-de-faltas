@@ -19,6 +19,7 @@ public class CombosConexion implements CrudRepository {
 	private List<String>listGroup;
 	private List<String>listCourse;
 	private List<String>listInitDate;
+	private List<String>listNombres;
 	
 	
 	public CombosConexion() {
@@ -76,7 +77,8 @@ public class CombosConexion implements CrudRepository {
 		}
 		return listCourse;	
 	}
-
+	
+	
 
 	@Override
 	public boolean consulta() {
@@ -93,7 +95,7 @@ public class CombosConexion implements CrudRepository {
 
 
 	@Override
-	public void modificacion() {
+	public void modificacionNombreTipo() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -101,6 +103,13 @@ public class CombosConexion implements CrudRepository {
 
 	@Override
 	public void eliminacion() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void modificacionPassword() {
 		// TODO Auto-generated method stub
 		
 	}

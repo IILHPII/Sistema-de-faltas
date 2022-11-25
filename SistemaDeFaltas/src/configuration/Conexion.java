@@ -66,7 +66,7 @@ public class Conexion extends Persona implements CrudRepository{
 		}
 		
 		@Override
-		public void modificacion() {
+		public void modificacionNombreTipo() {
 			
 		}
 		
@@ -83,7 +83,13 @@ public class Conexion extends Persona implements CrudRepository{
 		    }catch(Exception ex) {
 		      
 		    }
-		  }			
+		  }
+
+		@Override
+		public void modificacionPassword() {
+			// TODO Auto-generated method stub
+			
+		}			
 							
 }
 

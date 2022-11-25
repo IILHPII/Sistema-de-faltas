@@ -10,7 +10,9 @@ public interface CrudRepository {
 	 
 	 public void alta();
 	 
-	 public void modificacion();
+	 public void modificacionNombreTipo();
+	 
+	 public void modificacionPassword();
 	 
 	 public void eliminacion();	
 	

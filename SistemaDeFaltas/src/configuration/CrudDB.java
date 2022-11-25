@@ -2,6 +2,7 @@ package configuration;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -9,7 +10,9 @@ import model.Persona;
 import repository.CrudRepository;
 
 public class CrudDB extends Persona implements CrudRepository{
-
+	
+	private static String nombre;
+	
 	public CrudDB() {
 		super();
 	}
@@ -34,11 +37,23 @@ public class CrudDB extends Persona implements CrudRepository{
 	}
 
 	@Override
-	public void modificacion() {
+	public void modificacionNombreTipo() {
 		try {
 			Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
 			Statement command=conexion.createStatement();
 			command.executeUpdate("UPDATE proyectoProgramacionDocentes.usuarios SET nombre='"+getNombre()+"', tipo='"+getRol()+"' WHERE ciU='"+getCi()+"'");
+			conexion.close();
+		}catch(SQLException ex) {
+			
+		}
+	}
+	
+	@Override
+	public void modificacionPassword() {
+		try {
+			Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
+			Statement command=conexion.createStatement();
+			command.executeUpdate("UPDATE proyectoProgramacionDocentes.usuarios SET password='"+getPassword()+"' WHERE ciU='"+getCi()+"'");
 			conexion.close();
 		}catch(SQLException ex) {
 			
@@ -56,5 +71,22 @@ public class CrudDB extends Persona implements CrudRepository{
 			
 		}
 	}
+	
+	public String getNombreFromDB() {
+		try {
+			Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
+			Statement command=conexion.createStatement();
+			ResultSet result=command.executeQuery("SELECT nombre FROM proyectoProgramacionDocentes.usuarios where ciU='"+getCi()+"'");
+			while(result.next()) {
+				nombre=result.getString(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return nombre;	
+	}
+
+
 
 }
