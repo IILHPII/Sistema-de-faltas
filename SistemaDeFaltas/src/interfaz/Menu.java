@@ -1,13 +1,12 @@
 package interfaz;
 
-import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
-import java.awt.Component;
 
 import javax.swing.JTabbedPane;
 import java.awt.Font;
@@ -17,7 +16,7 @@ import configuration.CombosConexion;
 import configuration.Conexion;
 import configuration.CrudDBDocente;
 import configuration.CrudDBPersona;
-import model.Persona;
+
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -33,16 +32,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import com.toedter.calendar.JCalendar;
-import com.toedter.components.JSpinField;
-import java.awt.Window.Type;
-import java.awt.Dialog.ModalExclusionType;
+
 
 public class Menu extends JFrame {
 
 	private JPanel contentPane;
 	private Conexion carga=new Conexion();
-	private Persona registroPersona=new Persona();
 	private CrudDBPersona  crud=new CrudDBPersona();
 	private CrudDBDocente crudDocente=new CrudDBDocente();
 	private CombosConexion combosConexion=new CombosConexion();
@@ -114,8 +109,34 @@ public class Menu extends JFrame {
 		panel_1.add(separator);
 		
 		JButton btnNewButton_4 = new JButton("Registrar falta de docente");
-		btnNewButton_4.setBounds(319, 130, 227, 43);
+		btnNewButton_4.setBounds(319, 155, 227, 43);
 		panel_1.add(btnNewButton_4);
+		
+		JButton btnNewButton_4_1 = new JButton("Consultas");
+		btnNewButton_4_1.setBounds(319, 255, 227, 43);
+		panel_1.add(btnNewButton_4_1);
+		
+		JButton btnNewButton_4_1_1 = new JButton("");
+		btnNewButton_4_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		btnNewButton_4_1_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnNewButton_4_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/exit22.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnNewButton_4_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/exit.png")));
+			}
+		});
+		btnNewButton_4_1_1.setContentAreaFilled(false);
+		btnNewButton_4_1_1.setBorderPainted(false);
+		btnNewButton_4_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/exit.png")));
+		btnNewButton_4_1_1.setBounds(818, 497, 63, 59);
+		panel_1.add(btnNewButton_4_1_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/fondoMenu23.png")));
@@ -190,7 +211,7 @@ public class Menu extends JFrame {
 		lblUsuario.setBounds(12, 197, 148, 15);
 		panel.add(lblUsuario);
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setBounds(133, 190, 171, 29);
 		panel.add(comboBox);
 		
@@ -272,7 +293,7 @@ public class Menu extends JFrame {
 		textField_6.setBounds(12, 463, 114, 29);
 		panel.add(textField_6);
 		
-		JComboBox comboBox_2 = new JComboBox();
+		JComboBox<String> comboBox_2 = new JComboBox<String>();
 		comboBox_2.setBounds(148, 463, 171, 29);
 		panel.add(comboBox_2);
 		for(String s : combosConexion.llenarCombo()) {
@@ -419,6 +440,7 @@ public class Menu extends JFrame {
 		panel.add(btnConfirmarBaja);
 		
 		JButton btnNewButton_2 = new JButton("");
+		btnNewButton_2.setBorderPainted(false);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -451,7 +473,6 @@ public class Menu extends JFrame {
 		});
 		btnNewButton_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
 		btnNewButton_2.setContentAreaFilled(false);
-		btnNewButton_2.setBorderPainted(false);
 		btnNewButton_2.setBounds(744, 74, 41, 28);
 		panel.add(btnNewButton_2);
 		
