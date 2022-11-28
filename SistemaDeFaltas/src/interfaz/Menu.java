@@ -15,6 +15,7 @@ import javax.swing.border.LineBorder;
 
 import configuration.CombosConexion;
 import configuration.Conexion;
+import configuration.CrudDBDocente;
 import configuration.CrudDBPersona;
 import model.Persona;
 
@@ -41,6 +42,7 @@ public class Menu extends JFrame {
 	private Conexion carga=new Conexion();
 	private Persona registroPersona=new Persona();
 	private CrudDBPersona  crud=new CrudDBPersona();
+	private CrudDBDocente crudDocente=new CrudDBDocente();
 	private CombosConexion combosConexion=new CombosConexion();
 	private JTextField textField;
 	private JTextField textField_1;
@@ -108,7 +110,7 @@ public class Menu extends JFrame {
 		panel.add(separator_1_1);
 		
 		JLabel lblAltaDeUsuario = new JLabel("Alta de usuario");
-		lblAltaDeUsuario.setBounds(148, 19, 148, 15);
+		lblAltaDeUsuario.setBounds(158, 12, 148, 15);
 		panel.add(lblAltaDeUsuario);
 		
 		JLabel lblCedula = new JLabel("Cedula");
@@ -272,7 +274,7 @@ public class Menu extends JFrame {
 					btnNewButton_1.setEnabled(false);
 					}
 				}catch(java.lang.NumberFormatException ex) {
-					JOptionPane.showMessageDialog(null,"Ingreso nulo o invalido!","Hey!",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null,"Valores ingresados nulos o incorrectos","Hey!",JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -397,7 +399,7 @@ public class Menu extends JFrame {
 						textField_3.setText("");
 					}	
 				}catch(java.lang.NumberFormatException ex) {
-					JOptionPane.showMessageDialog(null,"Ingreso incorrecto o valido!","Hey!",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null,"Valores ingresados nulos o incorrectos","Hey!",JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -505,7 +507,7 @@ public class Menu extends JFrame {
 						JOptionPane.showMessageDialog(null,"El usuario no esta registrado!","Hey!",JOptionPane.INFORMATION_MESSAGE);
 					}
 				}catch(java.lang.NumberFormatException ex) {
-					JOptionPane.showMessageDialog(null,"Ingreso incorrecto o valido!","Hey!",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null,"Valores ingresados nulos o incorrectos","Hey!",JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -549,6 +551,15 @@ public class Menu extends JFrame {
 		panel_2.add(lblCedula_2);
 		
 		textField_9 = new JTextField();
+		textField_9.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char caracter=e.getKeyChar();
+				if(caracter<'0' || caracter>'9' && caracter!='\b') {
+					e.consume();
+				}
+			}
+		});
 		textField_9.setColumns(10);
 		textField_9.setBounds(133, 80, 171, 29);
 		panel_2.add(textField_9);
@@ -558,26 +569,21 @@ public class Menu extends JFrame {
 		panel_2.add(lblCedula_1_2);
 		
 		textField_10 = new JTextField();
+		textField_10.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char caracter=e.getKeyChar();
+				 boolean mayusculas = caracter >= 65 && caracter <= 90;
+				 boolean minusculas = caracter >= 97 && caracter <= 122;
+				 boolean espacio = caracter == 32;
+				if(!(minusculas || mayusculas || espacio)) {
+					e.consume();
+				}
+			}
+		});
 		textField_10.setColumns(10);
 		textField_10.setBounds(133, 155, 171, 29);
 		panel_2.add(textField_10);
-		
-		JButton btnCargar_1 = new JButton("");
-		btnCargar_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				btnCargar_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/confirmo111.png")));
-			}
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				btnCargar_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/confirmo222.png")));
-			}
-		});
-		btnCargar_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/confirmo222.png")));
-		btnCargar_1.setContentAreaFilled(false);
-		btnCargar_1.setBorderPainted(false);
-		btnCargar_1.setBounds(178, 216, 91, 94);
-		panel_2.add(btnCargar_1);
 		
 		JSeparator separator_1_1_1_2 = new JSeparator();
 		separator_1_1_1_2.setOrientation(SwingConstants.VERTICAL);
@@ -605,6 +611,38 @@ public class Menu extends JFrame {
 		textField_13.setColumns(10);
 		textField_13.setBounds(333, 461, 257, 29);
 		panel_2.add(textField_13);
+		
+		JButton btnCargar_1 = new JButton("");
+		btnCargar_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if(textField_10.getText().length()==0 || textField_9.getText().length()==0 ) {
+						JOptionPane.showMessageDialog(null,"El campo nombre o cedula esta vacio!","Hey!",JOptionPane.ERROR_MESSAGE);
+					}else {
+						crudDocente.setCiD(Integer.parseInt(textField_9.getText()));
+						crudDocente.setNombre(textField_10.getText());
+						crudDocente.alta();
+					}
+				}catch(java.lang.NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null,"Valores ingresados nulos o incorrectos","Hey!",JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		btnCargar_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnCargar_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/confirmo111.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnCargar_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/confirmo222.png")));
+			}
+		});
+		btnCargar_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/confirmo222.png")));
+		btnCargar_1.setContentAreaFilled(false);
+		btnCargar_1.setBorderPainted(false);
+		btnCargar_1.setBounds(178, 216, 91, 94);
+		panel_2.add(btnCargar_1);
 		
 		JSeparator separator_1_1_2_2 = new JSeparator();
 		separator_1_1_2_2.setBounds(9, 414, 860, 4);
@@ -637,6 +675,15 @@ public class Menu extends JFrame {
 		panel_2.add(lblBajaDeUsuario_1);
 		
 		textField_14 = new JTextField();
+		textField_14.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char caracter=e.getKeyChar();
+				if(caracter<'0' || caracter>'9' && caracter!='\b') {
+					e.consume();
+				}
+			}
+		});
 		textField_14.setColumns(10);
 		textField_14.setBounds(611, 32, 171, 29);
 		panel_2.add(textField_14);
@@ -679,6 +726,23 @@ public class Menu extends JFrame {
 		panel_2.add(btnConfirmarBaja_1);
 		
 		JButton btnNewButton_2_2 = new JButton("");
+		btnNewButton_2_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					crudDocente.setCiD(Integer.parseInt(textField_14.getText()));
+					if(crudDocente.consulta()==true) {
+						JOptionPane.showMessageDialog(null,"El docente esta registrado! Puede proceder a eliminar","Hey!",JOptionPane.INFORMATION_MESSAGE);
+						lblCedulaDelUsuario_1_1_1_1.setText(crudDocente.consultaPorNombre());
+						btnConfirmarBaja_1.setEnabled(true);
+					}else {
+						JOptionPane.showMessageDialog(null,"El docente no esta registrado!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+					}
+				}catch(java.lang.NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null,"Valores ingresados nulos o incorrectos","Hey!",JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		btnNewButton_2_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {

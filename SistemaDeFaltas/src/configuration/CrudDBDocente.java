@@ -2,6 +2,7 @@ package configuration;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -9,10 +10,25 @@ import model.Docente;
 import repository.CrudRepository;
 
 public class CrudDBDocente extends Docente implements CrudRepository {
-
+	
+	private boolean confirmacion;
+	private String nombre;
+	
 	@Override
 	public boolean consulta() {
-		return false;
+		try {
+			Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
+			Statement command=conexion.createStatement();
+			ResultSet result=command.executeQuery("SELECT ciD, nombre FROM proyectoProgramacionDocentes.docente where ciD='"+getCiD()+"'");
+			if(result.next()==true) {
+				confirmacion=true;
+			}else {
+				confirmacion=false;
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}			
+		return confirmacion;
 	}
 
 	@Override
@@ -58,5 +74,21 @@ public class CrudDBDocente extends Docente implements CrudRepository {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public String consultaPorNombre() {
+		try {
+			Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
+			Statement command=conexion.createStatement();
+			ResultSet result=command.executeQuery("SELECT nombre FROM proyectoProgramacionDocentes.docente where ciD='"+getCiD()+"'");
+			while(result.next()) {
+				nombre=result.getString(1);
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}			
+		return nombre;
+	}
+
 
 }

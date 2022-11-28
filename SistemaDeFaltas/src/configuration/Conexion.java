@@ -34,7 +34,6 @@ public class Conexion extends Persona implements CrudRepository{
 					confirmacionConsulta=false;
 				}
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}			
 			return confirmacionConsulta;
