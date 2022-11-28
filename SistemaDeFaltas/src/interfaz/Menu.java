@@ -193,7 +193,17 @@ public class Menu extends JFrame {
 					crud.setNombre(textField_1.getText());
 					crud.setPassword(textField_2.getText());
 					crud.setRol(comboBox.getSelectedItem().toString());
-					crud.alta();
+					
+					if(textField_1.getText().length()==0 || textField_2.getText().length()==0) {
+						JOptionPane.showMessageDialog(null,"Nombre o password no fueron ingresados!","Hey!",JOptionPane.ERROR_MESSAGE);
+					}else {
+						if(crud.consulta()==true) {
+							JOptionPane.showMessageDialog(null,"Usuario ya registrado en el sistema!","Hey!",JOptionPane.ERROR_MESSAGE);
+						}else {
+							crud.alta();
+							JOptionPane.showMessageDialog(null,"Usuario registrado correctamente!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+						}	
+					}
 				}catch(java.lang.NumberFormatException ex) {
 					JOptionPane.showMessageDialog(null,"Valores ingresados nulos o incorrectos","Hey!",JOptionPane.ERROR_MESSAGE);
 				}
@@ -363,14 +373,14 @@ public class Menu extends JFrame {
 		btnConfirmarBaja.setEnabled(false);
 		btnConfirmarBaja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int eleccion=JOptionPane.showConfirmDialog(null,"¿Esta seguro que desea eliminar el siguiente docente? "+crud.getCi(),"Confirmacion",JOptionPane.YES_NO_OPTION);
+				int eleccion=JOptionPane.showConfirmDialog(null,"¿Esta seguro que desea eliminar el siguiente usuario? "+crud.getCi(),"Confirmacion",JOptionPane.YES_NO_OPTION);
 				if(eleccion==0) {
 					crud.eliminacion();
-					JOptionPane.showMessageDialog(null,"Acabas de eliminar al docente:"+crud.getCi(),"Hey!",JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null,"Acabas de eliminar al usuario:"+crud.getCi(),"Hey!",JOptionPane.INFORMATION_MESSAGE);
 					lblCedulaDelUsuario_1_1_1.setText(".....");
 					btnConfirmarBaja.setEnabled(false);
 				}else if(eleccion==1) {
-					JOptionPane.showMessageDialog(null,"Presionaste en no eliminar al docente:"+carga.getCi(),"Hey!",JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null,"Presionaste en no eliminar al usuario:"+carga.getCi(),"Hey!",JOptionPane.INFORMATION_MESSAGE);
 					textField_3.setText("");
 					crud.setCi(0);
 					lblCedulaDelUsuario_1_1_1.setText(".....");
@@ -599,6 +609,15 @@ public class Menu extends JFrame {
 		panel_2.add(lblCedulaDelUsuario_2);
 		
 		textField_12 = new JTextField();
+		textField_12.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char caracter=e.getKeyChar();
+				if(caracter<'0' || caracter>'9' && caracter!='\b') {
+					e.consume();
+				}
+			}
+		});
 		textField_12.setColumns(10);
 		textField_12.setBounds(381, 357, 171, 29);
 		panel_2.add(textField_12);
@@ -608,6 +627,18 @@ public class Menu extends JFrame {
 		panel_2.add(lblEditarNombre_1);
 		
 		textField_13 = new JTextField();
+		textField_13.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char caracter=e.getKeyChar();
+				 boolean mayusculas = caracter >= 65 && caracter <= 90;
+				 boolean minusculas = caracter >= 97 && caracter <= 122;
+				 boolean espacio = caracter == 32;
+				if(!(minusculas || mayusculas || espacio)) {
+					e.consume();
+				}
+			}
+		});
 		textField_13.setColumns(10);
 		textField_13.setBounds(333, 461, 257, 29);
 		panel_2.add(textField_13);
@@ -621,7 +652,12 @@ public class Menu extends JFrame {
 					}else {
 						crudDocente.setCiD(Integer.parseInt(textField_9.getText()));
 						crudDocente.setNombre(textField_10.getText());
-						crudDocente.alta();
+						if(crudDocente.consulta()==true) {
+							JOptionPane.showMessageDialog(null,"Docente ya registrado en el sistema!","Hey!",JOptionPane.ERROR_MESSAGE);
+						}else {
+							crudDocente.alta();
+							JOptionPane.showMessageDialog(null,"Docente registrado correctamente!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+						}
 					}
 				}catch(java.lang.NumberFormatException ex) {
 					JOptionPane.showMessageDialog(null,"Valores ingresados nulos o incorrectos","Hey!",JOptionPane.ERROR_MESSAGE);
@@ -661,10 +697,23 @@ public class Menu extends JFrame {
 		});
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					String nombre=textField_13.getText();
+					if(nombre.equals("")) {
+						JOptionPane.showMessageDialog(null,"El campo nombre esta vacio!","Hey!",JOptionPane.ERROR_MESSAGE);
+					}else {
+					crudDocente.setNombre(textField_13.getText());
+					crudDocente.modificacionNombreTipo();
+					JOptionPane.showMessageDialog(null,"Los datos se modificaron correctamente!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+					btnNewButton_1_1.setEnabled(false);
+					}
+				}catch(java.lang.NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null,"Valores ingresados nulos o incorrectos","Hey!",JOptionPane.ERROR_MESSAGE);
+				}	
 			}
 		});
 		btnNewButton_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/submit1.png")));
-		btnNewButton_1_1.setEnabled(true);
+		btnNewButton_1_1.setEnabled(false);
 		btnNewButton_1_1.setContentAreaFilled(false);
 		btnNewButton_1_1.setBorderPainted(false);
 		btnNewButton_1_1.setBounds(611, 463, 124, 27);
@@ -689,6 +738,17 @@ public class Menu extends JFrame {
 		panel_2.add(textField_14);
 		
 		JButton btnNewButton_3 = new JButton("");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				crudDocente.setCiD(Integer.parseInt(textField_12.getText()));
+				if(crudDocente.consulta()==true) {
+					JOptionPane.showMessageDialog(null,"El docente esta registrado! Puede proceder a modificar","Hey!",JOptionPane.INFORMATION_MESSAGE);
+					btnNewButton_1_1.setEnabled(true);
+				}else {
+					JOptionPane.showMessageDialog(null,"El docente no esta registrado!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
 		btnNewButton_3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -719,6 +779,23 @@ public class Menu extends JFrame {
 		panel_2.add(lblCedulaDelUsuario_1_1_1_1);
 		
 		JButton btnConfirmarBaja_1 = new JButton("Confirmar baja");
+		btnConfirmarBaja_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int eleccion=JOptionPane.showConfirmDialog(null,"¿Esta seguro que desea eliminar el siguiente docente? "+crudDocente.getCiD(),"Confirmacion",JOptionPane.YES_NO_OPTION);
+				if(eleccion==0) {
+					crudDocente.eliminacion();
+					JOptionPane.showMessageDialog(null,"Acabas de eliminar al docente:"+crudDocente.getCiD(),"Hey!",JOptionPane.INFORMATION_MESSAGE);
+					lblCedulaDelUsuario_1_1_1_1.setText(".....");
+					btnConfirmarBaja_1.setEnabled(false);
+				}else if(eleccion==1) {
+					JOptionPane.showMessageDialog(null,"Presionaste en no eliminar al docente:"+crudDocente.getCiD(),"Hey!",JOptionPane.INFORMATION_MESSAGE);
+					textField_3.setText("");
+					crudDocente.setCiD(0);
+					lblCedulaDelUsuario_1_1_1_1.setText(".....");
+					btnConfirmarBaja_1.setEnabled(false);
+				}
+			}
+		});
 		btnConfirmarBaja_1.setForeground(Color.WHITE);
 		btnConfirmarBaja_1.setEnabled(false);
 		btnConfirmarBaja_1.setBackground(new Color(153, 193, 241));

@@ -12,6 +12,7 @@ import repository.CrudRepository;
 public class CrudDBPersona extends Persona implements CrudRepository{
 	
 	private static String nombre;
+	private boolean confirmacion;
 	
 	public CrudDBPersona() {
 		super();
@@ -20,7 +21,19 @@ public class CrudDBPersona extends Persona implements CrudRepository{
 	
 	@Override
 	public boolean consulta() {
-		return false;
+		try {
+			Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
+			Statement command=conexion.createStatement();
+			ResultSet result=command.executeQuery("SELECT ciU, nombre FROM proyectoProgramacionDocentes.usuarios where ciU='"+getCi()+"'");
+			if(result.next()==true) {
+				confirmacion=true;
+			}else {
+				confirmacion=false;
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}			
+		return confirmacion;
 	}
 
 	@Override
