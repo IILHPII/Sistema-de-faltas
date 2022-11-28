@@ -15,7 +15,7 @@ import javax.swing.border.LineBorder;
 
 import configuration.CombosConexion;
 import configuration.Conexion;
-import configuration.CrudDB;
+import configuration.CrudDBPersona;
 import model.Persona;
 
 import javax.swing.ImageIcon;
@@ -40,7 +40,7 @@ public class Menu extends JFrame {
 	private JPanel contentPane;
 	private Conexion carga=new Conexion();
 	private Persona registroPersona=new Persona();
-	private CrudDB  crud=new CrudDB();
+	private CrudDBPersona  crud=new CrudDBPersona();
 	private CombosConexion combosConexion=new CombosConexion();
 	private JTextField textField;
 	private JTextField textField_1;
@@ -52,6 +52,11 @@ public class Menu extends JFrame {
 	private JTextField textField_7;
 	private JTextField textField_8;
 	private JLabel lblCedulaDelUsuario_1_1_1;
+	private JTextField textField_9;
+	private JTextField textField_10;
+	private JTextField textField_12;
+	private JTextField textField_13;
+	private JTextField textField_14;
 
 	/**
 	 * Launch the application.
@@ -287,7 +292,7 @@ public class Menu extends JFrame {
 		btnNewButton_1.setBounds(330, 463, 124, 27);
 		panel.add(btnNewButton_1);
 		
-		JLabel lblBajaDeUsuario = new JLabel("Baja de usuario");
+		JLabel lblBajaDeUsuario = new JLabel("Baja de Usuario");
 		lblBajaDeUsuario.setBounds(569, 12, 148, 15);
 		panel.add(lblBajaDeUsuario);
 		
@@ -339,11 +344,11 @@ public class Menu extends JFrame {
 		btnNewButton.setBounds(373, 357, 41, 28);
 		panel.add(btnNewButton);
 		
-		JLabel lblCedulaDelUsuario_1_1 = new JLabel("Nombre del usuario");
+		JLabel lblCedulaDelUsuario_1_1 = new JLabel("Nombre del Usuario");
 		lblCedulaDelUsuario_1_1.setBounds(479, 169, 148, 15);
 		panel.add(lblCedulaDelUsuario_1_1);
 		
-		JLabel lblCedulaDelUsuario_1 = new JLabel("Cedula del usuario");
+		JLabel lblCedulaDelUsuario_1 = new JLabel("Cedula del Usuario");
 		lblCedulaDelUsuario_1.setBounds(468, 39, 148, 15);
 		panel.add(lblCedulaDelUsuario_1);
 		
@@ -417,7 +422,7 @@ public class Menu extends JFrame {
 		lblCedulaDelUsuario_1_1_2.setBounds(600, 322, 182, 15);
 		panel.add(lblCedulaDelUsuario_1_1_2);
 		
-		JLabel lblCedulaDelUsuario_1_2 = new JLabel("Cedula del usuario");
+		JLabel lblCedulaDelUsuario_1_2 = new JLabel("Cedula del Usuario");
 		lblCedulaDelUsuario_1_2.setBounds(479, 364, 148, 15);
 		panel.add(lblCedulaDelUsuario_1_2);
 		
@@ -525,6 +530,176 @@ public class Menu extends JFrame {
 		panel.add(lblNewLabel);
 		lblNewLabel.setIcon(new ImageIcon(Menu.class.getResource("/imgs/fondoMenu23.png")));
 		lblNewLabel.setBackground(new Color(45, 173, 222));
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setLayout(null);
+		panel_2.setBackground(Color.WHITE);
+		tabbedPane.addTab("Administrar Docentes", new ImageIcon(Menu.class.getResource("/imgs/prueba2.png")), panel_2, null);
+		
+		JSeparator separator_1_1_3 = new JSeparator();
+		separator_1_1_3.setBounds(12, 322, 857, 2);
+		panel_2.add(separator_1_1_3);
+		
+		JLabel lblAltaDeDocente = new JLabel("Alta de docente");
+		lblAltaDeDocente.setBounds(158, 12, 148, 15);
+		panel_2.add(lblAltaDeDocente);
+		
+		JLabel lblCedula_2 = new JLabel("Cedula");
+		lblCedula_2.setBounds(12, 87, 148, 15);
+		panel_2.add(lblCedula_2);
+		
+		textField_9 = new JTextField();
+		textField_9.setColumns(10);
+		textField_9.setBounds(133, 80, 171, 29);
+		panel_2.add(textField_9);
+		
+		JLabel lblCedula_1_2 = new JLabel("Nombre");
+		lblCedula_1_2.setBounds(12, 162, 148, 15);
+		panel_2.add(lblCedula_1_2);
+		
+		textField_10 = new JTextField();
+		textField_10.setColumns(10);
+		textField_10.setBounds(133, 155, 171, 29);
+		panel_2.add(textField_10);
+		
+		JButton btnCargar_1 = new JButton("");
+		btnCargar_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnCargar_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/confirmo111.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnCargar_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/confirmo222.png")));
+			}
+		});
+		btnCargar_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/confirmo222.png")));
+		btnCargar_1.setContentAreaFilled(false);
+		btnCargar_1.setBorderPainted(false);
+		btnCargar_1.setBounds(178, 216, 91, 94);
+		panel_2.add(btnCargar_1);
+		
+		JSeparator separator_1_1_1_2 = new JSeparator();
+		separator_1_1_1_2.setOrientation(SwingConstants.VERTICAL);
+		separator_1_1_1_2.setBounds(459, 12, 2, 298);
+		panel_2.add(separator_1_1_1_2);
+		
+		JLabel lblEditarUsuario_1 = new JLabel("Editar Docente");
+		lblEditarUsuario_1.setBounds(404, 330, 148, 15);
+		panel_2.add(lblEditarUsuario_1);
+		
+		JLabel lblCedulaDelUsuario_2 = new JLabel("Cedula del  Docente");
+		lblCedulaDelUsuario_2.setBounds(198, 364, 148, 15);
+		panel_2.add(lblCedulaDelUsuario_2);
+		
+		textField_12 = new JTextField();
+		textField_12.setColumns(10);
+		textField_12.setBounds(381, 357, 171, 29);
+		panel_2.add(textField_12);
+		
+		JLabel lblEditarNombre_1 = new JLabel("Editar nombre");
+		lblEditarNombre_1.setBounds(404, 434, 148, 15);
+		panel_2.add(lblEditarNombre_1);
+		
+		textField_13 = new JTextField();
+		textField_13.setColumns(10);
+		textField_13.setBounds(333, 461, 257, 29);
+		panel_2.add(textField_13);
+		
+		JSeparator separator_1_1_2_2 = new JSeparator();
+		separator_1_1_2_2.setBounds(9, 414, 860, 4);
+		panel_2.add(separator_1_1_2_2);
+		
+		JButton btnNewButton_1_1 = new JButton("");
+		btnNewButton_1_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnNewButton_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/22332.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnNewButton_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/submit1.png")));
+			}
+		});
+		btnNewButton_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/submit1.png")));
+		btnNewButton_1_1.setEnabled(true);
+		btnNewButton_1_1.setContentAreaFilled(false);
+		btnNewButton_1_1.setBorderPainted(false);
+		btnNewButton_1_1.setBounds(611, 463, 124, 27);
+		panel_2.add(btnNewButton_1_1);
+		
+		JLabel lblBajaDeUsuario_1 = new JLabel("Baja de Docente");
+		lblBajaDeUsuario_1.setBounds(569, 12, 148, 15);
+		panel_2.add(lblBajaDeUsuario_1);
+		
+		textField_14 = new JTextField();
+		textField_14.setColumns(10);
+		textField_14.setBounds(611, 32, 171, 29);
+		panel_2.add(textField_14);
+		
+		JButton btnNewButton_3 = new JButton("");
+		btnNewButton_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnNewButton_3.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar2.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnNewButton_3.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
+			}
+		});
+		btnNewButton_3.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
+		btnNewButton_3.setContentAreaFilled(false);
+		btnNewButton_3.setBorderPainted(false);
+		btnNewButton_3.setBounds(585, 358, 41, 28);
+		panel_2.add(btnNewButton_3);
+		
+		JLabel lblCedulaDelUsuario_1_1_3 = new JLabel("Nombre del Docente");
+		lblCedulaDelUsuario_1_1_3.setBounds(479, 169, 148, 15);
+		panel_2.add(lblCedulaDelUsuario_1_1_3);
+		
+		JLabel lblCedulaDelUsuario_1_3 = new JLabel("Cedula del Docente");
+		lblCedulaDelUsuario_1_3.setBounds(468, 39, 148, 15);
+		panel_2.add(lblCedulaDelUsuario_1_3);
+		
+		JLabel lblCedulaDelUsuario_1_1_1_1 = new JLabel(".....");
+		lblCedulaDelUsuario_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCedulaDelUsuario_1_1_1_1.setBounds(479, 230, 148, 15);
+		panel_2.add(lblCedulaDelUsuario_1_1_1_1);
+		
+		JButton btnConfirmarBaja_1 = new JButton("Confirmar baja");
+		btnConfirmarBaja_1.setForeground(Color.WHITE);
+		btnConfirmarBaja_1.setEnabled(false);
+		btnConfirmarBaja_1.setBackground(new Color(153, 193, 241));
+		btnConfirmarBaja_1.setBounds(687, 225, 182, 25);
+		panel_2.add(btnConfirmarBaja_1);
+		
+		JButton btnNewButton_2_2 = new JButton("");
+		btnNewButton_2_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnNewButton_2_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar2.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnNewButton_2_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
+			}
+		});
+		btnNewButton_2_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
+		btnNewButton_2_2.setContentAreaFilled(false);
+		btnNewButton_2_2.setBorderPainted(false);
+		btnNewButton_2_2.setBounds(744, 74, 41, 28);
+		panel_2.add(btnNewButton_2_2);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/fondoMenu23.png")));
+		lblNewLabel_1.setBackground(new Color(45, 173, 222));
+		lblNewLabel_1.setBounds(0, 0, 893, 600);
+		panel_2.add(lblNewLabel_1);
 		this.setLocationRelativeTo(null);
 		
 	}

@@ -9,11 +9,11 @@ import java.sql.Statement;
 import model.Persona;
 import repository.CrudRepository;
 
-public class CrudDB extends Persona implements CrudRepository{
+public class CrudDBPersona extends Persona implements CrudRepository{
 	
 	private static String nombre;
 	
-	public CrudDB() {
+	public CrudDBPersona() {
 		super();
 	}
 	
