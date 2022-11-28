@@ -35,6 +35,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JCalendar;
 import com.toedter.components.JSpinField;
+import java.awt.Window.Type;
+import java.awt.Dialog.ModalExclusionType;
 
 public class Menu extends JFrame {
 
@@ -80,6 +82,7 @@ public class Menu extends JFrame {
 	 * Create the frame.
 	 */
 	public Menu() {
+		setUndecorated(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 600);
@@ -92,11 +95,33 @@ public class Menu extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		tabbedPane.setFont(new Font("DialogInput", Font.PLAIN, 11));
-		tabbedPane.setBounds(0, 0, 900, 573);
+		tabbedPane.setBounds(0, 0, 900, 600);
 		contentPane.add(tabbedPane);
 		
 		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_1, null);
+		tabbedPane.addTab("Inicio", null, panel_1, null);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel_3 = new JLabel("Bienvenido!");
+		lblNewLabel_3.setFont(new Font("Dialog", Font.BOLD, 17));
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setBounds(324, 12, 222, 43);
+		panel_1.add(lblNewLabel_3);
+
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(365, 44, 140, 2);
+		panel_1.add(separator);
+		
+		JButton btnNewButton_4 = new JButton("Registrar falta de docente");
+		btnNewButton_4.setBounds(319, 130, 227, 43);
+		panel_1.add(btnNewButton_4);
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/fondoMenu23.png")));
+		lblNewLabel_2.setBackground(new Color(45, 173, 222));
+		lblNewLabel_2.setBounds(0, 0, 893, 600);
+		panel_1.add(lblNewLabel_2);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);

@@ -99,6 +99,21 @@ public class CrudDBPersona extends Persona implements CrudRepository{
 		}
 		return nombre;	
 	}
+	
+	public String getTypeFromDB() {
+		try {
+			Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
+			Statement command=conexion.createStatement();
+			ResultSet result=command.executeQuery("SELECT tipo FROM proyectoProgramacionDocentes.usuarios where ciU='"+getCi()+"'");
+			while(result.next()) {
+				nombre=result.getString(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return nombre;	
+	}
 
 
 
