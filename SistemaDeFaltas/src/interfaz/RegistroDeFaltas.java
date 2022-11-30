@@ -26,6 +26,8 @@ import model.Persona;
 import javax.swing.JComboBox;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class RegistroDeFaltas extends JFrame {
 
@@ -189,6 +191,28 @@ public class RegistroDeFaltas extends JFrame {
 		JLabel lblCedulaDelDocente_1_1 = new JLabel("Cedula del funcionario");
 		lblCedulaDelDocente_1_1.setBounds(149, 298, 159, 15);
 		contentPane.add(lblCedulaDelDocente_1_1);
+		
+		JButton btnNewButton_4_1_1 = new JButton("");
+		btnNewButton_4_1_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnNewButton_4_1_1.setIcon(new ImageIcon(RegistroDeFaltas.class.getResource("/imgs/exit22.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnNewButton_4_1_1.setIcon(new ImageIcon(RegistroDeFaltas.class.getResource("/imgs/exit.png")));
+			}
+		});
+		btnNewButton_4_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		btnNewButton_4_1_1.setIcon(new ImageIcon(RegistroDeFaltas.class.getResource("/imgs/exit.png")));
+		btnNewButton_4_1_1.setContentAreaFilled(false);
+		btnNewButton_4_1_1.setBorderPainted(false);
+		btnNewButton_4_1_1.setBounds(824, 516, 63, 59);
+		contentPane.add(btnNewButton_4_1_1);
 		
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setIcon(new ImageIcon(RegistroDeFaltas.class.getResource("/imgs/fondoMenu23.png")));

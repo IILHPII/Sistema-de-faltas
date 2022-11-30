@@ -131,7 +131,7 @@ public class Login extends JFrame {
 						menu.setVisible(true);
 						dispose();
 				}else {
-					JOptionPane.showMessageDialog(null,"User or password wrong","Hey!",JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null,"Usuario o contraseña incorrectos!","Hey!",JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});

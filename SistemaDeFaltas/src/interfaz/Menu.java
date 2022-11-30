@@ -893,6 +893,14 @@ public class Menu extends JFrame {
 		lblNewLabel_1.setBackground(new Color(45, 173, 222));
 		lblNewLabel_1.setBounds(0, 0, 893, 600);
 		panel_2.add(lblNewLabel_1);
+		
+		JPanel panel_3 = new JPanel();
+		tabbedPane.addTab("Administracion Grupos", null, panel_3, null);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("");
+		lblNewLabel_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/fondoMenu23.png")));
+		lblNewLabel_1_1.setBackground(new Color(45, 173, 222));
+		panel_3.add(lblNewLabel_1_1);
 		this.setLocationRelativeTo(null);
 		
 	}
