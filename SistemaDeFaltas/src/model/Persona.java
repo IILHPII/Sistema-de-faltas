@@ -4,8 +4,6 @@ package model;
 	
 	private int ci;
 	private String contraseña;
-	private String nombreUsuario;
-	private String tipoDeUsuario;
 	private String nombre;
 	private String rol;
 	
@@ -52,21 +50,6 @@ package model;
 		return this.nombre;
 	}
 	
-	public void setNombreUsuario(String nombreUsuario) {
-		this.nombreUsuario=nombreUsuario;
-	}
-	
-	public String getNombreUsuario() {
-		return this.nombreUsuario;
-	}
-	
-	public void setTipoDeUsuario(String tipo) {
-		this.tipoDeUsuario=tipo;
-	}
-	
-	public String getTipoDeUsuario() {
-		return this.tipoDeUsuario;
-	}
 	
 }
 

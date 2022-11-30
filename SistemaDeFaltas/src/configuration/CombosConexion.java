@@ -16,17 +16,12 @@ public class CombosConexion implements CrudRepository {
 	private static int idGrupo;
 	private static int codAsignatura;
 	private List<String>listType;
-	private List<String>listGroup;
-	private List<String>listCourse;
-	private List<String>listInitDate;
-	private List<String>listNombres;
+	private List<String>listGrupos;
 	
 	
 	public CombosConexion() {
 		listType=new ArrayList<String>();
-		listGroup=new ArrayList<String>();
-		listCourse=new ArrayList<String>();
-		listInitDate=new ArrayList<String>();
+		listGrupos=new ArrayList<String>();
 	}
 	
 	
@@ -46,38 +41,22 @@ public class CombosConexion implements CrudRepository {
 		return listType;	
 	}
 	
-	public List<String> llenarComboGrupo() {
+	
+	public List<String> llenarComboGrupos() {
 		try {
 			Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
 			Statement command=conexion.createStatement();
-			ResultSet result=command.executeQuery("SELECT nombre FROM proyectoListaDB.grupo");
+			ResultSet result=command.executeQuery("SELECT nombre FROM proyectoProgramacionDocentes.grupos");
 			
 			while(result.next()) {
-				listGroup.add(result.getString(1));
+				listGrupos.add(result.getString(1));
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return listGroup;	
+		return listGrupos;	
 	}
-	
-	
-	public List<String> llenarComboAsignatura() {
-		try {
-			Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
-			Statement command=conexion.createStatement();
-			ResultSet result=command.executeQuery("SELECT nombre FROM proyectoListaDB.asignatura");
-			while(result.next()) {
-				listCourse.add(result.getString(1));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return listCourse;	
-	}
-	
 	
 
 	@Override

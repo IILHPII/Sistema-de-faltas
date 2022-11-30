@@ -5,14 +5,22 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 
 import model.Docente;
+import model.Persona;
 import repository.CrudRepository;
 
 public class CrudDBDocente extends Docente implements CrudRepository {
 	
 	private boolean confirmacion;
 	private String nombre;
+	private int cedulaUsuario=55822124;
+	
+	public CrudDBDocente() {
+		super();
+	}
+	
 	
 	@Override
 	public boolean consulta() {
@@ -88,6 +96,18 @@ public class CrudDBDocente extends Docente implements CrudRepository {
 			e1.printStackTrace();
 		}			
 		return nombre;
+	}
+	
+	
+	public void altaAusencia() throws ParseException{
+		try {
+			Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
+			Statement command=conexion.createStatement();
+			command.executeUpdate("INSERT INTO proyectoProgramacionDocentes.registra (ciD, ciU, fechaInicial, fechaFinal, nombreGrupo, motivo) VALUES('"+getCiD()+"', '"+getCiU()+"', '"+getFechaInicial()+"', '"+getFechaFinal()+"', '"+getGrupo()+"', '"+getMotivo()+"')");
+			conexion.close();
+		}catch(SQLException ex) {
+			
+		}
 	}
 
 

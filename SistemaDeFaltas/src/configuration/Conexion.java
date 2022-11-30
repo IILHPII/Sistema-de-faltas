@@ -58,6 +58,24 @@ public class Conexion extends Persona implements CrudRepository{
 		}
 		
 		
+		public boolean consultaCiURegistro(int ci){
+			try {
+				Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
+				Statement command=conexion.createStatement();
+				ResultSet result=command.executeQuery("SELECT ciU FROM proyectoProgramacionDocentes.usuarios where ciU='"+ci+"'");
+				if(result.next()==true) {
+					confirmacionConsulta=true;
+				}else {
+					confirmacionConsulta=false;
+				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}			
+			return confirmacionConsulta;
+		}
+		
+		
 		
 		@Override
 		public void alta() {

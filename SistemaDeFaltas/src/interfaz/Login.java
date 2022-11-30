@@ -9,7 +9,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import configuration.Conexion;
+import configuration.CrudDBDocente;
 import configuration.CrudDBPersona;
+import model.Docente;
 import model.Persona;
 
 import javax.swing.JLabel;
@@ -37,7 +39,7 @@ public class Login extends JFrame {
 	private JTextField textField;
 	private JPasswordField textField_1;
 	private Conexion conexion=new Conexion();
-	private Persona usuario=new Persona();
+	private CrudDBDocente crudD=new CrudDBDocente();
 	private CrudDBPersona crud=new CrudDBPersona();
 	Menu menu=new Menu();
 
@@ -127,8 +129,6 @@ public class Login extends JFrame {
 				
 				if(conexion.consulta()==true) {
 						menu.setVisible(true);
-						usuario.setNombreUsuario(crud.getNombreUsuario());
-						usuario.setTipoDeUsuario(crud.getTipoDeUsuario());
 						dispose();
 				}else {
 					JOptionPane.showMessageDialog(null,"User or password wrong","Hey!",JOptionPane.INFORMATION_MESSAGE);

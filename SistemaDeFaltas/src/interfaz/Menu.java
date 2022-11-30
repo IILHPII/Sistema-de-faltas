@@ -41,6 +41,7 @@ public class Menu extends JFrame {
 	private CrudDBPersona  crud=new CrudDBPersona();
 	private CrudDBDocente crudDocente=new CrudDBDocente();
 	private CombosConexion combosConexion=new CombosConexion();
+	private RegistroDeFaltas registro=new RegistroDeFaltas();
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -109,6 +110,11 @@ public class Menu extends JFrame {
 		panel_1.add(separator);
 		
 		JButton btnNewButton_4 = new JButton("Registrar falta de docente");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				registro.setVisible(true);
+			}
+		});
 		btnNewButton_4.setBounds(319, 155, 227, 43);
 		panel_1.add(btnNewButton_4);
 		
