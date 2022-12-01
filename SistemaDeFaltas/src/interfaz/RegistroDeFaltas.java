@@ -22,6 +22,7 @@ import configuration.Conexion;
 import configuration.CrudDBDocente;
 import model.Docente;
 import model.Persona;
+import model.Registros;
 
 import javax.swing.JComboBox;
 import java.awt.event.KeyAdapter;
@@ -40,7 +41,8 @@ public class RegistroDeFaltas extends JFrame {
 	private CombosConexion cargarCombo=new CombosConexion();
 	private JTextField textField_2;
 	private Conexion con=new Conexion();
-	private Consultas actualizacion=new Consultas();
+	private Registros actualizacion1=new Registros();
+	private Consultas actualizacion2=new Consultas();
 
 	/**
 	 * Launch the application.
@@ -156,7 +158,8 @@ public class RegistroDeFaltas extends JFrame {
 							if(carga.consulta()==true && con.consultaCiURegistro(carga.getCiU())==true) {
 								if(carga.getFechaFinal().after(carga.getFechaInicial()) || carga.getFechaFinal().equals(carga.getFechaInicial())) {
 									carga.altaAusencia();
-									actualizacion.actualizar();
+									actualizacion1.llenarDatos();
+									actualizacion2.actualizar();
 									JOptionPane.showMessageDialog(null,"La ausencia se registro correctamente!","Hey!",JOptionPane.INFORMATION_MESSAGE); 
 								}else {
 									JOptionPane.showMessageDialog(null,"La fecha de inicio no puede ser mayor a la final!","Hey!",JOptionPane.ERROR_MESSAGE);

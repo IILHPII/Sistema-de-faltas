@@ -17,17 +17,19 @@ import model.Registros;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.text.JTextComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 public class Consultas extends JFrame {
 	
+
 	private JPanel contentPane;
 	private Docente docente=new Docente();
 	private Registros registro=new Registros();
-	JTable miTabla1;
-	JScrollPane miBarra1;
+	private static JTable miTabla1;
+	private static JScrollPane miBarra1;
 	
 
 	/**
@@ -65,6 +67,7 @@ public class Consultas extends JFrame {
 		lblRegistroDeFalta.setBounds(319, 12, 227, 30);
 		contentPane.add(lblRegistroDeFalta);
 		
+		
 		miBarra1=new JScrollPane();
 		miBarra1.setBounds(137,54,600,226);
 		getContentPane().add(miBarra1);
@@ -76,6 +79,8 @@ public class Consultas extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(RegistroDeFaltas.class.getResource("/imgs/fondoMenu23.png")));
 		lblNewLabel.setBounds(0, 0, 904, 600);
 		contentPane.add(lblNewLabel);
+		
+		
 	}
 	
 	
@@ -101,7 +106,12 @@ public class Consultas extends JFrame {
 		}
 		return matrizInfo;
 	}
-
+	
+	public void actualizar() {
+		miTabla1.setVisible(false);
+		
+		miTabla1.setVisible(true);
+	}
 }
 
 
