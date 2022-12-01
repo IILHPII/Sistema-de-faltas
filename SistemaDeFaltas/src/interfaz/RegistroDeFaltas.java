@@ -28,6 +28,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowListener;
 
 public class RegistroDeFaltas extends JFrame {
 
@@ -39,6 +40,7 @@ public class RegistroDeFaltas extends JFrame {
 	private CombosConexion cargarCombo=new CombosConexion();
 	private JTextField textField_2;
 	private Conexion con=new Conexion();
+	private Consultas actualizacion=new Consultas();
 
 	/**
 	 * Launch the application.
@@ -154,6 +156,7 @@ public class RegistroDeFaltas extends JFrame {
 							if(carga.consulta()==true && con.consultaCiURegistro(carga.getCiU())==true) {
 								if(carga.getFechaFinal().after(carga.getFechaInicial()) || carga.getFechaFinal().equals(carga.getFechaInicial())) {
 									carga.altaAusencia();
+									actualizacion.actualizar();
 									JOptionPane.showMessageDialog(null,"La ausencia se registro correctamente!","Hey!",JOptionPane.INFORMATION_MESSAGE); 
 								}else {
 									JOptionPane.showMessageDialog(null,"La fecha de inicio no puede ser mayor a la final!","Hey!",JOptionPane.ERROR_MESSAGE);

@@ -42,6 +42,7 @@ public class Menu extends JFrame {
 	private CrudDBDocente crudDocente=new CrudDBDocente();
 	private CombosConexion combosConexion=new CombosConexion();
 	private RegistroDeFaltas registro=new RegistroDeFaltas();
+	private Consultas consulta=new Consultas();
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -119,6 +120,11 @@ public class Menu extends JFrame {
 		panel_1.add(btnNewButton_4);
 		
 		JButton btnNewButton_4_1 = new JButton("Consultas");
+		btnNewButton_4_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				consulta.setVisible(true);
+			}
+		});
 		btnNewButton_4_1.setBounds(319, 255, 227, 43);
 		panel_1.add(btnNewButton_4_1);
 		

@@ -58,6 +58,23 @@ public class CombosConexion implements CrudRepository {
 		return listGrupos;	
 	}
 	
+	
+	public List<String> llenarComboConsulta() {
+		try {
+			Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
+			Statement command=conexion.createStatement();
+			ResultSet result=command.executeQuery("SELECT nombre FROM proyectoProgramacionDocentes.grupos");
+			
+			while(result.next()) {
+				listGrupos.add(result.getString(1));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listGrupos;	
+	}
+	
 
 	@Override
 	public boolean consulta() {
