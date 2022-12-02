@@ -229,7 +229,7 @@ public class RegistroDeFaltas extends JFrame {
 		});
 		btnNewButton_4_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				dispose();
 			}
 		});
 		btnNewButton_4_1_1.setIcon(new ImageIcon(RegistroDeFaltas.class.getResource("/imgs/exit.png")));
