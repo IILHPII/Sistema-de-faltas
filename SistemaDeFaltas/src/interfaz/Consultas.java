@@ -71,8 +71,6 @@ public class Consultas extends JFrame {
 		miBarra1=new JScrollPane();
 		miBarra1.setBounds(137,54,600,226);
 		getContentPane().add(miBarra1);
-		
-		
 		construirTabla();
 		
 		JLabel lblNewLabel = new JLabel("New label");
@@ -107,11 +105,7 @@ public class Consultas extends JFrame {
 		return matrizInfo;
 	}
 	
-	public void actualizar() {
-		miTabla1.setVisible(false);
-		
-		miTabla1.setVisible(true);
-	}
+	
 }
 
 

@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
 
@@ -30,6 +31,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class RegistroDeFaltas extends JFrame {
 
@@ -41,8 +51,9 @@ public class RegistroDeFaltas extends JFrame {
 	private CombosConexion cargarCombo=new CombosConexion();
 	private JTextField textField_2;
 	private Conexion con=new Conexion();
-	private Registros actualizacion1=new Registros();
-	private Consultas actualizacion2=new Consultas();
+	private static Registros registro=new Registros();
+	private JTable table;
+	private static JScrollPane miBarra1;
 
 	/**
 	 * Launch the application.
@@ -80,7 +91,7 @@ public class RegistroDeFaltas extends JFrame {
 		contentPane.add(lblRegistroDeFalta);
 		
 		JLabel lblCedulaDelDocente = new JLabel("Cedula del docente");
-		lblCedulaDelDocente.setBounds(171, 93, 137, 15);
+		lblCedulaDelDocente.setBounds(39, 93, 137, 15);
 		contentPane.add(lblCedulaDelDocente);
 		
 		textField = new JTextField();
@@ -93,51 +104,52 @@ public class RegistroDeFaltas extends JFrame {
 				}
 			}
 		});
-		textField.setBounds(341, 86, 199, 30);
+		textField.setBounds(182, 86, 199, 30);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		textField_1.setBounds(341, 151, 199, 30);
+		textField_1.setBounds(182, 151, 199, 30);
 		contentPane.add(textField_1);
 		
 		JLabel lblCedulaDelDocente_1 = new JLabel("Grupo");
-		lblCedulaDelDocente_1.setBounds(254, 224, 54, 15);
+		lblCedulaDelDocente_1.setBounds(117, 224, 54, 15);
 		contentPane.add(lblCedulaDelDocente_1);
 		
 		JLabel lblMotivo = new JLabel("Motivo");
-		lblMotivo.setBounds(254, 158, 54, 15);
+		lblMotivo.setBounds(117, 158, 54, 15);
 		contentPane.add(lblMotivo);
 		
 		JLabel lblFechasDeAusencias = new JLabel("Fechas de ausencias");
-		lblFechasDeAusencias.setBounds(377, 345, 152, 15);
+		lblFechasDeAusencias.setBounds(200, 357, 152, 15);
 		contentPane.add(lblFechasDeAusencias);
+		
 		
 		JDateChooser dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("yyyy-MM-dd");
-		dateChooser.setBounds(298, 412, 110, 19);
+		dateChooser.setBounds(108, 412, 110, 19);
 		contentPane.add(dateChooser);
 		
 		JDateChooser dateChooser_1 = new JDateChooser();
 		dateChooser_1.setDateFormatString("yyyy-MM-dd");
-		dateChooser_1.setBounds(468, 412, 110, 19);
+		dateChooser_1.setBounds(319, 412, 110, 19);
 		contentPane.add(dateChooser_1);
 		
 		JLabel lblFechasDeInicio = new JLabel("Fecha de inicio");
 		lblFechasDeInicio.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFechasDeInicio.setFont(new Font("Dialog", Font.BOLD, 10));
-		lblFechasDeInicio.setBounds(298, 385, 110, 15);
+		lblFechasDeInicio.setBounds(108, 385, 110, 15);
 		contentPane.add(lblFechasDeInicio);
 		
 		JLabel lblFechasDeFin = new JLabel("Fecha de fin");
 		lblFechasDeFin.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFechasDeFin.setFont(new Font("Dialog", Font.BOLD, 10));
-		lblFechasDeFin.setBounds(468, 385, 110, 15);
+		lblFechasDeFin.setBounds(319, 385, 110, 15);
 		contentPane.add(lblFechasDeFin);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(341, 216, 199, 30);
+		comboBox.setBounds(182, 216, 199, 30);
 		contentPane.add(comboBox);
 		for(String s : cargarCombo.llenarComboGrupos()) {
 			comboBox.addItem(s);
@@ -158,8 +170,7 @@ public class RegistroDeFaltas extends JFrame {
 							if(carga.consulta()==true && con.consultaCiURegistro(carga.getCiU())==true) {
 								if(carga.getFechaFinal().after(carga.getFechaInicial()) || carga.getFechaFinal().equals(carga.getFechaInicial())) {
 									carga.altaAusencia();
-									actualizacion1.llenarDatos();
-									actualizacion2.actualizar();
+									construirTabla();
 									JOptionPane.showMessageDialog(null,"La ausencia se registro correctamente!","Hey!",JOptionPane.INFORMATION_MESSAGE); 
 								}else {
 									JOptionPane.showMessageDialog(null,"La fecha de inicio no puede ser mayor a la final!","Hey!",JOptionPane.ERROR_MESSAGE);
@@ -186,16 +197,23 @@ public class RegistroDeFaltas extends JFrame {
 			}
 		});
 		textField_2.setColumns(10);
-		textField_2.setBounds(341, 291, 199, 30);
+		textField_2.setBounds(182, 291, 199, 30);
 		contentPane.add(textField_2);
 		btnNewButton_1_1.setIcon(new ImageIcon(RegistroDeFaltas.class.getResource("/imgs/submit1.png")));
 		btnNewButton_1_1.setContentAreaFilled(false);
 		btnNewButton_1_1.setBorderPainted(false);
-		btnNewButton_1_1.setBounds(377, 494, 124, 27);
+		btnNewButton_1_1.setBounds(212, 487, 124, 27);
 		contentPane.add(btnNewButton_1_1);
 		
+		miBarra1=new JScrollPane();
+		miBarra1.setBounds(422, 86, 465, 259);
+		getContentPane().add(miBarra1);
+		
+		construirTabla();
+		
+		
 		JLabel lblCedulaDelDocente_1_1 = new JLabel("Cedula del funcionario");
-		lblCedulaDelDocente_1_1.setBounds(149, 298, 159, 15);
+		lblCedulaDelDocente_1_1.setBounds(12, 298, 159, 15);
 		contentPane.add(lblCedulaDelDocente_1_1);
 		
 		JButton btnNewButton_4_1_1 = new JButton("");
@@ -225,4 +243,31 @@ public class RegistroDeFaltas extends JFrame {
 		lblNewLabel.setBounds(0, 0, 904, 600);
 		contentPane.add(lblNewLabel);
 	}
+	
+	public void construirTabla() {
+		String titulos[]= {"Cedula Docente","Cedula Usuario","Fecha Inicial","Fecha Final","Grupo","Motivo"};
+		String informacion[][]=obtenerMatriz();
+		table=new JTable(informacion,titulos);
+		table.setEnabled(false);
+		miBarra1.setViewportView(table);
+	}
+	
+	private String[][] obtenerMatriz(){
+		ArrayList<Registros>miLista=Registros.llenarDatos();
+		String matrizInfo[][]=new String[miLista.size()][6];
+		for(int i =0;i<miLista.size();i++) {
+			matrizInfo[i][0]=miLista.get(i).getCedulaDocente()+"";
+			matrizInfo[i][1]=miLista.get(i).getCedulaUsuario()+"";
+			matrizInfo[i][2]=miLista.get(i).getFechaInicial()+"";
+			matrizInfo[i][3]=miLista.get(i).getFechaFinal()+"";
+			matrizInfo[i][4]=miLista.get(i).getNombreGrupo()+"";
+			matrizInfo[i][5]=miLista.get(i).getMotivo()+"";
+		}
+		return matrizInfo;
+	}
+	
+	
+	
+	
+	
 }

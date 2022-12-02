@@ -79,7 +79,7 @@ public class Registros implements CrudRepository {
 		this.motivo = motivo;
 	}
 	
-	public ArrayList<Registros>llenarDatos(){
+	public static ArrayList<Registros>llenarDatos(){
 		Registros datos;
 		ResultSet rs;
 		PreparedStatement ps;
@@ -108,6 +108,8 @@ public class Registros implements CrudRepository {
 		}
 		return lista;
 	}
+	
+	
 
 	@Override
 	public boolean consulta() {
