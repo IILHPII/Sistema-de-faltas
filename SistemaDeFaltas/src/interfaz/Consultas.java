@@ -26,6 +26,10 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Consultas extends JFrame {
 	
@@ -59,6 +63,7 @@ public class Consultas extends JFrame {
 	 * Create the frame.
 	 */
 	public Consultas() {
+		setUndecorated(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 899, 587);
@@ -76,11 +81,21 @@ public class Consultas extends JFrame {
 		
 		
 		miBarra1=new JScrollPane();
-		miBarra1.setBounds(137,54,600,320);
+		miBarra1.setBounds(137,39,600,320);
 		getContentPane().add(miBarra1);
 		construirTabla();
 		
 		textField = new JTextField();
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char caracter=e.getKeyChar();
+				if(caracter<'0' || caracter>'9' && caracter!='\b') {
+					e.consume();
+				}
+			}
+		});
+		
 		textField.setEnabled(false);
 		textField.setBounds(492, 422, 162, 30);
 		contentPane.add(textField);
@@ -125,8 +140,40 @@ public class Consultas extends JFrame {
 				}
 			}
 		});
-		btnNewButton.setBounds(715, 424, 117, 25);
+		btnNewButton.setBounds(717, 424, 117, 25);
 		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_4_1_1 = new JButton("");
+		btnNewButton_4_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnNewButton_4_1_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnNewButton_4_1_1.setIcon(new ImageIcon(Consultas.class.getResource("/imgs/exit22.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnNewButton_4_1_1.setIcon(new ImageIcon(Consultas.class.getResource("/imgs/exit.png")));
+			}
+		});
+		
+		btnNewButton_4_1_1.setIcon(new ImageIcon(Consultas.class.getResource("/imgs/exit.png")));
+		btnNewButton_4_1_1.setContentAreaFilled(false);
+		btnNewButton_4_1_1.setBorderPainted(false);
+		btnNewButton_4_1_1.setBounds(824, 516, 63, 59);
+		contentPane.add(btnNewButton_4_1_1);
+		
+		JButton btnNewButton_1 = new JButton("Refrescar");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				construirTabla();
+			}
+		});
+		btnNewButton_1.setBounds(620, 361, 117, 15);
+		contentPane.add(btnNewButton_1);
 		
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setIcon(new ImageIcon(RegistroDeFaltas.class.getResource("/imgs/fondoMenu23.png")));
@@ -203,7 +250,6 @@ public class Consultas extends JFrame {
 		}
 		return matrizInfo;
 	}
-	
 }
 
 

@@ -145,6 +145,28 @@ public class Login extends JFrame {
 				btnNewButton.setIcon(new ImageIcon(Login.class.getResource("/imgs/botonLogin2.png")));
 			}
 		});
+		
+		JButton btnNewButton_4_1_1 = new JButton("");
+		btnNewButton_4_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		btnNewButton_4_1_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnNewButton_4_1_1.setIcon(new ImageIcon(Login.class.getResource("/imgs/exit22.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnNewButton_4_1_1.setIcon(new ImageIcon(Login.class.getResource("/imgs/exit.png")));
+			}
+		});
+		btnNewButton_4_1_1.setIcon(new ImageIcon(Login.class.getResource("/imgs/exit.png")));
+		btnNewButton_4_1_1.setContentAreaFilled(false);
+		btnNewButton_4_1_1.setBorderPainted(false);
+		btnNewButton_4_1_1.setBounds(12, 526, 63, 59);
+		contentPane.add(btnNewButton_4_1_1);
 		btnNewButton.setContentAreaFilled(false);
 		btnNewButton.setFocusPainted(false);
 		btnNewButton.setIcon(new ImageIcon(Login.class.getResource("/imgs/botonLogin2.png")));
