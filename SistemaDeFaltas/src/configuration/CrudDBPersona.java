@@ -85,6 +85,7 @@ public class CrudDBPersona extends Persona implements CrudRepository{
 		}
 	}
 	
+	@Override
 	public String getNombreFromDB() {
 		try {
 			Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);

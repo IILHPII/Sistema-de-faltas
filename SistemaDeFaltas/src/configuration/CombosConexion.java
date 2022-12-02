@@ -109,6 +109,13 @@ public class CombosConexion implements CrudRepository {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	@Override
+	public String getNombreFromDB() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }

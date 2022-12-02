@@ -15,8 +15,9 @@ import javax.swing.border.LineBorder;
 import configuration.CombosConexion;
 import configuration.Conexion;
 import configuration.CrudDBDocente;
+import configuration.CrudDBGrupo;
 import configuration.CrudDBPersona;
-
+import model.Grupo;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -58,6 +59,12 @@ public class Menu extends JFrame {
 	private JTextField textField_12;
 	private JTextField textField_13;
 	private JTextField textField_14;
+	private JTextField textField_11;
+	private JTextField textField_15;
+	private JTextField textField_16;
+	private JTextField textField_17;
+	private JTextField textField_18;
+	private CrudDBGrupo grupo=new CrudDBGrupo();
 
 	/**
 	 * Launch the application.
@@ -798,12 +805,16 @@ public class Menu extends JFrame {
 		JButton btnNewButton_3 = new JButton("");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crudDocente.setCiD(Integer.parseInt(textField_12.getText()));
-				if(crudDocente.consulta()==true) {
-					JOptionPane.showMessageDialog(null,"El docente esta registrado! Puede proceder a modificar","Hey!",JOptionPane.INFORMATION_MESSAGE);
-					btnNewButton_1_1.setEnabled(true);
-				}else {
-					JOptionPane.showMessageDialog(null,"El docente no esta registrado!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+				try {
+					crudDocente.setCiD(Integer.parseInt(textField_12.getText()));
+					if(crudDocente.consulta()==true) {
+						JOptionPane.showMessageDialog(null,"El docente esta registrado! Puede proceder a modificar","Hey!",JOptionPane.INFORMATION_MESSAGE);
+						btnNewButton_1_1.setEnabled(true);
+					}else {
+						JOptionPane.showMessageDialog(null,"El docente no esta registrado!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+					}
+				}catch(java.lang.NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null,"Valores ingresados nulos o incorrectos","Hey!",JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -902,8 +913,253 @@ public class Menu extends JFrame {
 		
 		JPanel panel_3 = new JPanel();
 		tabbedPane.addTab("Administracion Grupos", null, panel_3, null);
+		panel_3.setLayout(null);
+		
+		JLabel lblAltaDeGrupo = new JLabel("Alta de grupo");
+		lblAltaDeGrupo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAltaDeGrupo.setBounds(175, 12, 112, 15);
+		panel_3.add(lblAltaDeGrupo);
+		
+		textField_11 = new JTextField();
+		textField_11.setColumns(10);
+		textField_11.setBounds(154, 71, 171, 29);
+		panel_3.add(textField_11);
+		
+		textField_15 = new JTextField();
+		textField_15.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char caracter=e.getKeyChar();
+				if(caracter<'0' || caracter>'9' && caracter!='\b') {
+					e.consume();
+				}
+			}
+		});
+		textField_15.setColumns(10);
+		textField_15.setBounds(154, 149, 171, 29);
+		panel_3.add(textField_15);
+		
+		JLabel lblCedula_2_1 = new JLabel("Nombre");
+		lblCedula_2_1.setBounds(65, 78, 87, 15);
+		panel_3.add(lblCedula_2_1);
+		
+		JLabel lblCedula_2_1_1 = new JLabel("Año");
+		lblCedula_2_1_1.setBounds(65, 156, 87, 15);
+		panel_3.add(lblCedula_2_1_1);
+		
+		JSeparator separator_1_1_2_2_1 = new JSeparator();
+		separator_1_1_2_2_1.setBounds(12, 316, 860, 4);
+		panel_3.add(separator_1_1_2_2_1);
+		
+		JSeparator separator_1_1_1_2_1 = new JSeparator();
+		separator_1_1_1_2_1.setOrientation(SwingConstants.VERTICAL);
+		separator_1_1_1_2_1.setBounds(441, 12, 2, 298);
+		panel_3.add(separator_1_1_1_2_1);
+		
+		JButton btnCargar_1_1 = new JButton("");
+		btnCargar_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					grupo.setNombre(textField_11.getText());
+					grupo.setAnio(Integer.parseInt(textField_15.getText()));
+					if(grupo.getNombre().equals("")) {
+						JOptionPane.showMessageDialog(null,"El campo nombre no puede estar vacio!","Hey!",JOptionPane.ERROR_MESSAGE);
+					}else {
+						if(grupo.consulta()==true) {
+							JOptionPane.showMessageDialog(null,"Grupo ya registrado en el sistema!","Hey!",JOptionPane.ERROR_MESSAGE);
+						}else {
+							JOptionPane.showMessageDialog(null,"Grupo registrado correctamente!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+							grupo.alta();
+							textField_11.setText("");
+							textField_15.setText("");
+						}	
+					}	
+				}catch(java.lang.NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null,"Valores ingresados nulos o incorrectos","Hey!",JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		btnCargar_1_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnCargar_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/confirmo111.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnCargar_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/confirmo222.png")));
+			}
+		});
+		btnCargar_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/confirmo222.png")));
+		btnCargar_1_1.setContentAreaFilled(false);
+		btnCargar_1_1.setBorderPainted(false);
+		btnCargar_1_1.setBounds(196, 210, 91, 94);
+		panel_3.add(btnCargar_1_1);
+		
+		textField_16 = new JTextField();
+		textField_16.setColumns(10);
+		textField_16.setBounds(602, 39, 171, 29);
+		panel_3.add(textField_16);
+		
+		JLabel lblBajaDeUsuario_1_1 = new JLabel("Baja de Grupo");
+		lblBajaDeUsuario_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBajaDeUsuario_1_1.setBounds(592, 12, 148, 15);
+		panel_3.add(lblBajaDeUsuario_1_1);
+		
+		JLabel lblCedulaDelUsuario_1_1_1_1_1 = new JLabel(".....");
+		lblCedulaDelUsuario_1_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCedulaDelUsuario_1_1_1_1_1.setBounds(448, 210, 148, 15);
+		panel_3.add(lblCedulaDelUsuario_1_1_1_1_1);
+		
+		JLabel lblNombreDelGrupo = new JLabel("Nombre del grupo");
+		lblNombreDelGrupo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombreDelGrupo.setBounds(453, 46, 143, 15);
+		panel_3.add(lblNombreDelGrupo);
+		
+		JButton btnConfirmarBaja_1_1 = new JButton("Confirmar baja");
+		btnConfirmarBaja_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int eleccion=JOptionPane.showConfirmDialog(null,"¿Esta seguro que desea eliminar el siguiente grupo? "+grupo.getNombre(),"Confirmacion",JOptionPane.YES_NO_OPTION);
+				if(eleccion==0) {
+					grupo.eliminacion();
+					JOptionPane.showMessageDialog(null,"Acabas de eliminar al grupo:"+grupo.getNombre(),"Hey!",JOptionPane.INFORMATION_MESSAGE);
+					lblCedulaDelUsuario_1_1_1_1_1.setText(".....");
+					btnConfirmarBaja_1_1.setEnabled(false);
+					textField_16.setText("");
+					grupo.setNombre("");
+				}else if(eleccion==1) {
+					JOptionPane.showMessageDialog(null,"Presionaste en no eliminar al grupo:"+grupo.getNombre(),"Hey!",JOptionPane.INFORMATION_MESSAGE);
+					textField_16.setText("");
+					grupo.setNombre("");
+					lblCedulaDelUsuario_1_1_1_1_1.setText(".....");
+					btnConfirmarBaja_1_1.setEnabled(false);
+				}
+			}
+		});
+		btnConfirmarBaja_1_1.setForeground(Color.WHITE);
+		btnConfirmarBaja_1_1.setEnabled(false);
+		btnConfirmarBaja_1_1.setBackground(new Color(153, 193, 241));
+		btnConfirmarBaja_1_1.setBounds(678, 210, 182, 25);
+		panel_3.add(btnConfirmarBaja_1_1);
+		
+		JButton btnNewButton_2_2_1 = new JButton("");
+		btnNewButton_2_2_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnNewButton_2_2_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar2.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnNewButton_2_2_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
+			}
+		});
+		btnNewButton_2_2_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				grupo.setNombre(textField_16.getText());
+				if(grupo.consulta()==true) {
+					JOptionPane.showMessageDialog(null,"El grupo esta registrado! Puede proceder a eliminar","Hey!",JOptionPane.INFORMATION_MESSAGE);	
+					lblCedulaDelUsuario_1_1_1_1_1.setText(grupo.getNombre());
+					btnConfirmarBaja_1_1.setEnabled(true);
+				}else {
+					JOptionPane.showMessageDialog(null,"El grupo no esta registrado!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		btnNewButton_2_2_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
+		btnNewButton_2_2_1.setContentAreaFilled(false);
+		btnNewButton_2_2_1.setBorderPainted(false);
+		btnNewButton_2_2_1.setBounds(732, 78, 41, 28);
+		panel_3.add(btnNewButton_2_2_1);
+		
+		textField_18 = new JTextField();
+		textField_18.setEnabled(false);
+		textField_18.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char caracter=e.getKeyChar();
+				if(caracter<'0' || caracter>'9' && caracter!='\b') {
+					e.consume();
+				}
+			}
+		});
+		textField_18.setColumns(10);
+		textField_18.setBounds(336, 465, 257, 29);
+		panel_3.add(textField_18);
+		
+		JButton btnNewButton_1_1_1 = new JButton("");
+		btnNewButton_1_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					grupo.setAnio(Integer.parseInt(textField_18.getText()));
+					grupo.modificacionNombreTipo();
+					textField_17.setText("");
+					btnNewButton_1_1_1.setEnabled(false);
+					textField_18.setEnabled(false);
+					textField_18.setText("");
+					JOptionPane.showMessageDialog(null,"Año modificado correctamente!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+				}catch(java.lang.NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null,"Valores ingresados nulos o incorrectos","Hey!",JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		btnNewButton_1_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/submit1.png")));
+		btnNewButton_1_1_1.setEnabled(false);
+		btnNewButton_1_1_1.setContentAreaFilled(false);
+		btnNewButton_1_1_1.setBorderPainted(false);
+		btnNewButton_1_1_1.setBounds(616, 467, 124, 27);
+		panel_3.add(btnNewButton_1_1_1);
+		
+		JLabel lblEditarUsuario_1_1 = new JLabel("Editar año de grupo");
+		lblEditarUsuario_1_1.setBounds(380, 331, 148, 15);
+		panel_3.add(lblEditarUsuario_1_1);
+		
+		textField_17 = new JTextField();
+		textField_17.setColumns(10);
+		textField_17.setBounds(369, 362, 171, 29);
+		panel_3.add(textField_17);
+		
+		JButton btnNewButton_3_1 = new JButton("");
+		btnNewButton_3_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				grupo.setNombre(textField_17.getText());
+				if(grupo.consulta()==true) {
+					JOptionPane.showMessageDialog(null,"El Grupo esta registrado! Puede proceder a modificar","Hey!",JOptionPane.INFORMATION_MESSAGE);
+					textField_18.setEnabled(true);
+					btnNewButton_1_1_1.setEnabled(true);
+				}else {
+					JOptionPane.showMessageDialog(null,"El Grupo no esta registrado!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		btnNewButton_3_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnNewButton_3_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar2.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnNewButton_3_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
+			}
+		});
+		btnNewButton_3_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
+		btnNewButton_3_1.setContentAreaFilled(false);
+		btnNewButton_3_1.setBorderPainted(false);
+		btnNewButton_3_1.setBounds(555, 364, 41, 28);
+		panel_3.add(btnNewButton_3_1);
+		
+		JLabel lblCedulaDelUsuario_2_1 = new JLabel("Nombre del grupo");
+		lblCedulaDelUsuario_2_1.setBounds(203, 369, 148, 15);
+		panel_3.add(lblCedulaDelUsuario_2_1);
+		
+		JSeparator separator_1_1_2_2_1_1 = new JSeparator();
+		separator_1_1_2_2_1_1.setBounds(12, 428, 860, 4);
+		panel_3.add(separator_1_1_2_2_1_1);
+		
+		JLabel lblCedulaDelUsuario_2_1_1 = new JLabel("Año del grupo");
+		lblCedulaDelUsuario_2_1_1.setBounds(213, 472, 105, 15);
+		panel_3.add(lblCedulaDelUsuario_2_1_1);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("");
+		lblNewLabel_1_1.setBounds(0, 0, 900, 600);
 		lblNewLabel_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/fondoMenu23.png")));
 		lblNewLabel_1_1.setBackground(new Color(45, 173, 222));
 		panel_3.add(lblNewLabel_1_1);

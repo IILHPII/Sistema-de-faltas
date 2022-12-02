@@ -111,4 +111,11 @@ public class CrudDBDocente extends Docente implements CrudRepository {
 	}
 
 
+	@Override
+	public String getNombreFromDB() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }

@@ -106,6 +106,12 @@ public class Conexion extends Persona implements CrudRepository{
 		public void modificacionPassword() {
 			// TODO Auto-generated method stub
 			
+		}
+
+		@Override
+		public String getNombreFromDB() {
+			// TODO Auto-generated method stub
+			return null;
 		}			
 							
 }

@@ -15,5 +15,7 @@ public interface CrudRepository {
 	 public void modificacionPassword();
 	 
 	 public void eliminacion();	
+	 
+	 public String getNombreFromDB();
 	
 }
