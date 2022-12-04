@@ -79,7 +79,23 @@ public class CrudDBAlumno extends Alumno implements CrudRepository {
 		try {
 			Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
 			Statement command=conexion.createStatement();
-			ResultSet result=command.executeQuery("SELECT cedula, grupo FROM proyectoProgramacionDocentes.alumnos where cedula='"+getCedula()+"'");
+			ResultSet result=command.executeQuery("SELECT cedula FROM proyectoProgramacionDocentes.alumnos where cedula='"+getCedula()+"'");
+			while(result.next()) {
+				nombre=result.getString(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return nombre;	
+	}
+	
+	
+	public String getGrupoFromDB() {
+		try {
+			Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
+			Statement command=conexion.createStatement();
+			ResultSet result=command.executeQuery("SELECT grupo FROM proyectoProgramacionDocentes.alumnos where cedula='"+getCedula()+"'");
 			while(result.next()) {
 				nombre=result.getString(1);
 			}

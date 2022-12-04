@@ -10,9 +10,9 @@ import javax.swing.border.EmptyBorder;
 
 import configuration.Conexion;
 import configuration.CrudDBDocente;
-import configuration.CrudDBPersona;
+import configuration.CrudDBUsuario;
 import model.Docente;
-import model.Persona;
+import model.Usuario;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -40,8 +40,9 @@ public class Login extends JFrame {
 	private JPasswordField textField_1;
 	private Conexion conexion=new Conexion();
 	private CrudDBDocente crudD=new CrudDBDocente();
-	private CrudDBPersona crud=new CrudDBPersona();
-	Menu menu=new Menu();
+	private CrudDBUsuario crud=new CrudDBUsuario();
+	private Menu menu=new Menu();
+	private ConsultasAlumnos consultasAlumnos=new ConsultasAlumnos();
 
 	/**
 	 * Launch the application.
@@ -72,6 +73,18 @@ public class Login extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		this.setLocationRelativeTo(null);
+		
+		JButton btnNewButton_1 = new JButton("Soy alumno");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				consultasAlumnos.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_1.setBackground(new Color(226, 237, 255));
+		btnNewButton_1.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 12));
+		btnNewButton_1.setBounds(643, 568, 117, 17);
+		contentPane.add(btnNewButton_1);
 		
 		
 		JLabel lblNewLabel = new JLabel("");

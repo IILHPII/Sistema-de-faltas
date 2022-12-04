@@ -140,7 +140,6 @@ public class Registros implements CrudRepository {
 		return lista;
 	}
 	
-	
 	public ArrayList<Registros>llenarDatosUsuario(){
 		Registros datos;
 		ResultSet rs;
@@ -149,6 +148,37 @@ public class Registros implements CrudRepository {
 		try {
 			Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
 			String query="SELECT ciD, ciU, fechaInicial, fechaFinal, nombreGrupo, motivo FROM proyectoProgramacionDocentes.registra where ciU='"+getCedulaUsuario()+"'";
+			ps=conexion.prepareStatement(query);
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				datos=new Registros();
+				datos.setCedulaDocente(rs.getString("ciD"));
+				datos.setCedulaUsuario(rs.getString("ciU"));
+				datos.setFechaInicial(rs.getString("fechaInicial"));
+				datos.setFechaFinal(rs.getString("fechaFinal"));
+				datos.setNombreGrupo(rs.getString("nombreGrupo"));
+				datos.setMotivo(rs.getString("motivo"));
+				lista.add(datos);
+			}
+			rs.close();
+			ps.close();
+			conexion.close();
+			
+		}catch(SQLException e) {
+			
+		}
+		return lista;
+	}
+	
+	
+	public ArrayList<Registros>llenarDatosSegunGrupo(){
+		Registros datos;
+		ResultSet rs;
+		PreparedStatement ps;
+		ArrayList<Registros>lista=new ArrayList<>();
+		try {
+			Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
+			String query="SELECT ciD, ciU, fechaInicial, fechaFinal, nombreGrupo, motivo FROM proyectoProgramacionDocentes.registra WHERE nombreGrupo='"+getNombreGrupo()+"'";
 			ps=conexion.prepareStatement(query);
 			rs=ps.executeQuery();
 			while(rs.next()) {

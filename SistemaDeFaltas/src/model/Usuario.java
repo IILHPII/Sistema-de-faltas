@@ -1,17 +1,17 @@
 package model;
 
- public class Persona {
+ public class Usuario {
 	
 	private int ci;
 	private String contraseña;
 	private String nombre;
 	private String rol;
 	
-	public Persona() {
+	public Usuario() {
 		
 	}
 	
-	public Persona(int ci,String nombre,String rol,String contraseña) {
+	public Usuario(int ci,String nombre,String rol,String contraseña) {
 		this.ci=ci;
 		this.nombre=nombre;
 		this.rol=rol;

@@ -9,7 +9,7 @@ import model.*;
 import repository.CrudRepository;
 
 
-public class Conexion extends Persona implements CrudRepository{
+public class Conexion extends Usuario implements CrudRepository{
 		
 		private static boolean confirmacionConsulta;
 		private static boolean confirmacionFechaInit;

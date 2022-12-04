@@ -22,7 +22,7 @@ import configuration.CombosConexion;
 import configuration.Conexion;
 import configuration.CrudDBDocente;
 import model.Docente;
-import model.Persona;
+import model.Usuario;
 import model.Registros;
 
 import javax.swing.JComboBox;

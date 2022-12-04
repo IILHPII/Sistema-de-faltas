@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.text.ParseException;
 
 import model.Docente;
-import model.Persona;
+import model.Usuario;
 import repository.CrudRepository;
 
 public class CrudDBDocente extends Docente implements CrudRepository {

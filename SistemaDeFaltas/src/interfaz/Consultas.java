@@ -19,6 +19,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.text.JTextComponent;
+
+import configuration.CrudDBDocente;
+import configuration.CrudDBUsuario;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
@@ -35,7 +39,8 @@ public class Consultas extends JFrame {
 	
 
 	private JPanel contentPane;
-	private Docente docente=new Docente();
+	private CrudDBDocente docenteCarga=new CrudDBDocente();
+	private CrudDBUsuario usuarioCarga=new CrudDBUsuario();
 	private Registros registro=new Registros();
 	private static JTable miTabla1;
 	private static JScrollPane miBarra1;
@@ -130,11 +135,22 @@ public class Consultas extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(chckbxFiltrarPorCedula.isSelected()) {
-					registro.setCedulaDocente(textField.getText());
-					construirTablaDocente();
+					docenteCarga.setCiD(Integer.parseInt(textField.getText()));
+					if(docenteCarga.consulta()==true) {
+						registro.setCedulaDocente(textField.getText());
+						construirTablaDocente();
+					}else if(docenteCarga.consulta()==false) {
+						JOptionPane.showMessageDialog(null,"El docente no esta registrado!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+					}
+			
 				}else if(chckbxFiltrarPorCedula_2.isSelected()) {
-					registro.setCedulaUsuario(textField.getText());
-					construirTablaUsuario();
+					usuarioCarga.setCi(Integer.parseInt(textField.getText()));
+					if(usuarioCarga.consulta()==true) {
+						registro.setCedulaUsuario(textField.getText());
+						construirTablaUsuario();
+					}else if(usuarioCarga.consulta()==false) {
+						JOptionPane.showMessageDialog(null,"El usuario no esta registrado!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+					}
 				}else {
 					JOptionPane.showMessageDialog(null,"No tiene ningun filtro seleccionado!","Hey!",JOptionPane.ERROR_MESSAGE);
 				}

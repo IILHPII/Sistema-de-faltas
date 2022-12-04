@@ -6,15 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import model.Persona;
+import model.Usuario;
 import repository.CrudRepository;
 
-public class CrudDBPersona extends Persona implements CrudRepository{
+public class CrudDBUsuario extends Usuario implements CrudRepository{
 	
 	private static String nombre;
 	private boolean confirmacion;
 	
-	public CrudDBPersona() {
+	public CrudDBUsuario() {
 		super();
 	}
 	

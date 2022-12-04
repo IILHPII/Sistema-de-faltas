@@ -17,7 +17,7 @@ import configuration.Conexion;
 import configuration.CrudDBAlumno;
 import configuration.CrudDBDocente;
 import configuration.CrudDBGrupo;
-import configuration.CrudDBPersona;
+import configuration.CrudDBUsuario;
 import model.Grupo;
 
 import javax.swing.ImageIcon;
@@ -40,7 +40,7 @@ public class Menu extends JFrame {
 
 	private JPanel contentPane;
 	private Conexion carga=new Conexion();
-	private CrudDBPersona  crud=new CrudDBPersona();
+	private CrudDBUsuario  crud=new CrudDBUsuario();
 	private CrudDBDocente crudDocente=new CrudDBDocente();
 	private CombosConexion combosConexion=new CombosConexion();
 	private RegistroDeFaltas registro=new RegistroDeFaltas();
