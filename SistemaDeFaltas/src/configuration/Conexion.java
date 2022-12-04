@@ -15,8 +15,6 @@ public class Conexion extends Usuario implements CrudRepository{
 		private static boolean confirmacionFechaInit;
 	
 		
-		
-		
 		public Conexion() {
 			super();
 			cargarDriver();

@@ -85,6 +85,7 @@ public class ConsultasAlumnos extends JFrame {
 		
 		
 		miBarra1=new JScrollPane();
+		miBarra1.setEnabled(false);
 		miBarra1.setBounds(137,39,600,360);
 		getContentPane().add(miBarra1);
 		

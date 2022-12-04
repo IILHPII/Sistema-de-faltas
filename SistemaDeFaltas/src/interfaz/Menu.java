@@ -75,9 +75,24 @@ public class Menu extends JFrame {
 	private CrudDBAlumno cargaAlumno=new CrudDBAlumno();
 	private JTextField textField_20;
 	private JTextField textField_21;
+	private JPanel panel_3 = new JPanel();
+	private JPanel panel_2 = new JPanel();
+	private JPanel panel_1 = new JPanel();
+	private JPanel panel = new JPanel();
+	private JPanel panel_4 = new JPanel();
+	private String typeUser;
 	/**
 	 * Launch the application.
 	 */
+	
+	public void setTypeUser(String type) {
+		this.typeUser=type;
+	}
+	
+	public String getTypeUser() {
+		return this.typeUser;
+	}
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -93,8 +108,9 @@ public class Menu extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws InterruptedException 
 	 */
-	public Menu() {
+	public Menu(){
 		setUndecorated(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -106,91 +122,111 @@ public class Menu extends JFrame {
 		contentPane.setLayout(null);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		tabbedPane.setBorder(new LineBorder(new Color(0, 0, 0), 0, true));
 		tabbedPane.setFont(new Font("DialogInput", Font.PLAIN, 11));
 		tabbedPane.setBounds(0, 0, 900, 600);
 		contentPane.add(tabbedPane);
 		
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("Inicio", null, panel_1, null);
-		panel_1.setLayout(null);
+		
+		panel.setBackground(new Color(255, 255, 255));
+		tabbedPane.addTab("Inicio", null, panel, null);
+		panel.setLayout(null);
 		
 		JLabel lblNewLabel_3 = new JLabel("Bienvenido!");
 		lblNewLabel_3.setFont(new Font("Dialog", Font.BOLD, 17));
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setBounds(324, 12, 222, 43);
-		panel_1.add(lblNewLabel_3);
-
+		panel.add(lblNewLabel_3);
 		
-		JSeparator separator = new JSeparator();
-		separator.setBounds(365, 44, 140, 2);
-		panel_1.add(separator);
-		
-		JButton btnNewButton_4 = new JButton("Registrar falta de docente");
-		btnNewButton_4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cargaComboR.cargarCombo();
-				registro.setVisible(true);
-			}
-		});
-		btnNewButton_4.setBounds(324, 180, 227, 43);
-		panel_1.add(btnNewButton_4);
-		
-		JButton btnNewButton_4_1 = new JButton("Consultas");
-		btnNewButton_4_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				consulta.setVisible(true);
-			}
-		});
-		btnNewButton_4_1.setBounds(324, 311, 227, 43);
-		panel_1.add(btnNewButton_4_1);
-		
-		JButton btnNewButton_4_1_1 = new JButton("");
-		btnNewButton_4_1_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		btnNewButton_4_1_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				btnNewButton_4_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/exit22.png")));
-			}
-			@Override
-			public void mouseReleased(MouseEvent e) {
+				
+				JSeparator separator = new JSeparator();
+				separator.setBounds(365, 44, 140, 2);
+				panel.add(separator);
+				
+				JButton btnNewButton_4 = new JButton("Registrar falta de docente");
+				btnNewButton_4.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						cargaComboR.cargarCombo();
+						registro.setVisible(true);
+					}
+				});
+				btnNewButton_4.setBounds(324, 180, 227, 43);
+				panel.add(btnNewButton_4);
+				
+				JButton btnNewButton_4_1 = new JButton("Consultas");
+				btnNewButton_4_1.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						consulta.setVisible(true);
+					}
+				});
+				btnNewButton_4_1.setBounds(324, 311, 227, 43);
+				panel.add(btnNewButton_4_1);
+				
+				JButton btnNewButton_4_1_1 = new JButton("");
+				btnNewButton_4_1_1.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						System.exit(0);
+					}
+				});
+				btnNewButton_4_1_1.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mousePressed(MouseEvent e) {
+						btnNewButton_4_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/exit22.png")));
+					}
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						btnNewButton_4_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/exit.png")));
+					}
+				});
+				btnNewButton_4_1_1.setContentAreaFilled(false);
+				btnNewButton_4_1_1.setBorderPainted(false);
 				btnNewButton_4_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/exit.png")));
-			}
-		});
-		btnNewButton_4_1_1.setContentAreaFilled(false);
-		btnNewButton_4_1_1.setBorderPainted(false);
-		btnNewButton_4_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/exit.png")));
-		btnNewButton_4_1_1.setBounds(818, 497, 63, 59);
-		panel_1.add(btnNewButton_4_1_1);
+				btnNewButton_4_1_1.setBounds(818, 497, 63, 59);
+				panel.add(btnNewButton_4_1_1);
+				
+				JButton btnPrivilegios = new JButton("Privilegios");
+				btnPrivilegios.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(getTypeUser().equals("Director") || getTypeUser().equals("Administrativo")) {
+							JOptionPane.showMessageDialog(null,"Su tipo de usuario es: "+getTypeUser()+". Tiene todas las funciones disponibles.","Hey!",JOptionPane.INFORMATION_MESSAGE);
+							tabbedPane.setEnabledAt(1, true);
+							tabbedPane.setEnabledAt(2, true);
+							tabbedPane.setEnabledAt(3, true);
+							tabbedPane.setEnabledAt(4, true);
+							btnPrivilegios.setEnabled(false);
+						}else {
+							JOptionPane.showMessageDialog(null,"Su tipo de usuario es: "+getTypeUser()+". Solo puede registrar y consultar faltas.","Hey!",JOptionPane.INFORMATION_MESSAGE);
+							btnPrivilegios.setEnabled(false);
+						}
+					}
+				});
+				btnPrivilegios.setBounds(22, 531, 117, 25);
+				panel.add(btnPrivilegios);
+				
+				JLabel lblNewLabel_2 = new JLabel("");
+				lblNewLabel_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/fondoMenu23.png")));
+				lblNewLabel_2.setBackground(new Color(45, 173, 222));
+				lblNewLabel_2.setBounds(0, 0, 893, 600);
+				panel.add(lblNewLabel_2);
 		
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/fondoMenu23.png")));
-		lblNewLabel_2.setBackground(new Color(45, 173, 222));
-		lblNewLabel_2.setBounds(0, 0, 893, 600);
-		panel_1.add(lblNewLabel_2);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		tabbedPane.addTab("Administrar Usuarios", new ImageIcon(Menu.class.getResource("/imgs/prueba2.png")), panel, null);
-		tabbedPane.setEnabledAt(1, true);
+		panel_1.setBackground(Color.WHITE);
+		tabbedPane.addTab("Administrar Usuarios", new ImageIcon(Menu.class.getResource("/imgs/prueba2.png")), panel_1, null);
+		tabbedPane.setEnabledAt(1, false);
 		tabbedPane.setBackgroundAt(1, Color.WHITE);
-		panel.setLayout(null);
+		panel_1.setLayout(null);
 		
 		JSeparator separator_1_1 = new JSeparator();
 		separator_1_1.setBounds(12, 322, 857, 2);
-		panel.add(separator_1_1);
+		panel_1.add(separator_1_1);
 		
 		JLabel lblAltaDeUsuario = new JLabel("Alta de usuario");
 		lblAltaDeUsuario.setBounds(158, 12, 148, 15);
-		panel.add(lblAltaDeUsuario);
+		panel_1.add(lblAltaDeUsuario);
 		
 		JLabel lblCedula = new JLabel("Cedula");
 		lblCedula.setBounds(12, 46, 148, 15);
-		panel.add(lblCedula);
+		panel_1.add(lblCedula);
 		
 		textField = new JTextField();
 		textField.addKeyListener(new KeyAdapter() {
@@ -203,12 +239,12 @@ public class Menu extends JFrame {
 			}
 		});
 		textField.setBounds(133, 39, 171, 29);
-		panel.add(textField);
+		panel_1.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblCedula_1 = new JLabel("Nombre");
 		lblCedula_1.setBounds(12, 87, 148, 15);
-		panel.add(lblCedula_1);
+		panel_1.add(lblCedula_1);
 		
 		textField_1 = new JTextField();
 		textField_1.addKeyListener(new KeyAdapter() {
@@ -225,24 +261,24 @@ public class Menu extends JFrame {
 		});
 		textField_1.setColumns(10);
 		textField_1.setBounds(133, 80, 171, 29);
-		panel.add(textField_1);
+		panel_1.add(textField_1);
 		
 		JLabel lblCedula_1_1 = new JLabel("Contraseña");
 		lblCedula_1_1.setBounds(12, 136, 148, 15);
-		panel.add(lblCedula_1_1);
+		panel_1.add(lblCedula_1_1);
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
 		textField_2.setBounds(133, 129, 171, 29);
-		panel.add(textField_2);
+		panel_1.add(textField_2);
 		
 		JLabel lblUsuario = new JLabel("Usuario");
 		lblUsuario.setBounds(12, 197, 148, 15);
-		panel.add(lblUsuario);
+		panel_1.add(lblUsuario);
 		
 	
 		comboBox.setBounds(133, 190, 171, 29);
-		panel.add(comboBox);
+		panel_1.add(comboBox);
 		
 		
 		JButton btnCargar = new JButton("");
@@ -268,7 +304,6 @@ public class Menu extends JFrame {
 					crud.setNombre(textField_1.getText());
 					crud.setPassword(textField_2.getText());
 					crud.setRol(comboBox.getSelectedItem().toString());
-					
 					if(textField_1.getText().length()==0 || textField_2.getText().length()==0) {
 						JOptionPane.showMessageDialog(null,"Nombre o password no fueron ingresados!","Hey!",JOptionPane.ERROR_MESSAGE);
 					}else {
@@ -284,20 +319,20 @@ public class Menu extends JFrame {
 				}
 			}
 		});
-		panel.add(btnCargar);
+		panel_1.add(btnCargar);
 		
 		JSeparator separator_1_1_1 = new JSeparator();
 		separator_1_1_1.setOrientation(SwingConstants.VERTICAL);
 		separator_1_1_1.setBounds(459, 12, 2, 298);
-		panel.add(separator_1_1_1);
+		panel_1.add(separator_1_1_1);
 		
 		JLabel lblEditarUsuario = new JLabel("Editar usuario");
 		lblEditarUsuario.setBounds(158, 322, 148, 15);
-		panel.add(lblEditarUsuario);
+		panel_1.add(lblEditarUsuario);
 		
 		JLabel lblCedulaDelUsuario = new JLabel("Cedula del usuario");
 		lblCedulaDelUsuario.setBounds(12, 364, 148, 15);
-		panel.add(lblCedulaDelUsuario);
+		panel_1.add(lblCedulaDelUsuario);
 		
 		textField_5 = new JTextField();
 		textField_5.addKeyListener(new KeyAdapter() {
@@ -311,33 +346,33 @@ public class Menu extends JFrame {
 		});
 		textField_5.setColumns(10);
 		textField_5.setBounds(178, 357, 171, 29);
-		panel.add(textField_5);
+		panel_1.add(textField_5);
 		
 		JLabel lblEditarNombre = new JLabel("Editar nombre");
 		lblEditarNombre.setBounds(12, 430, 148, 15);
-		panel.add(lblEditarNombre);
+		panel_1.add(lblEditarNombre);
 		
 		textField_6 = new JTextField();
 		textField_6.setColumns(10);
 		textField_6.setBounds(12, 463, 114, 29);
-		panel.add(textField_6);
+		panel_1.add(textField_6);
 		
 		
 		comboBox_2.setBounds(148, 463, 171, 29);
-		panel.add(comboBox_2);
+		panel_1.add(comboBox_2);
 		
 		JLabel lblCambiarTipoUsuario = new JLabel("Cambiar Tipo Usuario");
 		lblCambiarTipoUsuario.setBounds(158, 431, 173, 15);
-		panel.add(lblCambiarTipoUsuario);
+		panel_1.add(lblCambiarTipoUsuario);
 		
 		JSeparator separator_1_1_2 = new JSeparator();
 		separator_1_1_2.setBounds(9, 414, 431, 4);
-		panel.add(separator_1_1_2);
+		panel_1.add(separator_1_1_2);
 		
 		JSeparator separator_1_1_1_1 = new JSeparator();
 		separator_1_1_1_1.setOrientation(SwingConstants.VERTICAL);
 		separator_1_1_1_1.setBounds(458, 329, 3, 193);
-		panel.add(separator_1_1_1_1);
+		panel_1.add(separator_1_1_1_1);
 		
 		JButton btnNewButton_1 = new JButton("");
 		btnNewButton_1.setEnabled(false);
@@ -373,11 +408,11 @@ public class Menu extends JFrame {
 		btnNewButton_1.setBorderPainted(false);
 		btnNewButton_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/submit1.png")));
 		btnNewButton_1.setBounds(330, 463, 124, 27);
-		panel.add(btnNewButton_1);
+		panel_1.add(btnNewButton_1);
 		
 		JLabel lblBajaDeUsuario = new JLabel("Baja de Usuario");
 		lblBajaDeUsuario.setBounds(569, 12, 148, 15);
-		panel.add(lblBajaDeUsuario);
+		panel_1.add(lblBajaDeUsuario);
 		
 		textField_3 = new JTextField();
 		textField_3.addKeyListener(new KeyAdapter() {
@@ -391,7 +426,7 @@ public class Menu extends JFrame {
 		});
 		textField_3.setColumns(10);
 		textField_3.setBounds(611, 32, 171, 29);
-		panel.add(textField_3);
+		panel_1.add(textField_3);
 		
 		JButton btnNewButton = new JButton("");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -425,20 +460,20 @@ public class Menu extends JFrame {
 		btnNewButton.setBorderPainted(false);
 		btnNewButton.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
 		btnNewButton.setBounds(373, 357, 41, 28);
-		panel.add(btnNewButton);
+		panel_1.add(btnNewButton);
 		
 		JLabel lblCedulaDelUsuario_1_1 = new JLabel("Nombre del Usuario");
 		lblCedulaDelUsuario_1_1.setBounds(479, 169, 148, 15);
-		panel.add(lblCedulaDelUsuario_1_1);
+		panel_1.add(lblCedulaDelUsuario_1_1);
 		
 		JLabel lblCedulaDelUsuario_1 = new JLabel("Cedula del Usuario");
 		lblCedulaDelUsuario_1.setBounds(468, 39, 148, 15);
-		panel.add(lblCedulaDelUsuario_1);
+		panel_1.add(lblCedulaDelUsuario_1);
 		
 		lblCedulaDelUsuario_1_1_1 = new JLabel(".....");
 		lblCedulaDelUsuario_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCedulaDelUsuario_1_1_1.setBounds(479, 230, 148, 15);
-		panel.add(lblCedulaDelUsuario_1_1_1);
+		panel_1.add(lblCedulaDelUsuario_1_1_1);
 		
 		JButton btnConfirmarBaja = new JButton("Confirmar baja");
 		btnConfirmarBaja.setEnabled(false);
@@ -462,7 +497,7 @@ public class Menu extends JFrame {
 		btnConfirmarBaja.setForeground(Color.WHITE);
 		btnConfirmarBaja.setBackground(new Color(153, 193, 241));
 		btnConfirmarBaja.setBounds(687, 225, 182, 25);
-		panel.add(btnConfirmarBaja);
+		panel_1.add(btnConfirmarBaja);
 		
 		JButton btnNewButton_2 = new JButton("");
 		btnNewButton_2.setBorderPainted(false);
@@ -499,15 +534,15 @@ public class Menu extends JFrame {
 		btnNewButton_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
 		btnNewButton_2.setContentAreaFilled(false);
 		btnNewButton_2.setBounds(744, 74, 41, 28);
-		panel.add(btnNewButton_2);
+		panel_1.add(btnNewButton_2);
 		
 		JLabel lblCedulaDelUsuario_1_1_2 = new JLabel("Cambio de contraseña");
 		lblCedulaDelUsuario_1_1_2.setBounds(600, 322, 182, 15);
-		panel.add(lblCedulaDelUsuario_1_1_2);
+		panel_1.add(lblCedulaDelUsuario_1_1_2);
 		
 		JLabel lblCedulaDelUsuario_1_2 = new JLabel("Cedula del Usuario");
 		lblCedulaDelUsuario_1_2.setBounds(479, 364, 148, 15);
-		panel.add(lblCedulaDelUsuario_1_2);
+		panel_1.add(lblCedulaDelUsuario_1_2);
 		
 		textField_4 = new JTextField();
 		textField_4.addKeyListener(new KeyAdapter() {
@@ -521,29 +556,29 @@ public class Menu extends JFrame {
 		});
 		textField_4.setColumns(10);
 		textField_4.setBounds(629, 357, 171, 29);
-		panel.add(textField_4);
+		panel_1.add(textField_4);
 		
 		JSeparator separator_1_1_2_1 = new JSeparator();
 		separator_1_1_2_1.setBounds(473, 414, 396, 2);
-		panel.add(separator_1_1_2_1);
+		panel_1.add(separator_1_1_2_1);
 		
 		textField_7 = new JTextField();
 		textField_7.setColumns(10);
 		textField_7.setBounds(477, 460, 177, 29);
-		panel.add(textField_7);
+		panel_1.add(textField_7);
 		
 		textField_8 = new JTextField();
 		textField_8.setColumns(10);
 		textField_8.setBounds(705, 460, 171, 29);
-		panel.add(textField_8);
+		panel_1.add(textField_8);
 		
 		JLabel lblCedulaDelUsuario_1_2_1 = new JLabel("Nueva contraseña");
 		lblCedulaDelUsuario_1_2_1.setBounds(494, 424, 148, 15);
-		panel.add(lblCedulaDelUsuario_1_2_1);
+		panel_1.add(lblCedulaDelUsuario_1_2_1);
 		
 		JLabel lblCedulaDelUsuario_1_2_1_1 = new JLabel("Repita contraseña");
 		lblCedulaDelUsuario_1_2_1_1.setBounds(721, 424, 148, 15);
-		panel.add(lblCedulaDelUsuario_1_2_1_1);
+		panel_1.add(lblCedulaDelUsuario_1_2_1_1);
 		
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.setEnabled(false);
@@ -572,7 +607,7 @@ public class Menu extends JFrame {
 		btnConfirmar.setForeground(Color.WHITE);
 		btnConfirmar.setBackground(new Color(153, 193, 241));
 		btnConfirmar.setBounds(581, 497, 177, 25);
-		panel.add(btnConfirmar);
+		panel_1.add(btnConfirmar);
 		
 		JButton btnNewButton_2_1 = new JButton("");
 		btnNewButton_2_1.addActionListener(new ActionListener() {
@@ -606,18 +641,19 @@ public class Menu extends JFrame {
 		btnNewButton_2_1.setContentAreaFilled(false);
 		btnNewButton_2_1.setBorderPainted(false);
 		btnNewButton_2_1.setBounds(825, 357, 41, 28);
-		panel.add(btnNewButton_2_1);
+		panel_1.add(btnNewButton_2_1);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(0, 0, 893, 600);
-		panel.add(lblNewLabel);
+		panel_1.add(lblNewLabel);
 		lblNewLabel.setIcon(new ImageIcon(Menu.class.getResource("/imgs/fondoMenu23.png")));
 		lblNewLabel.setBackground(new Color(45, 173, 222));
 		
-		JPanel panel_2 = new JPanel();
+		
 		panel_2.setLayout(null);
 		panel_2.setBackground(Color.WHITE);
 		tabbedPane.addTab("Administrar Docentes", new ImageIcon(Menu.class.getResource("/imgs/prueba2.png")), panel_2, null);
+		tabbedPane.setEnabledAt(2, false);
 		
 		JSeparator separator_1_1_3 = new JSeparator();
 		separator_1_1_3.setBounds(12, 322, 857, 2);
@@ -917,8 +953,10 @@ public class Menu extends JFrame {
 		lblNewLabel_1.setBounds(0, 0, 893, 600);
 		panel_2.add(lblNewLabel_1);
 		
-		JPanel panel_3 = new JPanel();
+		
+		panel_3.setBackground(new Color(255, 255, 255));
 		tabbedPane.addTab("Administracion Grupos", null, panel_3, null);
+		tabbedPane.setEnabledAt(3, false);
 		panel_3.setLayout(null);
 		
 		JLabel lblAltaDeGrupo = new JLabel("Alta de grupo");
@@ -1170,8 +1208,10 @@ public class Menu extends JFrame {
 		lblNewLabel_1_1.setBackground(new Color(45, 173, 222));
 		panel_3.add(lblNewLabel_1_1);
 		
-		JPanel panel_4 = new JPanel();
+		
+		panel_4.setBackground(new Color(255, 255, 255));
 		tabbedPane.addTab("Administracion alumnos", null, panel_4, null);
+		tabbedPane.setEnabledAt(4, false);
 		panel_4.setLayout(null);
 		
 		JLabel lblAltaDeAlumno = new JLabel("Alta de Alumno");
@@ -1410,7 +1450,9 @@ public class Menu extends JFrame {
 		this.setLocationRelativeTo(null);
 		cargarCombo();
 		cargarComboGrupo();
+		
 	}
+	
 	
 	
 	private void cargarCombo() {

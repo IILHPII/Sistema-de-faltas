@@ -134,25 +134,29 @@ public class Consultas extends JFrame {
 		JButton btnNewButton = new JButton("Filtrar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(chckbxFiltrarPorCedula.isSelected()) {
-					docenteCarga.setCiD(Integer.parseInt(textField.getText()));
-					if(docenteCarga.consulta()==true) {
-						registro.setCedulaDocente(textField.getText());
-						construirTablaDocente();
-					}else if(docenteCarga.consulta()==false) {
-						JOptionPane.showMessageDialog(null,"El docente no esta registrado!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+				try {
+					if(chckbxFiltrarPorCedula.isSelected()) {
+						docenteCarga.setCiD(Integer.parseInt(textField.getText()));
+						if(docenteCarga.consulta()==true) {
+							registro.setCedulaDocente(textField.getText());
+							construirTablaDocente();
+						}else if(docenteCarga.consulta()==false) {
+							JOptionPane.showMessageDialog(null,"El docente no esta registrado!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+						}
+				
+					}else if(chckbxFiltrarPorCedula_2.isSelected()) {
+						usuarioCarga.setCi(Integer.parseInt(textField.getText()));
+						if(usuarioCarga.consulta()==true) {
+							registro.setCedulaUsuario(textField.getText());
+							construirTablaUsuario();
+						}else if(usuarioCarga.consulta()==false) {
+							JOptionPane.showMessageDialog(null,"El usuario no esta registrado!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+						}
+					}else {
+						JOptionPane.showMessageDialog(null,"No tiene ningun filtro seleccionado!","Hey!",JOptionPane.ERROR_MESSAGE);
 					}
-			
-				}else if(chckbxFiltrarPorCedula_2.isSelected()) {
-					usuarioCarga.setCi(Integer.parseInt(textField.getText()));
-					if(usuarioCarga.consulta()==true) {
-						registro.setCedulaUsuario(textField.getText());
-						construirTablaUsuario();
-					}else if(usuarioCarga.consulta()==false) {
-						JOptionPane.showMessageDialog(null,"El usuario no esta registrado!","Hey!",JOptionPane.INFORMATION_MESSAGE);
-					}
-				}else {
-					JOptionPane.showMessageDialog(null,"No tiene ningun filtro seleccionado!","Hey!",JOptionPane.ERROR_MESSAGE);
+				}catch(java.lang.NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null,"Valores ingresados nulos o incorrectos","Hey!",JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

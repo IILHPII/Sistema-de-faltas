@@ -43,6 +43,7 @@ public class Login extends JFrame {
 	private CrudDBUsuario crud=new CrudDBUsuario();
 	private Menu menu=new Menu();
 	private ConsultasAlumnos consultasAlumnos=new ConsultasAlumnos();
+	private CrudDBUsuario usuario=new CrudDBUsuario();
 
 	/**
 	 * Launch the application.
@@ -141,6 +142,8 @@ public class Login extends JFrame {
 				}catch(java.lang.NumberFormatException ex) {}
 				
 				if(conexion.consulta()==true) {
+						usuario.setCi(Integer.parseInt(textField.getText()));
+						menu.setTypeUser(usuario.getTypeFromDB());
 						menu.setVisible(true);
 						dispose();
 				}else {
