@@ -48,12 +48,14 @@ public class RegistroDeFaltas extends JFrame {
 	private JTextField textField_1;
 	private Docente docente=new Docente();
 	private CrudDBDocente carga=new CrudDBDocente();
-	private CombosConexion cargarCombo=new CombosConexion();
+	private static CombosConexion cargarCombo=new CombosConexion();
 	private JTextField textField_2;
 	private Conexion con=new Conexion();
 	private static Registros registro=new Registros();
 	private JTable table;
 	private static JScrollPane miBarra1;
+	JComboBox comboBox = new JComboBox();
+	
 
 	/**
 	 * Launch the application.
@@ -148,12 +150,10 @@ public class RegistroDeFaltas extends JFrame {
 		lblFechasDeFin.setBounds(319, 385, 110, 15);
 		contentPane.add(lblFechasDeFin);
 		
-		JComboBox comboBox = new JComboBox();
+		
 		comboBox.setBounds(182, 216, 199, 30);
 		contentPane.add(comboBox);
-		for(String s : cargarCombo.llenarComboGrupos()) {
-			comboBox.addItem(s);
-		}
+		cargarCombo();
 		
 		JButton btnNewButton_1_1 = new JButton("");
 		btnNewButton_1_1.addActionListener(new ActionListener() {
@@ -266,8 +266,11 @@ public class RegistroDeFaltas extends JFrame {
 		return matrizInfo;
 	}
 	
+	public void cargarCombo() {
+			for(String s : cargarCombo.llenarComboGrupos()) {
+				comboBox.addItem(s);
+			}
+	}
 	
-	
-	
-	
+
 }

@@ -12,6 +12,7 @@ import repository.CrudRepository;
 public class CrudDBAlumno extends Alumno implements CrudRepository {
 	
 	private boolean confirmacion;
+	private String nombre;
 	
 	
 	@Override
@@ -45,8 +46,14 @@ public class CrudDBAlumno extends Alumno implements CrudRepository {
 
 	@Override
 	public void modificacionNombreTipo() {
-		// TODO Auto-generated method stub
-		
+		try {
+			Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
+			Statement command=conexion.createStatement();
+			command.executeUpdate("UPDATE proyectoProgramacionDocentes.alumnos SET grupo='"+getGrupo()+"'  WHERE cedula='"+getCedula()+"'");
+			conexion.close();		
+		}catch(SQLException ex) {
+			
+		}
 	}
 
 	@Override
@@ -69,8 +76,18 @@ public class CrudDBAlumno extends Alumno implements CrudRepository {
 
 	@Override
 	public String getNombreFromDB() {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
+			Statement command=conexion.createStatement();
+			ResultSet result=command.executeQuery("SELECT cedula, grupo FROM proyectoProgramacionDocentes.alumnos where cedula='"+getCedula()+"'");
+			while(result.next()) {
+				nombre=result.getString(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return nombre;	
 	}
 
 }

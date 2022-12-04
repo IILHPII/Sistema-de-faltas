@@ -14,6 +14,7 @@ import javax.swing.border.LineBorder;
 
 import configuration.CombosConexion;
 import configuration.Conexion;
+import configuration.CrudDBAlumno;
 import configuration.CrudDBDocente;
 import configuration.CrudDBGrupo;
 import configuration.CrudDBPersona;
@@ -65,7 +66,15 @@ public class Menu extends JFrame {
 	private JTextField textField_17;
 	private JTextField textField_18;
 	private CrudDBGrupo grupo=new CrudDBGrupo();
-
+	private JTextField textField_19;
+	private JComboBox<String> comboBox_2 = new JComboBox<String>();
+    private JComboBox<String> comboBox = new JComboBox<String>();
+	private JComboBox<String> comboBox_1 = new JComboBox<String>();
+	private JComboBox<String> comboBox_1_1 = new JComboBox<String>();
+	private RegistroDeFaltas cargaComboR=new RegistroDeFaltas();
+	private CrudDBAlumno cargaAlumno=new CrudDBAlumno();
+	private JTextField textField_20;
+	private JTextField textField_21;
 	/**
 	 * Launch the application.
 	 */
@@ -120,10 +129,11 @@ public class Menu extends JFrame {
 		JButton btnNewButton_4 = new JButton("Registrar falta de docente");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				cargaComboR.cargarCombo();
 				registro.setVisible(true);
 			}
 		});
-		btnNewButton_4.setBounds(319, 155, 227, 43);
+		btnNewButton_4.setBounds(324, 180, 227, 43);
 		panel_1.add(btnNewButton_4);
 		
 		JButton btnNewButton_4_1 = new JButton("Consultas");
@@ -132,7 +142,7 @@ public class Menu extends JFrame {
 				consulta.setVisible(true);
 			}
 		});
-		btnNewButton_4_1.setBounds(319, 255, 227, 43);
+		btnNewButton_4_1.setBounds(324, 311, 227, 43);
 		panel_1.add(btnNewButton_4_1);
 		
 		JButton btnNewButton_4_1_1 = new JButton("");
@@ -230,7 +240,7 @@ public class Menu extends JFrame {
 		lblUsuario.setBounds(12, 197, 148, 15);
 		panel.add(lblUsuario);
 		
-		JComboBox<String> comboBox = new JComboBox<String>();
+	
 		comboBox.setBounds(133, 190, 171, 29);
 		panel.add(comboBox);
 		
@@ -312,13 +322,9 @@ public class Menu extends JFrame {
 		textField_6.setBounds(12, 463, 114, 29);
 		panel.add(textField_6);
 		
-		JComboBox<String> comboBox_2 = new JComboBox<String>();
+		
 		comboBox_2.setBounds(148, 463, 171, 29);
 		panel.add(comboBox_2);
-		for(String s : combosConexion.llenarCombo()) {
-			comboBox.addItem(s);
-			comboBox_2.addItem(s);
-		}
 		
 		JLabel lblCambiarTipoUsuario = new JLabel("Cambiar Tipo Usuario");
 		lblCambiarTipoUsuario.setBounds(158, 431, 173, 15);
@@ -1163,7 +1169,261 @@ public class Menu extends JFrame {
 		lblNewLabel_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/fondoMenu23.png")));
 		lblNewLabel_1_1.setBackground(new Color(45, 173, 222));
 		panel_3.add(lblNewLabel_1_1);
-		this.setLocationRelativeTo(null);
 		
+		JPanel panel_4 = new JPanel();
+		tabbedPane.addTab("Administracion alumnos", null, panel_4, null);
+		panel_4.setLayout(null);
+		
+		JLabel lblAltaDeAlumno = new JLabel("Alta de Alumno");
+		lblAltaDeAlumno.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAltaDeAlumno.setBounds(158, 12, 148, 15);
+		panel_4.add(lblAltaDeAlumno);
+		
+		textField_19 = new JTextField();
+		textField_19.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char caracter=e.getKeyChar();
+				if(caracter<'0' || caracter>'9' && caracter!='\b') {
+					e.consume();
+				}
+			}
+		});
+		textField_19.setColumns(10);
+		textField_19.setBounds(133, 80, 171, 29);
+		panel_4.add(textField_19);
+		
+		JLabel lblCedula_2_1_2 = new JLabel("Cedula");
+		lblCedula_2_1_2.setBounds(12, 87, 148, 15);
+		panel_4.add(lblCedula_2_1_2);
+		
+		
+		comboBox_1.setBounds(133, 155, 171, 29);
+		panel_4.add(comboBox_1);
+		
+		JButton btnCargar_1_1_1 = new JButton("");
+		btnCargar_1_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					cargaAlumno.setCedula(Integer.parseInt(textField_19.getText()));
+					cargaAlumno.setGrupo(comboBox_1.getSelectedItem().toString());
+					if(cargaAlumno.consulta()==true) {
+						JOptionPane.showMessageDialog(null,"Alumno ya registrado en el sistema!","Hey!",JOptionPane.ERROR_MESSAGE);
+					}else if(cargaAlumno.consulta()==false) {
+						cargaAlumno.alta();
+						textField_19.setText("");
+						JOptionPane.showMessageDialog(null,"Alumno registrado correctamente!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+					}
+				}catch(java.lang.NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null,"Valores ingresados nulos o incorrectos","Hey!",JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		btnCargar_1_1_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnCargar_1_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/confirmo111.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnCargar_1_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/confirmo222.png")));
+			}
+		});
+		btnCargar_1_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/confirmo222.png")));
+		btnCargar_1_1_1.setContentAreaFilled(false);
+		btnCargar_1_1_1.setBorderPainted(false);
+		btnCargar_1_1_1.setBounds(178, 216, 91, 94);
+		panel_4.add(btnCargar_1_1_1);
+		
+		JSeparator separator_1_1_1_2_2 = new JSeparator();
+		separator_1_1_1_2_2.setOrientation(SwingConstants.VERTICAL);
+		separator_1_1_1_2_2.setBounds(459, 12, 2, 298);
+		panel_4.add(separator_1_1_1_2_2);
+		
+		JLabel lblCedula_2_1_2_1 = new JLabel("Grupo");
+		lblCedula_2_1_2_1.setBounds(12, 162, 148, 15);
+		panel_4.add(lblCedula_2_1_2_1);
+		
+		JSeparator separator_1_1_3_1 = new JSeparator();
+		separator_1_1_3_1.setBounds(12, 322, 857, 2);
+		panel_4.add(separator_1_1_3_1);
+		
+		JLabel lblBajaDeUsuario_1_2 = new JLabel("Baja de Alumno");
+		lblBajaDeUsuario_1_2.setBounds(569, 12, 148, 15);
+		panel_4.add(lblBajaDeUsuario_1_2);
+		
+		textField_20 = new JTextField();
+		textField_20.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char caracter=e.getKeyChar();
+				if(caracter<'0' || caracter>'9' && caracter!='\b') {
+					e.consume();
+				}
+			}
+		});
+		textField_20.setColumns(10);
+		textField_20.setBounds(611, 32, 171, 29);
+		panel_4.add(textField_20);
+		
+		JLabel cedulaMuestra = new JLabel(".....");
+		cedulaMuestra.setHorizontalAlignment(SwingConstants.CENTER);
+		cedulaMuestra.setBounds(479, 230, 148, 15);
+		panel_4.add(cedulaMuestra);
+		
+		JLabel lblCedulaDelUsuario_1_3_1 = new JLabel("Cedula del Alumno");
+		lblCedulaDelUsuario_1_3_1.setBounds(468, 39, 148, 15);
+		panel_4.add(lblCedulaDelUsuario_1_3_1);
+		
+		JButton btnConfirmarBaja_1_2 = new JButton("Confirmar baja");
+		btnConfirmarBaja_1_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int eleccion=JOptionPane.showConfirmDialog(null,"¿Esta seguro que desea eliminar el siguiente alumno? "+cargaAlumno.getCedula(),"Confirmacion",JOptionPane.YES_NO_OPTION);
+				if(eleccion==0) {
+					cargaAlumno.eliminacion();
+					JOptionPane.showMessageDialog(null,"Acabas de eliminar al alumno:"+cargaAlumno.getCedula(),"Hey!",JOptionPane.INFORMATION_MESSAGE);
+					cedulaMuestra.setText(".....");
+					btnConfirmarBaja_1_2.setEnabled(false);
+				}else if(eleccion==1) {
+					JOptionPane.showMessageDialog(null,"Presionaste en no eliminar al alumno:"+cargaAlumno.getCedula(),"Hey!",JOptionPane.INFORMATION_MESSAGE);
+					btnConfirmarBaja_1_2.setEnabled(false);
+					cedulaMuestra.setText(".....");
+				}
+			}
+		});
+		btnConfirmarBaja_1_2.setForeground(Color.WHITE);
+		btnConfirmarBaja_1_2.setEnabled(false);
+		btnConfirmarBaja_1_2.setBackground(new Color(153, 193, 241));
+		btnConfirmarBaja_1_2.setBounds(687, 225, 182, 25);
+		panel_4.add(btnConfirmarBaja_1_2);
+		
+		JButton btnNewButton_2_2_2 = new JButton("");
+		btnNewButton_2_2_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					cargaAlumno.setCedula(Integer.parseInt(textField_20.getText()));
+					if(cargaAlumno.consulta()==true) {
+						JOptionPane.showMessageDialog(null,"El Alumno esta registrado! Puede proceder a eliminar","Hey!",JOptionPane.INFORMATION_MESSAGE);
+						cedulaMuestra.setText(String.valueOf(cargaAlumno.getCedula()));
+						btnConfirmarBaja_1_2.setEnabled(true);
+					}else if(cargaAlumno.consulta()==false) {
+						JOptionPane.showMessageDialog(null,"El Alumno no esta registrado!","Hey!",JOptionPane.INFORMATION_MESSAGE);	
+					}
+				}catch(java.lang.NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null,"Valores ingresados nulos o incorrectos","Hey!",JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		btnNewButton_2_2_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnNewButton_2_2_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar2.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnNewButton_2_2_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
+			}
+		});
+		btnNewButton_2_2_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
+		btnNewButton_2_2_2.setContentAreaFilled(false);
+		btnNewButton_2_2_2.setBorderPainted(false);
+		btnNewButton_2_2_2.setBounds(744, 74, 41, 28);
+		panel_4.add(btnNewButton_2_2_2);
+		
+		JLabel lblEditarUsuario_1_1_1 = new JLabel("Editar grupo del Alumno");
+		lblEditarUsuario_1_1_1.setBounds(380, 331, 171, 15);
+		panel_4.add(lblEditarUsuario_1_1_1);
+		
+		textField_21 = new JTextField();
+		textField_21.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char caracter=e.getKeyChar();
+				if(caracter<'0' || caracter>'9' && caracter!='\b') {
+					e.consume();
+				}
+			}
+		});
+		textField_21.setColumns(10);
+		textField_21.setBounds(380, 362, 171, 29);
+		panel_4.add(textField_21);
+		
+		JLabel lblCedulaDelUsuario_1_3_1_1 = new JLabel("Cedula del Alumno");
+		lblCedulaDelUsuario_1_3_1_1.setBounds(226, 369, 136, 15);
+		panel_4.add(lblCedulaDelUsuario_1_3_1_1);
+		
+		JSeparator separator_1_1_2_2_1_2 = new JSeparator();
+		separator_1_1_2_2_1_2.setBounds(12, 428, 860, 4);
+		panel_4.add(separator_1_1_2_2_1_2);
+		
+		comboBox_1_1.setBounds(380, 466, 171, 29);
+		panel_4.add(comboBox_1_1);
+		
+		JButton btnNewButton_1_1_1_1 = new JButton("");
+		btnNewButton_1_1_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cargaAlumno.setGrupo(comboBox_1_1.getSelectedItem().toString());
+				cargaAlumno.modificacionNombreTipo();
+				JOptionPane.showMessageDialog(null,"El Alumno fue modificado Correctamente!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+				textField_21.setText("");
+				btnNewButton_1_1_1_1.setEnabled(false);
+			}
+		});
+		btnNewButton_1_1_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/submit1.png")));
+		btnNewButton_1_1_1_1.setEnabled(false);
+		btnNewButton_1_1_1_1.setContentAreaFilled(false);
+		btnNewButton_1_1_1_1.setBorderPainted(false);
+		btnNewButton_1_1_1_1.setBounds(569, 468, 124, 27);
+		panel_4.add(btnNewButton_1_1_1_1);
+		
+		JButton btnNewButton_3_2 = new JButton("");
+		btnNewButton_3_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					cargaAlumno.setCedula(Integer.parseInt(textField_21.getText()));
+					if(cargaAlumno.consulta()==true) {
+						JOptionPane.showMessageDialog(null,"El Alumno registrado! Puede proceder a modificar","Hey!",JOptionPane.INFORMATION_MESSAGE);
+						btnNewButton_1_1_1_1.setEnabled(true);
+					}else if(cargaAlumno.consulta()==false) {
+						JOptionPane.showMessageDialog(null,"El Alumno no esta registrado!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+					}
+				}catch(java.lang.NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null,"Valores ingresados nulos o incorrectos","Hey!",JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		btnNewButton_3_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
+		btnNewButton_3_2.setContentAreaFilled(false);
+		btnNewButton_3_2.setBorderPainted(false);
+		btnNewButton_3_2.setBounds(586, 363, 41, 28);
+		panel_4.add(btnNewButton_3_2);
+		
+		JLabel lblCedula_2_1_2_1_1 = new JLabel("Grupo");
+		lblCedula_2_1_2_1_1.setBounds(304, 473, 58, 15);
+		panel_4.add(lblCedula_2_1_2_1_1);
+		
+		JLabel lblNewLabel_1_1_1 = new JLabel("");
+		lblNewLabel_1_1_1.setBounds(0, 0, 900, 600);
+		panel_4.add(lblNewLabel_1_1_1);
+		lblNewLabel_1_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/fondoMenu23.png")));
+		lblNewLabel_1_1_1.setBackground(new Color(45, 173, 222));
+		this.setLocationRelativeTo(null);
+		cargarCombo();
+		cargarComboGrupo();
+	}
+	
+	
+	private void cargarCombo() {
+		for(String s : combosConexion.llenarCombo()) {
+			comboBox.addItem(s);
+			comboBox_2.addItem(s);
+		}
+	}
+	
+	private void cargarComboGrupo() {
+		for(String s : combosConexion.llenarComboGrupos()) {
+			comboBox_1.addItem(s);
+			comboBox_1_1.addItem(s);
+		}
 	}
 }
