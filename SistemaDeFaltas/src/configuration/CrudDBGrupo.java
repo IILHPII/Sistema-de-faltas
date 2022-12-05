@@ -24,6 +24,7 @@ public class CrudDBGrupo extends Grupo implements CrudRepository {
 			}else {
 				confirmacion=false;
 			}
+			conexion.close();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}			

@@ -195,8 +195,9 @@ public class Consultas extends JFrame {
 		btnNewButton_1.setBounds(620, 361, 117, 15);
 		contentPane.add(btnNewButton_1);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon(RegistroDeFaltas.class.getResource("/imgs/fondoMenu23.png")));
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Consultas.class.getResource("/imgs/fondoMenu23.png")));
+		
 		lblNewLabel.setBounds(0, 0, 904, 600);
 		contentPane.add(lblNewLabel);
 		

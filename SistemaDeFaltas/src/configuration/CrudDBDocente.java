@@ -33,6 +33,7 @@ public class CrudDBDocente extends Docente implements CrudRepository {
 			}else {
 				confirmacion=false;
 			}
+			conexion.close();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}			
@@ -77,6 +78,19 @@ public class CrudDBDocente extends Docente implements CrudRepository {
 		
 	}
 	
+	
+	public void eliminacionDeRegistros() {
+		try {
+			Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
+			Statement command=conexion.createStatement();
+			command.executeUpdate("DELETE FROM proyectoProgramacionDocentes.registra WHERE ciD='"+getCiD()+"'");
+			conexion.close();
+		}catch(SQLException ex) {
+			
+		}
+		
+	}
+	
 	@Override
 	public void modificacionPassword() {
 		// TODO Auto-generated method stub
@@ -91,6 +105,7 @@ public class CrudDBDocente extends Docente implements CrudRepository {
 			while(result.next()) {
 				nombre=result.getString(1);
 			}
+			conexion.close();
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -108,6 +123,24 @@ public class CrudDBDocente extends Docente implements CrudRepository {
 		}catch(SQLException ex) {
 			
 		}
+	}
+	
+	
+	public boolean consultaRegistros() {
+		try {
+			Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
+			Statement command=conexion.createStatement();
+			ResultSet result=command.executeQuery("SELECT ciD, ciU, fechaInicial, fechaFinal, nombreGrupo, motivo FROM proyectoProgramacionDocentes.registra where ciD='"+getCiD()+"';");
+			if(result.next()==true) {
+				confirmacion=true;
+			}else {
+				confirmacion=false;
+			}
+			conexion.close();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}			
+		return confirmacion;
 	}
 
 

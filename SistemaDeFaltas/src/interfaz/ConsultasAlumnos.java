@@ -33,6 +33,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Color;
 
 public class ConsultasAlumnos extends JFrame {
 	
@@ -72,6 +73,7 @@ public class ConsultasAlumnos extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 899, 587);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -151,8 +153,9 @@ public class ConsultasAlumnos extends JFrame {
 		btnNewButton_4_1_1.setBounds(824, 516, 63, 59);
 		contentPane.add(btnNewButton_4_1_1);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon(RegistroDeFaltas.class.getResource("/imgs/fondoMenu23.png")));
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(ConsultasAlumnos.class.getResource("/imgs/fondoMenu23.png")));
+		
 		lblNewLabel.setBounds(0, 0, 904, 600);
 		contentPane.add(lblNewLabel);
 	

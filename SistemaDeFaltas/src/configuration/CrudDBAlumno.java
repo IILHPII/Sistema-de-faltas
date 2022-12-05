@@ -26,6 +26,7 @@ public class CrudDBAlumno extends Alumno implements CrudRepository {
 			}else {
 				confirmacion=false;
 			}
+			conexion.close();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}			
@@ -83,7 +84,7 @@ public class CrudDBAlumno extends Alumno implements CrudRepository {
 			while(result.next()) {
 				nombre=result.getString(1);
 			}
-			
+			conexion.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -99,7 +100,7 @@ public class CrudDBAlumno extends Alumno implements CrudRepository {
 			while(result.next()) {
 				nombre=result.getString(1);
 			}
-			
+			conexion.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

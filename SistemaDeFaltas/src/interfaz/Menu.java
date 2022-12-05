@@ -9,6 +9,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+
 import java.awt.Font;
 import javax.swing.border.LineBorder;
 
@@ -19,6 +21,7 @@ import configuration.CrudDBDocente;
 import configuration.CrudDBGrupo;
 import configuration.CrudDBUsuario;
 import model.Grupo;
+import model.Registros;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -32,8 +35,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JScrollPane;
 
 
 public class Menu extends JFrame {
@@ -43,7 +50,6 @@ public class Menu extends JFrame {
 	private CrudDBUsuario  crud=new CrudDBUsuario();
 	private CrudDBDocente crudDocente=new CrudDBDocente();
 	private CombosConexion combosConexion=new CombosConexion();
-	private RegistroDeFaltas registro=new RegistroDeFaltas();
 	private Consultas consulta=new Consultas();
 	private JTextField textField;
 	private JTextField textField_1;
@@ -71,7 +77,6 @@ public class Menu extends JFrame {
     private JComboBox<String> comboBox = new JComboBox<String>();
 	private JComboBox<String> comboBox_1 = new JComboBox<String>();
 	private JComboBox<String> comboBox_1_1 = new JComboBox<String>();
-	private RegistroDeFaltas cargaComboR=new RegistroDeFaltas();
 	private CrudDBAlumno cargaAlumno=new CrudDBAlumno();
 	private JTextField textField_20;
 	private JTextField textField_21;
@@ -81,6 +86,13 @@ public class Menu extends JFrame {
 	private JPanel panel = new JPanel();
 	private JPanel panel_4 = new JPanel();
 	private String typeUser;
+	private JTextField textField_22;
+	private JTextField textField_23;
+	private JTextField textField_24;
+	private static JTable table;
+	private static JScrollPane miBarra1 = new JScrollPane();
+	private JComboBox comboBox_3 = new JComboBox();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -143,23 +155,13 @@ public class Menu extends JFrame {
 				separator.setBounds(365, 44, 140, 2);
 				panel.add(separator);
 				
-				JButton btnNewButton_4 = new JButton("Registrar falta de docente");
-				btnNewButton_4.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						cargaComboR.cargarCombo();
-						registro.setVisible(true);
-					}
-				});
-				btnNewButton_4.setBounds(324, 180, 227, 43);
-				panel.add(btnNewButton_4);
-				
 				JButton btnNewButton_4_1 = new JButton("Consultas");
 				btnNewButton_4_1.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						consulta.setVisible(true);
 					}
 				});
-				btnNewButton_4_1.setBounds(324, 311, 227, 43);
+				btnNewButton_4_1.setBounds(324, 235, 227, 43);
 				panel.add(btnNewButton_4_1);
 				
 				JButton btnNewButton_4_1_1 = new JButton("");
@@ -187,16 +189,22 @@ public class Menu extends JFrame {
 				JButton btnPrivilegios = new JButton("Privilegios");
 				btnPrivilegios.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(getTypeUser().equals("Director") || getTypeUser().equals("Administrativo")) {
-							JOptionPane.showMessageDialog(null,"Su tipo de usuario es: "+getTypeUser()+". Tiene todas las funciones disponibles.","Hey!",JOptionPane.INFORMATION_MESSAGE);
-							tabbedPane.setEnabledAt(1, true);
-							tabbedPane.setEnabledAt(2, true);
-							tabbedPane.setEnabledAt(3, true);
-							tabbedPane.setEnabledAt(4, true);
-							btnPrivilegios.setEnabled(false);
-						}else {
-							JOptionPane.showMessageDialog(null,"Su tipo de usuario es: "+getTypeUser()+". Solo puede registrar y consultar faltas.","Hey!",JOptionPane.INFORMATION_MESSAGE);
-							btnPrivilegios.setEnabled(false);
+						try {
+							if(getTypeUser().equals("Director") || getTypeUser().equals("Administrativo")) {
+								JOptionPane.showMessageDialog(null,"Su tipo de usuario es: "+getTypeUser()+". Tiene todas las funciones disponibles.","Hey!",JOptionPane.INFORMATION_MESSAGE);
+								tabbedPane.setEnabledAt(2, true);
+								tabbedPane.setEnabledAt(3, true);
+								tabbedPane.setEnabledAt(4, true);
+								tabbedPane.setEnabledAt(5, true);
+								btnPrivilegios.setEnabled(false);
+							}else {
+								JOptionPane.showMessageDialog(null,"Su tipo de usuario es: "+getTypeUser()+". Solo puede registrar y consultar faltas.","Hey!",JOptionPane.INFORMATION_MESSAGE);
+								btnPrivilegios.setEnabled(false);
+							}
+						}catch(java.lang.NullPointerException ex) {
+							JOptionPane.showMessageDialog(null,"Ningun usuario ingresado, tiene que ingresar por el login.","Hey!",JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null,"Cerrando ventana.","Hey!",JOptionPane.INFORMATION_MESSAGE);
+							System.exit(0);
 						}
 					}
 				});
@@ -209,11 +217,144 @@ public class Menu extends JFrame {
 				lblNewLabel_2.setBounds(0, 0, 893, 600);
 				panel.add(lblNewLabel_2);
 		
+		JPanel panel_5 = new JPanel();
+		tabbedPane.addTab("Faltas", null, panel_5, null);
+		panel_5.setLayout(null);
+		
+		JLabel lblRegistroDeFalta = new JLabel("Registro de falta");
+		lblRegistroDeFalta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRegistroDeFalta.setFont(new Font("Dialog", Font.BOLD, 18));
+		lblRegistroDeFalta.setBounds(345, 12, 188, 30);
+		panel_5.add(lblRegistroDeFalta);
+		
+		textField_22 = new JTextField();
+		textField_22.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char caracter=e.getKeyChar();
+				if(caracter<'0' || caracter>'9' && caracter!='\b') {
+					e.consume();
+				}
+			}
+		});
+		textField_22.setColumns(10);
+		textField_22.setBounds(164, 73, 199, 30);
+		panel_5.add(textField_22);
+		
+		textField_23 = new JTextField();
+		textField_23.setColumns(10);
+		textField_23.setBounds(164, 128, 199, 30);
+		panel_5.add(textField_23);
+		
+		comboBox_3.setBounds(164, 187, 199, 30);
+		panel_5.add(comboBox_3);
+		
+		textField_24 = new JTextField();
+		textField_24.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char caracter=e.getKeyChar();
+				if(caracter<'0' || caracter>'9' && caracter!='\b') {
+					e.consume();
+				}
+			}
+		});
+		textField_24.setColumns(10);
+		textField_24.setBounds(164, 246, 199, 30);
+		panel_5.add(textField_24);
+		
+		JLabel lblFechasDeAusencias = new JLabel("Fechas de ausencias");
+		lblFechasDeAusencias.setBounds(189, 288, 152, 15);
+		panel_5.add(lblFechasDeAusencias);
+		
+		JLabel lblFechasDeInicio = new JLabel("Fecha de inicio");
+		lblFechasDeInicio.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFechasDeInicio.setFont(new Font("Dialog", Font.BOLD, 10));
+		lblFechasDeInicio.setBounds(104, 315, 110, 15);
+		panel_5.add(lblFechasDeInicio);
+		
+		JLabel lblFechasDeFin = new JLabel("Fecha de fin");
+		lblFechasDeFin.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFechasDeFin.setFont(new Font("Dialog", Font.BOLD, 10));
+		lblFechasDeFin.setBounds(302, 315, 110, 15);
+		panel_5.add(lblFechasDeFin);
+		
+		
+		miBarra1.setBounds(418, 134, 465, 259);
+		panel_5.add(miBarra1);
+		
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setDateFormatString("yyyy-MM-dd");
+		dateChooser.setBounds(114, 351, 110, 19);
+		panel_5.add(dateChooser);
+		
+		JDateChooser dateChooser_1 = new JDateChooser();
+		dateChooser_1.setDateFormatString("yyyy-MM-dd");
+		dateChooser_1.setBounds(302, 351, 110, 19);
+		panel_5.add(dateChooser_1);
+		
+		JButton btnNewButton_1_1_2 = new JButton("");
+		btnNewButton_1_1_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					crudDocente.setCiD(Integer.parseInt(textField_22.getText()));
+					crudDocente.setCiU(Integer.parseInt(textField_24.getText()));
+					String fechaInicial=((JTextField)dateChooser.getDateEditor().getUiComponent()).getText();
+					crudDocente.setFechaInicial(fechaInicial);
+					String fechaFinal=((JTextField)dateChooser_1.getDateEditor().getUiComponent()).getText();
+					crudDocente.setFechaFinal(fechaFinal);
+					crudDocente.setGrupo(comboBox_3.getSelectedItem().toString());
+					crudDocente.setMotivo(textField_23.getText());
+					if(crudDocente.consulta()==true && carga.consultaCiURegistro(crudDocente.getCiU())==true) {
+						if(crudDocente.getFechaFinal().after(crudDocente.getFechaInicial()) || crudDocente.getFechaFinal().equals(crudDocente.getFechaInicial())) {
+							crudDocente.altaAusencia();
+							construirTabla();
+							JOptionPane.showMessageDialog(null,"La ausencia se registro correctamente!","Hey!",JOptionPane.INFORMATION_MESSAGE); 
+						}else {
+							JOptionPane.showMessageDialog(null,"La fecha de inicio no puede ser mayor a la final!","Hey!",JOptionPane.ERROR_MESSAGE);
+						}	
+					}else {
+						JOptionPane.showMessageDialog(null,"El usuario o docente no esta registrado!","Hey!",JOptionPane.ERROR_MESSAGE);
+					}
+				} catch (ParseException e1) {
+					JOptionPane.showMessageDialog(null,"No puedes dejar las fechas vacias!","Hey!",JOptionPane.ERROR_MESSAGE);
+				}catch(java.lang.NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null,"No puedes dejar campos vacios!","Hey!",JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		btnNewButton_1_1_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/submit1.png")));
+		btnNewButton_1_1_2.setContentAreaFilled(false);
+		btnNewButton_1_1_2.setBorderPainted(false);
+		btnNewButton_1_1_2.setBounds(199, 396, 124, 27);
+		panel_5.add(btnNewButton_1_1_2);
+		
+		JLabel lblCedulaDelDocente = new JLabel("Cedula del docente");
+		lblCedulaDelDocente.setBounds(22, 80, 137, 15);
+		panel_5.add(lblCedulaDelDocente);
+		
+		JLabel lblMotivo = new JLabel("Motivo");
+		lblMotivo.setBounds(105, 135, 54, 15);
+		panel_5.add(lblMotivo);
+		
+		JLabel lblCedulaDelDocente_1 = new JLabel("Grupo");
+		lblCedulaDelDocente_1.setBounds(105, 195, 54, 15);
+		panel_5.add(lblCedulaDelDocente_1);
+		
+		JLabel lblCedulaDelDocente_1_1 = new JLabel("Cedula del funcionario");
+		lblCedulaDelDocente_1_1.setBounds(0, 253, 159, 15);
+		panel_5.add(lblCedulaDelDocente_1_1);
+		
+		JLabel lblNewLabel_4 = new JLabel("");
+		lblNewLabel_4.setIcon(new ImageIcon(Menu.class.getResource("/imgs/fondoMenu23.png")));
+		lblNewLabel_4.setBounds(0, 0, 904, 600);
+		panel_5.add(lblNewLabel_4);
+		
 		
 		panel_1.setBackground(Color.WHITE);
 		tabbedPane.addTab("Administrar Usuarios", new ImageIcon(Menu.class.getResource("/imgs/prueba2.png")), panel_1, null);
-		tabbedPane.setEnabledAt(1, false);
-		tabbedPane.setBackgroundAt(1, Color.WHITE);
+		tabbedPane.setEnabledAt(2, false);
+		tabbedPane.setBackgroundAt(2, Color.WHITE);
 		panel_1.setLayout(null);
 		
 		JSeparator separator_1_1 = new JSeparator();
@@ -312,6 +453,9 @@ public class Menu extends JFrame {
 						}else {
 							crud.alta();
 							JOptionPane.showMessageDialog(null,"Usuario registrado correctamente!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+							textField_1.setText("");
+							textField_2.setText("");
+							textField.setText("");
 						}	
 					}
 				}catch(java.lang.NumberFormatException ex) {
@@ -485,6 +629,7 @@ public class Menu extends JFrame {
 					JOptionPane.showMessageDialog(null,"Acabas de eliminar al usuario:"+crud.getCi(),"Hey!",JOptionPane.INFORMATION_MESSAGE);
 					lblCedulaDelUsuario_1_1_1.setText(".....");
 					btnConfirmarBaja.setEnabled(false);
+					textField_3.setText("");
 				}else if(eleccion==1) {
 					JOptionPane.showMessageDialog(null,"Presionaste en no eliminar al usuario:"+carga.getCi(),"Hey!",JOptionPane.INFORMATION_MESSAGE);
 					textField_3.setText("");
@@ -653,7 +798,7 @@ public class Menu extends JFrame {
 		panel_2.setLayout(null);
 		panel_2.setBackground(Color.WHITE);
 		tabbedPane.addTab("Administrar Docentes", new ImageIcon(Menu.class.getResource("/imgs/prueba2.png")), panel_2, null);
-		tabbedPane.setEnabledAt(2, false);
+		tabbedPane.setEnabledAt(3, false);
 		
 		JSeparator separator_1_1_3 = new JSeparator();
 		separator_1_1_3.setBounds(12, 322, 857, 2);
@@ -764,6 +909,8 @@ public class Menu extends JFrame {
 						}else {
 							crudDocente.alta();
 							JOptionPane.showMessageDialog(null,"Docente registrado correctamente!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+							textField_9.setText("");
+							textField_10.setText("");
 						}
 					}
 				}catch(java.lang.NumberFormatException ex) {
@@ -812,6 +959,7 @@ public class Menu extends JFrame {
 					crudDocente.setNombre(textField_13.getText());
 					crudDocente.modificacionNombreTipo();
 					JOptionPane.showMessageDialog(null,"Los datos se modificaron correctamente!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+					textField_12.setText("");
 					btnNewButton_1_1.setEnabled(false);
 					}
 				}catch(java.lang.NumberFormatException ex) {
@@ -894,14 +1042,31 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int eleccion=JOptionPane.showConfirmDialog(null,"¿Esta seguro que desea eliminar el siguiente docente? "+crudDocente.getCiD(),"Confirmacion",JOptionPane.YES_NO_OPTION);
 				if(eleccion==0) {
-					crudDocente.eliminacion();
-					JOptionPane.showMessageDialog(null,"Acabas de eliminar al docente:"+crudDocente.getCiD(),"Hey!",JOptionPane.INFORMATION_MESSAGE);
-					lblCedulaDelUsuario_1_1_1_1.setText(".....");
-					btnConfirmarBaja_1.setEnabled(false);
+					if(crudDocente.consultaRegistros()==true) {
+						int eleccionRegistro=JOptionPane.showConfirmDialog(null,"El docente aparece en registros de faltas. ¿Desea eliminar igualmente? ","Confirmacion",JOptionPane.YES_NO_OPTION);
+						if(eleccionRegistro==0) {
+							crudDocente.eliminacionDeRegistros();
+							crudDocente.eliminacion();
+							JOptionPane.showMessageDialog(null,"Acabas de eliminar al docente:"+crudDocente.getCiD(),"Hey!",JOptionPane.INFORMATION_MESSAGE);
+							lblCedulaDelUsuario_1_1_1_1.setText(".....");
+							btnConfirmarBaja_1.setEnabled(false);
+							textField_14.setText("");
+						}else if(eleccionRegistro==1) {
+							JOptionPane.showMessageDialog(null,"Presionaste en no eliminar el registro de falta docente docente","Hey!",JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null,"No se eliminara al docente.","Hey!",JOptionPane.INFORMATION_MESSAGE);
+						}
+					}else if(crudDocente.consultaRegistros()==false) {
+						crudDocente.eliminacion();
+						JOptionPane.showMessageDialog(null,"Acabas de eliminar al docente:"+crudDocente.getCiD(),"Hey!",JOptionPane.INFORMATION_MESSAGE);
+						lblCedulaDelUsuario_1_1_1_1.setText(".....");
+						btnConfirmarBaja_1.setEnabled(false);
+						textField_14.setText("");
+					}
 				}else if(eleccion==1) {
 					JOptionPane.showMessageDialog(null,"Presionaste en no eliminar al docente:"+crudDocente.getCiD(),"Hey!",JOptionPane.INFORMATION_MESSAGE);
 					textField_3.setText("");
 					crudDocente.setCiD(0);
+					textField_14.setText("");
 					lblCedulaDelUsuario_1_1_1_1.setText(".....");
 					btnConfirmarBaja_1.setEnabled(false);
 				}
@@ -956,7 +1121,7 @@ public class Menu extends JFrame {
 		
 		panel_3.setBackground(new Color(255, 255, 255));
 		tabbedPane.addTab("Administracion Grupos", null, panel_3, null);
-		tabbedPane.setEnabledAt(3, false);
+		tabbedPane.setEnabledAt(4, false);
 		panel_3.setLayout(null);
 		
 		JLabel lblAltaDeGrupo = new JLabel("Alta de grupo");
@@ -1211,7 +1376,7 @@ public class Menu extends JFrame {
 		
 		panel_4.setBackground(new Color(255, 255, 255));
 		tabbedPane.addTab("Administracion alumnos", null, panel_4, null);
-		tabbedPane.setEnabledAt(4, false);
+		tabbedPane.setEnabledAt(5, false);
 		panel_4.setLayout(null);
 		
 		JLabel lblAltaDeAlumno = new JLabel("Alta de Alumno");
@@ -1450,7 +1615,30 @@ public class Menu extends JFrame {
 		this.setLocationRelativeTo(null);
 		cargarCombo();
 		cargarComboGrupo();
+		construirTabla();
 		
+	}
+	
+	public static void construirTabla() {
+		String titulos[]= {"Cedula Docente","Cedula Usuario","Fecha Inicial","Fecha Final","Grupo","Motivo"};
+		String informacion[][]=obtenerMatriz();
+		table=new JTable(informacion,titulos);
+		table.setEnabled(false);
+		miBarra1.setViewportView(table);
+	}
+	
+	private static String[][] obtenerMatriz(){
+		ArrayList<Registros>miLista=Registros.llenarDatos();
+		String matrizInfo[][]=new String[miLista.size()][6];
+		for(int i =0;i<miLista.size();i++) {
+			matrizInfo[i][0]=miLista.get(i).getCedulaDocente()+"";
+			matrizInfo[i][1]=miLista.get(i).getCedulaUsuario()+"";
+			matrizInfo[i][2]=miLista.get(i).getFechaInicial()+"";
+			matrizInfo[i][3]=miLista.get(i).getFechaFinal()+"";
+			matrizInfo[i][4]=miLista.get(i).getNombreGrupo()+"";
+			matrizInfo[i][5]=miLista.get(i).getMotivo()+"";
+		}
+		return matrizInfo;
 	}
 	
 	
@@ -1466,6 +1654,8 @@ public class Menu extends JFrame {
 		for(String s : combosConexion.llenarComboGrupos()) {
 			comboBox_1.addItem(s);
 			comboBox_1_1.addItem(s);
+			comboBox_3.addItem(s);
+			
 		}
 	}
 }

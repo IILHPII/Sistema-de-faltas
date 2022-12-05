@@ -31,6 +31,7 @@ public class Conexion extends Usuario implements CrudRepository{
 				}else {
 					confirmacionConsulta=false;
 				}
+				conexion.close();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}			
@@ -48,6 +49,7 @@ public class Conexion extends Usuario implements CrudRepository{
 				}else {
 					confirmacionConsulta=false;
 				}
+				conexion.close();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -66,6 +68,7 @@ public class Conexion extends Usuario implements CrudRepository{
 				}else {
 					confirmacionConsulta=false;
 				}
+				conexion.close();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
