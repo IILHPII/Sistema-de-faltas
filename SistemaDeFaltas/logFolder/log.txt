@@ -1,0 +1,16 @@
+[05/12/2022 13:16:15]hola
+[05/12/2022 13:16:15]hola
+[05/12/2022 13:16:15]hola
+[05/12/2022 13:16:15]hola
+[05/12/2022 13:16:15]hola
+[05/12/2022 13:16:15]hola
+[05/12/2022 13:17:39]El usuario:55822124 registra la falta del docente: 55822124 con dia de inicio: 2022-12-04 y fecha final: 2022-12-06 ,afectando al grupo: 2144WE. Falta por: Enfermedad
+[05/12/2022 13:18:12]El usuario:55822124 registra la falta del docente: 55822124 con dia de inicio: 2022-12-04 y fecha final: 2022-12-06 ,afectando al grupo: 2144WE. Falta por: Enfermedad
+[05/12/2022 13:39:21]El usuario: Administrativo dio de alta al usuario: 123456
+[05/12/2022 13:49:16]El usuario: 55822124 registra la falta del docente: 55822124 con dia de inicio: 2022-12-04 y fecha final: 2022-12-05 ,afectando al grupo: 55213124. Falta por: Leandro
+[05/12/2022 14:01:25]El usuario: 55822124dio de alta al grupo: 2 IJ
+[05/12/2022 14:02:12]El usuario: 55822124dio de alta al docente: 12345
+[05/12/2022 14:02:23]El usuario: 55822124 registra la falta del docente: 12345 con dia de inicio: 2022-12-04 y fecha final: 2022-12-07 ,afectando al grupo: 2 IJ. Falta por: Enfermedad
+[05/12/2022 14:03:15]El usuario: 55822124 dio de alta al usuario: 123456
+[05/12/2022 14:03:57]El usuario: 123456 registra la falta del docente: 12345 con dia de inicio: 2022-12-17 y fecha final: 2022-12-18 ,afectando al grupo: 2 IJ. Falta por: Enfermedad
+[05/12/2022 14:04:22]El usuario: 55822124 dio de baja al usuario: 123456

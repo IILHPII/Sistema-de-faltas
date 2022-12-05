@@ -144,6 +144,7 @@ public class Login extends JFrame {
 				if(conexion.consulta()==true) {
 						usuario.setCi(Integer.parseInt(textField.getText()));
 						menu.setTypeUser(usuario.getTypeFromDB());
+						menu.setCiUser(usuario.getCi());
 						menu.setVisible(true);
 						dispose();
 				}else {
