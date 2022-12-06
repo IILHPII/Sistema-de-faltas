@@ -14,3 +14,20 @@
 [05/12/2022 14:03:15]El usuario: 55822124 dio de alta al usuario: 123456
 [05/12/2022 14:03:57]El usuario: 123456 registra la falta del docente: 12345 con dia de inicio: 2022-12-17 y fecha final: 2022-12-18 ,afectando al grupo: 2 IJ. Falta por: Enfermedad
 [05/12/2022 14:04:22]El usuario: 55822124 dio de baja al usuario: 123456
+[06/12/2022 00:15:28]El usuario: 55822124dio de alta al docente: 123456
+[06/12/2022 00:15:34]El usuario: 55822124dio de alta al docente: 1234
+[06/12/2022 00:15:58]El usuario: 55822124dio de alta al grupo: 2 IJ
+[06/12/2022 00:26:25]El usuario: 55822124dio de alta al grupo: 3 IZ
+[06/12/2022 00:29:56]El usuario: 55822124dio de alta al grupo: 4 IJ
+[06/12/2022 00:31:22]El usuario: 55822124dio de alta al grupo: 3 IF
+[06/12/2022 00:33:08]El usuario: 55822124dio de alta al grupo: 5 IF
+[06/12/2022 00:34:38]El usuario: 55822124dio de alta al grupo: 3 IJ
+[06/12/2022 00:36:24]El usuario: 55822124dio de alta al grupo: 1 IA
+[06/12/2022 00:51:29]El usuario: 55822124 registra la falta del docente: 1234 con dia de inicio: 2022-12-03 y fecha final: 2022-12-05 ,afectando al grupo: 3 IJ. Falta por: Enfermedad
+[06/12/2022 00:53:42]El usuario: 55822124dio de baja al docente: 1234
+[06/12/2022 00:56:38]El usuario: 55822124 dio de alta al docente: 1234
+[06/12/2022 00:56:47]El usuario: 55822124 registra la falta del docente: 1234 con dia de inicio: 2022-12-03 y fecha final: 2022-12-17 ,afectando al grupo: 1 IA. Falta por: Enfermedad
+[06/12/2022 00:56:58]El usuario: 55822124 dio de baja al docente: 1234
+[06/12/2022 01:04:37]El usuario: 55822124 registra la falta del docente: 123456 con dia de inicio: 2022-12-02 y fecha final: 2022-12-07 ,afectando al grupo: 3 IZ. Falta por: Casamiento
+[06/12/2022 01:50:44]El usuario: 55822124dio de alta al alumno: 1234
+[06/12/2022 01:51:34]El usuario: 55822124 dio de alta al docente: 1234

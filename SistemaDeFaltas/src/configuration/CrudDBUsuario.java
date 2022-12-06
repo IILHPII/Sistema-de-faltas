@@ -116,6 +116,23 @@ public class CrudDBUsuario extends Usuario implements CrudRepository{
 		}
 		return nombre;	
 	}
+	
+	public boolean consultaRegistrosUsuario() {
+		try {
+			Connection conexion=DriverManager.getConnection(url,userDB,passwordDB);
+			Statement command=conexion.createStatement();
+			ResultSet result=command.executeQuery("SELECT ciD, ciU, fechaInicial, fechaFinal, nombreGrupo, motivo FROM proyectoProgramacionDocentes.registra where ciU='"+getCi()+"';");
+			if(result.next()==true) {
+				confirmacion=true;
+			}else {
+				confirmacion=false;
+			}
+			conexion.close();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}			
+		return confirmacion;
+	}
 
 
 

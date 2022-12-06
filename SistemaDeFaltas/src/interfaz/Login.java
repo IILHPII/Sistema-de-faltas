@@ -75,18 +75,6 @@ public class Login extends JFrame {
 		contentPane.setLayout(null);
 		this.setLocationRelativeTo(null);
 		
-		JButton btnNewButton_1 = new JButton("Soy alumno");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				consultasAlumnos.setVisible(true);
-				dispose();
-			}
-		});
-		btnNewButton_1.setBackground(new Color(226, 237, 255));
-		btnNewButton_1.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 12));
-		btnNewButton_1.setBounds(643, 568, 117, 17);
-		contentPane.add(btnNewButton_1);
-		
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/imgs/fondoDerecha.jpg")));
@@ -155,11 +143,11 @@ public class Login extends JFrame {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				btnNewButton.setIcon(new ImageIcon(Login.class.getResource("/imgs/botonLogin1.png")));
+				btnNewButton.setIcon(new ImageIcon(Login.class.getResource("/imgs/botonLogin2.png")));
 			}
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				btnNewButton.setIcon(new ImageIcon(Login.class.getResource("/imgs/botonLogin2.png")));
+				btnNewButton.setIcon(new ImageIcon(Login.class.getResource("/imgs/botonLogin1.png")));
 			}
 		});
 		
@@ -186,12 +174,35 @@ public class Login extends JFrame {
 		contentPane.add(btnNewButton_4_1_1);
 		btnNewButton.setContentAreaFilled(false);
 		btnNewButton.setFocusPainted(false);
-		btnNewButton.setIcon(new ImageIcon(Login.class.getResource("/imgs/botonLogin2.png")));
-		btnNewButton.setBounds(187, 379, 141, 133);
+		btnNewButton.setIcon(new ImageIcon(Login.class.getResource("/imgs/botonLogin1.png")));
+		btnNewButton.setBounds(230, 366, 76, 65);
 		btnNewButton.setBorderPainted(false);
 		btnNewButton.setBorder(null);
 		btnNewButton.setOpaque(false);
 		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_4_1_1_1 = new JButton("");
+		btnNewButton_4_1_1_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnNewButton_4_1_1_1.setIcon(new ImageIcon(Login.class.getResource("/imgs/estudiante22.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnNewButton_4_1_1_1.setIcon(new ImageIcon(Login.class.getResource("/imgs/estudiante11.png")));
+			}
+		});
+		btnNewButton_4_1_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				consultasAlumnos.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_4_1_1_1.setIcon(new ImageIcon(Login.class.getResource("/imgs/estudiante11.png")));
+		btnNewButton_4_1_1_1.setContentAreaFilled(false);
+		btnNewButton_4_1_1_1.setBorderPainted(false);
+		btnNewButton_4_1_1_1.setBounds(433, 526, 63, 59);
+		contentPane.add(btnNewButton_4_1_1_1);
 		
 		
 		

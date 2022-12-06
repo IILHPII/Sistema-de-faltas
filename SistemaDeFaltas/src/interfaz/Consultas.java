@@ -131,13 +131,26 @@ public class Consultas extends JFrame {
 		chckbxFiltrarPorCedula_2.setBounds(137, 454, 262, 23);
 		contentPane.add(chckbxFiltrarPorCedula_2);
 		
-		JButton btnNewButton = new JButton("Filtrar");
+		JButton btnNewButton = new JButton("");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnNewButton.setIcon(new ImageIcon(Consultas.class.getResource("/imgs/filtrar2.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnNewButton.setIcon(new ImageIcon(Consultas.class.getResource("/imgs/filtrar1.png")));
+			}
+		});
+		btnNewButton.setIcon(new ImageIcon(Consultas.class.getResource("/imgs/filtrar1.png")));
+		btnNewButton.setContentAreaFilled(false);
+		btnNewButton.setBorderPainted(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if(chckbxFiltrarPorCedula.isSelected()) {
 						docenteCarga.setCiD(Integer.parseInt(textField.getText()));
-						if(docenteCarga.consulta()==true) {
+						if(docenteCarga.consulta()==true || docenteCarga.consultaRegistros()==true) {
 							registro.setCedulaDocente(textField.getText());
 							construirTablaDocente();
 						}else if(docenteCarga.consulta()==false) {
@@ -146,7 +159,7 @@ public class Consultas extends JFrame {
 				
 					}else if(chckbxFiltrarPorCedula_2.isSelected()) {
 						usuarioCarga.setCi(Integer.parseInt(textField.getText()));
-						if(usuarioCarga.consulta()==true) {
+						if(usuarioCarga.consulta()==true || usuarioCarga. consultaRegistrosUsuario()==true) {
 							registro.setCedulaUsuario(textField.getText());
 							construirTablaUsuario();
 						}else if(usuarioCarga.consulta()==false) {
@@ -160,7 +173,7 @@ public class Consultas extends JFrame {
 				}
 			}
 		});
-		btnNewButton.setBounds(717, 424, 117, 25);
+		btnNewButton.setBounds(691, 422, 46, 30);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_4_1_1 = new JButton("");
@@ -186,13 +199,26 @@ public class Consultas extends JFrame {
 		btnNewButton_4_1_1.setBounds(824, 516, 63, 59);
 		contentPane.add(btnNewButton_4_1_1);
 		
-		JButton btnNewButton_1 = new JButton("Refrescar");
+		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnNewButton_1.setIcon(new ImageIcon(Consultas.class.getResource("/imgs/refrescar2.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnNewButton_1.setIcon(new ImageIcon(Consultas.class.getResource("/imgs/refrescar1.png")));
+			}
+		});
+		btnNewButton_1.setIcon(new ImageIcon(Consultas.class.getResource("/imgs/refrescar1.png")));
+		btnNewButton_1.setContentAreaFilled(false);
+		btnNewButton_1.setBorderPainted(false);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				construirTabla();
 			}
 		});
-		btnNewButton_1.setBounds(620, 361, 117, 15);
+		btnNewButton_1.setBounds(690, 362, 46, 38);
 		contentPane.add(btnNewButton_1);
 		
 		JLabel lblNewLabel = new JLabel("");

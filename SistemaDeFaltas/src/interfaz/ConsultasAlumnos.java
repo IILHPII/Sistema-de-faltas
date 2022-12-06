@@ -101,34 +101,14 @@ public class ConsultasAlumnos extends JFrame {
 				}
 			}
 		});
-		textField.setBounds(360, 422, 162, 30);
+		textField.setBounds(360, 422, 162, 38);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblCedula = new JLabel("Cedula del alumno");
 		lblCedula.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCedula.setBounds(197, 429, 131, 15);
+		lblCedula.setBounds(197, 433, 131, 15);
 		contentPane.add(lblCedula);
-		
-		JButton btnNewButton = new JButton("Filtrar");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					alumno.setCedula(Integer.parseInt(textField.getText()));
-					if(alumno.consulta()==false) {
-						JOptionPane.showMessageDialog(null,"El Alumno no esta registrado!","Hey!",JOptionPane.INFORMATION_MESSAGE);
-					}else if(alumno.consulta()==true) {
-						String grupo=alumno.getGrupoFromDB();
-						registro.setNombreGrupo(grupo);
-						construirTablaGrupo();
-					}	
-				}catch(java.lang.NumberFormatException ex) {
-					JOptionPane.showMessageDialog(null,"Valores ingresados nulos o incorrectos","Hey!",JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-		btnNewButton.setBounds(549, 424, 117, 25);
-		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_4_1_1 = new JButton("");
 		btnNewButton_4_1_1.addActionListener(new ActionListener() {
@@ -152,6 +132,39 @@ public class ConsultasAlumnos extends JFrame {
 		btnNewButton_4_1_1.setBorderPainted(false);
 		btnNewButton_4_1_1.setBounds(824, 516, 63, 59);
 		contentPane.add(btnNewButton_4_1_1);
+		
+		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnNewButton_1.setIcon(new ImageIcon(ConsultasAlumnos.class.getResource("/imgs/refrescar2.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnNewButton_1.setIcon(new ImageIcon(ConsultasAlumnos.class.getResource("/imgs/refrescar1.png")));
+			}
+		});
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					alumno.setCedula(Integer.parseInt(textField.getText()));
+					if(alumno.consulta()==false) {
+						JOptionPane.showMessageDialog(null,"El Alumno no esta registrado!","Hey!",JOptionPane.INFORMATION_MESSAGE);
+					}else if(alumno.consulta()==true) {
+						String grupo=alumno.getGrupoFromDB();
+						registro.setNombreGrupo(grupo);
+						construirTablaGrupo();
+					}	
+				}catch(java.lang.NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null,"Valores ingresados nulos o incorrectos","Hey!",JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		btnNewButton_1.setIcon(new ImageIcon(ConsultasAlumnos.class.getResource("/imgs/refrescar1.png")));
+		btnNewButton_1.setContentAreaFilled(false);
+		btnNewButton_1.setBorderPainted(false);
+		btnNewButton_1.setBounds(547, 422, 46, 38);
+		contentPane.add(btnNewButton_1);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(ConsultasAlumnos.class.getResource("/imgs/fondoMenu23.png")));

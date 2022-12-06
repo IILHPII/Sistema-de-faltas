@@ -89,7 +89,7 @@ public class Menu extends JFrame {
 	private JTextField textField_23;
 	private static JTable table;
 	private static JScrollPane miBarra1 = new JScrollPane();
-	private JComboBox<String> comboBox_3 = new JComboBox<String>();
+	private JComboBox<String> comboBox_3=new JComboBox<String>();
 	private int ciUser;
 
 	/**
@@ -192,9 +192,9 @@ public class Menu extends JFrame {
 		btnNewButton_4_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/exit.png")));
 		btnNewButton_4_1_1.setBounds(818, 497, 63, 59);
 		panel.add(btnNewButton_4_1_1);
-
-		JButton btnPrivilegios = new JButton("Privilegios");
-		btnPrivilegios.addActionListener(new ActionListener() {
+		
+		JButton btnNewButton_4 = new JButton("");
+		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if (getTypeUser().equals("Director") || getTypeUser().equals("Administrativo")) {
@@ -205,13 +205,13 @@ public class Menu extends JFrame {
 						tabbedPane.setEnabledAt(3, true);
 						tabbedPane.setEnabledAt(4, true);
 						tabbedPane.setEnabledAt(5, true);
-						btnPrivilegios.setEnabled(false);
+						btnNewButton_4.setEnabled(false);
 					} else {
 						JOptionPane.showMessageDialog(null,
 								"Su tipo de usuario es: " + getTypeUser()
 										+ ". Solo puede registrar y consultar faltas.",
 								"Hey!", JOptionPane.INFORMATION_MESSAGE);
-						btnPrivilegios.setEnabled(false);
+						btnNewButton_4.setEnabled(false);
 					}
 				} catch (java.lang.NullPointerException ex) {
 					JOptionPane.showMessageDialog(null, "Ningun usuario ingresado, tiene que ingresar por el login.",
@@ -221,8 +221,29 @@ public class Menu extends JFrame {
 				}
 			}
 		});
-		btnPrivilegios.setBounds(22, 531, 117, 25);
-		panel.add(btnPrivilegios);
+		btnNewButton_4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnNewButton_4.setIcon(new ImageIcon(Menu.class.getResource("/imgs/privilegios2.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnNewButton_4.setIcon(new ImageIcon(Menu.class.getResource("/imgs/privilegios1.png")));
+			}
+		});
+		
+		JLabel lblPrivilegios = new JLabel("Privilegios");
+		lblPrivilegios.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPrivilegios.setBounds(22, 541, 81, 15);
+		panel.add(lblPrivilegios);
+		btnNewButton_4.setIcon(new ImageIcon(Menu.class.getResource("/imgs/privilegios1.png")));
+		btnNewButton_4.setOpaque(false);
+		btnNewButton_4.setFocusPainted(false);
+		btnNewButton_4.setContentAreaFilled(false);
+		btnNewButton_4.setBorderPainted(false);
+		btnNewButton_4.setBorder(null);
+		btnNewButton_4.setBounds(22, 476, 76, 65);
+		panel.add(btnNewButton_4);
 
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/fondoMenu23.png")));
@@ -292,6 +313,16 @@ public class Menu extends JFrame {
 		panel_5.add(dateChooser_1);
 
 		JButton btnNewButton_1_1_2 = new JButton("");
+		btnNewButton_1_1_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnNewButton_1_1_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/22332.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnNewButton_1_1_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/submit1.png")));
+			}
+		});
 		btnNewButton_1_1_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -426,7 +457,6 @@ public class Menu extends JFrame {
 		JLabel lblUsuario = new JLabel("Usuario");
 		lblUsuario.setBounds(12, 197, 148, 15);
 		panel_1.add(lblUsuario);
-
 		comboBox.setBounds(133, 190, 171, 29);
 		panel_1.add(comboBox);
 
@@ -653,84 +683,95 @@ public class Menu extends JFrame {
 		lblCedulaDelUsuario_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCedulaDelUsuario_1_1_1.setBounds(479, 230, 148, 15);
 		panel_1.add(lblCedulaDelUsuario_1_1_1);
-
-		JButton btnConfirmarBaja = new JButton("Confirmar baja");
-		btnConfirmarBaja.setEnabled(false);
-		btnConfirmarBaja.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int eleccion = JOptionPane.showConfirmDialog(null,
-						"¿Esta seguro que desea eliminar el siguiente usuario? " + crud.getCi(), "Confirmacion",
-						JOptionPane.YES_NO_OPTION);
-				if (eleccion == 0) {
-					Log myLog;
-					try {
-						myLog = new Log("./logFolder/log.txt");
-						myLog.addLine("El usuario: " + getCiUser() + " dio de baja al usuario: " + crud.getCi());
-						crud.eliminacion();
-						JOptionPane.showMessageDialog(null, "Acabas de eliminar al usuario:" + crud.getCi(), "Hey!",
-								JOptionPane.INFORMATION_MESSAGE);
-						lblCedulaDelUsuario_1_1_1.setText(".....");
-						btnConfirmarBaja.setEnabled(false);
-						textField_3.setText("");
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+				
+				JButton btnNewButton_4_1_1_1 = new JButton("");
+				btnNewButton_4_1_1_1.setEnabled(false);
+				btnNewButton_4_1_1_1.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mousePressed(MouseEvent e) {
+						btnNewButton_4_1_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/eliminar2.png")));
 					}
-				} else if (eleccion == 1) {
-					JOptionPane.showMessageDialog(null, "Presionaste en no eliminar al usuario:" + carga.getCi(),
-							"Hey!", JOptionPane.INFORMATION_MESSAGE);
-					textField_3.setText("");
-					crud.setCi(0);
-					lblCedulaDelUsuario_1_1_1.setText(".....");
-					btnConfirmarBaja.setEnabled(false);
-				}
-			}
-		});
-		btnConfirmarBaja.setForeground(Color.WHITE);
-		btnConfirmarBaja.setBackground(new Color(153, 193, 241));
-		btnConfirmarBaja.setBounds(687, 225, 182, 25);
-		panel_1.add(btnConfirmarBaja);
-
-		JButton btnNewButton_2 = new JButton("");
-		btnNewButton_2.setBorderPainted(false);
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					carga.setCi(Integer.parseInt(textField_3.getText()));
-					boolean existe = carga.consultaCiU();
-					if (existe == true) {
-						JOptionPane.showMessageDialog(null, "El usuario esta registrado! Puede proceder a eliminar",
-								"Hey!", JOptionPane.INFORMATION_MESSAGE);
-						crud.setCi(Integer.parseInt(textField_3.getText()));
-						lblCedulaDelUsuario_1_1_1.setText(crud.getNombreFromDB());
-						btnConfirmarBaja.setEnabled(true);
-					} else {
-						JOptionPane.showMessageDialog(null, "El usuario no esta registrado!", "Hey!",
-								JOptionPane.INFORMATION_MESSAGE);
-						textField_3.setText("");
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						btnNewButton_4_1_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/eliminar1.png")));
 					}
-				} catch (java.lang.NumberFormatException ex) {
-					JOptionPane.showMessageDialog(null, "Valores ingresados nulos o incorrectos", "Hey!",
-							JOptionPane.ERROR_MESSAGE);
-				}
+				});
+				btnNewButton_4_1_1_1.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int eleccion = JOptionPane.showConfirmDialog(null,
+								"¿Esta seguro que desea eliminar el siguiente usuario? " + crud.getCi(), "Confirmacion",
+								JOptionPane.YES_NO_OPTION);
+						if (eleccion == 0) {
+							Log myLog;
+							try {
+								myLog = new Log("./logFolder/log.txt");
+								myLog.addLine("El usuario: " + getCiUser() + " dio de baja al usuario: " + crud.getCi());
+								crud.eliminacion();
+								JOptionPane.showMessageDialog(null, "Acabas de eliminar al usuario:" + crud.getCi(), "Hey!",
+										JOptionPane.INFORMATION_MESSAGE);
+								lblCedulaDelUsuario_1_1_1.setText(".....");
+								btnNewButton_4_1_1_1.setEnabled(false);
+								textField_3.setText("");
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						} else if (eleccion == 1) {
+							JOptionPane.showMessageDialog(null, "Presionaste en no eliminar al usuario:" + carga.getCi(),
+									"Hey!", JOptionPane.INFORMATION_MESSAGE);
+							textField_3.setText("");
+							crud.setCi(0);
+							lblCedulaDelUsuario_1_1_1.setText(".....");
+							btnNewButton_4_1_1_1.setEnabled(false);
+						}
+					}
+				});
+				btnNewButton_4_1_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/eliminar1.png")));
+				btnNewButton_4_1_1_1.setContentAreaFilled(false);
+				btnNewButton_4_1_1_1.setBorderPainted(false);
+				btnNewButton_4_1_1_1.setBounds(769, 197, 63, 59);
+				panel_1.add(btnNewButton_4_1_1_1);
+		
+				JButton btnNewButton_2 = new JButton("");
+				btnNewButton_2.setBorderPainted(false);
+				btnNewButton_2.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						try {
+							carga.setCi(Integer.parseInt(textField_3.getText()));
+							boolean existe = carga.consultaCiU();
+							if (existe == true) {
+								JOptionPane.showMessageDialog(null, "El usuario esta registrado! Puede proceder a eliminar",
+										"Hey!", JOptionPane.INFORMATION_MESSAGE);
+								crud.setCi(Integer.parseInt(textField_3.getText()));
+								lblCedulaDelUsuario_1_1_1.setText(crud.getNombreFromDB());
+								btnNewButton_4_1_1_1.setEnabled(true);
+							} else {
+								JOptionPane.showMessageDialog(null, "El usuario no esta registrado!", "Hey!",
+										JOptionPane.INFORMATION_MESSAGE);
+								textField_3.setText("");
+							}
+						} catch (java.lang.NumberFormatException ex) {
+							JOptionPane.showMessageDialog(null, "Valores ingresados nulos o incorrectos", "Hey!",
+									JOptionPane.ERROR_MESSAGE);
+						}
 
-			}
-		});
-		btnNewButton_2.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				btnNewButton_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar2.png")));
-			}
+					}
+				});
+				btnNewButton_2.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mousePressed(MouseEvent e) {
+						btnNewButton_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar2.png")));
+					}
 
-			@Override
-			public void mouseReleased(MouseEvent e) {
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						btnNewButton_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
+					}
+				});
 				btnNewButton_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
-			}
-		});
-		btnNewButton_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
-		btnNewButton_2.setContentAreaFilled(false);
-		btnNewButton_2.setBounds(744, 74, 41, 28);
-		panel_1.add(btnNewButton_2);
+				btnNewButton_2.setContentAreaFilled(false);
+				btnNewButton_2.setBounds(744, 74, 41, 28);
+				panel_1.add(btnNewButton_2);
 
 		JLabel lblCedulaDelUsuario_1_1_2 = new JLabel("Cambio de contraseña");
 		lblCedulaDelUsuario_1_1_2.setBounds(600, 322, 182, 15);
@@ -982,7 +1023,7 @@ public class Menu extends JFrame {
 							Log myLog;
 							try {
 								myLog = new Log("./logFolder/log.txt");
-								myLog.addLine("El usuario: " + getCiUser() + "dio de alta al docente: "
+								myLog.addLine("El usuario: " + getCiUser() + " dio de alta al docente: "
 										+ crudDocente.getCiD());
 								crudDocente.alta();
 								JOptionPane.showMessageDialog(null, "Docente registrado correctamente!", "Hey!",
@@ -1045,7 +1086,7 @@ public class Menu extends JFrame {
 						try {
 							myLog = new Log("./logFolder/log.txt");
 							myLog.addLine(
-									"El usuario: " + getCiUser() + "dio de baja al docente: " + crudDocente.getCiD());
+									"El usuario: " + getCiUser() + " modifico al docente: " + crudDocente.getCiD());
 							crudDocente.setNombre(textField_13.getText());
 							crudDocente.modificacionNombreTipo();
 							JOptionPane.showMessageDialog(null, "Los datos se modificaron correctamente!", "Hey!",
@@ -1136,24 +1177,31 @@ public class Menu extends JFrame {
 		lblCedulaDelUsuario_1_1_1_1.setBounds(479, 230, 148, 15);
 		panel_2.add(lblCedulaDelUsuario_1_1_1_1);
 
-		JButton btnConfirmarBaja_1 = new JButton("Confirmar baja");
+		JButton btnConfirmarBaja_1 = new JButton("");
+		btnConfirmarBaja_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnConfirmarBaja_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/eliminar2.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnConfirmarBaja_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/eliminar1.png")));
+			}
+		});
+		btnConfirmarBaja_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/eliminar1.png")));
+		btnConfirmarBaja_1.setBorderPainted(false);
+		btnConfirmarBaja_1.setContentAreaFilled(false);
 		btnConfirmarBaja_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int eleccion = JOptionPane.showConfirmDialog(null,
 						"¿Esta seguro que desea eliminar el siguiente docente? " + crudDocente.getCiD(), "Confirmacion",
 						JOptionPane.YES_NO_OPTION);
 				if (eleccion == 0) {
-					if (crudDocente.consultaRegistros() == true) {
-						int eleccionRegistro = JOptionPane.showConfirmDialog(null,
-								"El docente aparece en registros de faltas. ¿Desea eliminar igualmente? ",
-								"Confirmacion", JOptionPane.YES_NO_OPTION);
-						if (eleccionRegistro == 0) {
 							Log myLog;
 							try {
 								myLog = new Log("./logFolder/log.txt");
-								myLog.addLine("El usuario: " + getCiUser() + "dio de baja al docente: "
+								myLog.addLine("El usuario: " + getCiUser() + " dio de baja al docente: "
 										+ crudDocente.getCiD());
-								crudDocente.eliminacionDeRegistros();
 								crudDocente.eliminacion();
 								JOptionPane.showMessageDialog(null,
 										"Acabas de eliminar al docente:" + crudDocente.getCiD(), "Hey!",
@@ -1163,22 +1211,7 @@ public class Menu extends JFrame {
 								textField_14.setText("");
 							} catch (IOException e1) {
 								e1.printStackTrace();
-							}
-						} else if (eleccionRegistro == 1) {
-							JOptionPane.showMessageDialog(null,
-									"Presionaste en no eliminar el registro de falta docente docente", "Hey!",
-									JOptionPane.INFORMATION_MESSAGE);
-							JOptionPane.showMessageDialog(null, "No se eliminara al docente.", "Hey!",
-									JOptionPane.INFORMATION_MESSAGE);
-						}
-					} else if (crudDocente.consultaRegistros() == false) {
-						crudDocente.eliminacion();
-						JOptionPane.showMessageDialog(null, "Acabas de eliminar al docente:" + crudDocente.getCiD(),
-								"Hey!", JOptionPane.INFORMATION_MESSAGE);
-						lblCedulaDelUsuario_1_1_1_1.setText(".....");
-						btnConfirmarBaja_1.setEnabled(false);
-						textField_14.setText("");
-					}
+							}	
 				} else if (eleccion == 1) {
 					JOptionPane.showMessageDialog(null, "Presionaste en no eliminar al docente:" + crudDocente.getCiD(),
 							"Hey!", JOptionPane.INFORMATION_MESSAGE);
@@ -1193,7 +1226,7 @@ public class Menu extends JFrame {
 		btnConfirmarBaja_1.setForeground(Color.WHITE);
 		btnConfirmarBaja_1.setEnabled(false);
 		btnConfirmarBaja_1.setBackground(new Color(153, 193, 241));
-		btnConfirmarBaja_1.setBounds(687, 225, 182, 25);
+		btnConfirmarBaja_1.setBounds(769, 197, 63, 59);
 		panel_2.add(btnConfirmarBaja_1);
 
 		JButton btnNewButton_2_2 = new JButton("");
@@ -1247,12 +1280,12 @@ public class Menu extends JFrame {
 
 		JLabel lblAltaDeGrupo = new JLabel("Alta de grupo");
 		lblAltaDeGrupo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAltaDeGrupo.setBounds(175, 12, 112, 15);
+		lblAltaDeGrupo.setBounds(158, 12, 148, 15);
 		panel_3.add(lblAltaDeGrupo);
 
 		textField_11 = new JTextField();
 		textField_11.setColumns(10);
-		textField_11.setBounds(154, 71, 171, 29);
+		textField_11.setBounds(133, 80, 171, 29);
 		panel_3.add(textField_11);
 
 		textField_15 = new JTextField();
@@ -1266,15 +1299,15 @@ public class Menu extends JFrame {
 			}
 		});
 		textField_15.setColumns(10);
-		textField_15.setBounds(154, 149, 171, 29);
+		textField_15.setBounds(133, 155, 171, 29);
 		panel_3.add(textField_15);
 
 		JLabel lblCedula_2_1 = new JLabel("Nombre");
-		lblCedula_2_1.setBounds(65, 78, 87, 15);
+		lblCedula_2_1.setBounds(12, 87, 148, 15);
 		panel_3.add(lblCedula_2_1);
 
 		JLabel lblCedula_2_1_1 = new JLabel("Año");
-		lblCedula_2_1_1.setBounds(65, 156, 87, 15);
+		lblCedula_2_1_1.setBounds(12, 162, 148, 15);
 		panel_3.add(lblCedula_2_1_1);
 
 		JSeparator separator_1_1_2_2_1 = new JSeparator();
@@ -1283,7 +1316,7 @@ public class Menu extends JFrame {
 
 		JSeparator separator_1_1_1_2_1 = new JSeparator();
 		separator_1_1_1_2_1.setOrientation(SwingConstants.VERTICAL);
-		separator_1_1_1_2_1.setBounds(441, 12, 2, 298);
+		separator_1_1_1_2_1.setBounds(459, 12, 2, 298);
 		panel_3.add(separator_1_1_1_2_1);
 
 		JButton btnCargar_1_1 = new JButton("");
@@ -1335,30 +1368,44 @@ public class Menu extends JFrame {
 		btnCargar_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/confirmo222.png")));
 		btnCargar_1_1.setContentAreaFilled(false);
 		btnCargar_1_1.setBorderPainted(false);
-		btnCargar_1_1.setBounds(196, 210, 91, 94);
+		btnCargar_1_1.setBounds(178, 216, 91, 94);
 		panel_3.add(btnCargar_1_1);
 
 		textField_16 = new JTextField();
 		textField_16.setColumns(10);
-		textField_16.setBounds(602, 39, 171, 29);
+		textField_16.setBounds(611, 32, 171, 29);
 		panel_3.add(textField_16);
 
 		JLabel lblBajaDeUsuario_1_1 = new JLabel("Baja de Grupo");
 		lblBajaDeUsuario_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBajaDeUsuario_1_1.setBounds(592, 12, 148, 15);
+		lblBajaDeUsuario_1_1.setBounds(569, 12, 148, 15);
 		panel_3.add(lblBajaDeUsuario_1_1);
 
 		JLabel lblCedulaDelUsuario_1_1_1_1_1 = new JLabel(".....");
 		lblCedulaDelUsuario_1_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCedulaDelUsuario_1_1_1_1_1.setBounds(448, 210, 148, 15);
+		lblCedulaDelUsuario_1_1_1_1_1.setBounds(479, 230, 148, 15);
 		panel_3.add(lblCedulaDelUsuario_1_1_1_1_1);
 
 		JLabel lblNombreDelGrupo = new JLabel("Nombre del grupo");
 		lblNombreDelGrupo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNombreDelGrupo.setBounds(453, 46, 143, 15);
+		lblNombreDelGrupo.setBounds(468, 39, 148, 15);
 		panel_3.add(lblNombreDelGrupo);
 
-		JButton btnConfirmarBaja_1_1 = new JButton("Confirmar baja");
+		JButton btnConfirmarBaja_1_1 = new JButton("");
+		btnConfirmarBaja_1_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnConfirmarBaja_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/eliminar2.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnConfirmarBaja_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/eliminar1.png")));
+			}
+		});
+		
+		btnConfirmarBaja_1_1.setContentAreaFilled(false);
+		btnConfirmarBaja_1_1.setBorderPainted(false);
+		btnConfirmarBaja_1_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/eliminar1.png")));
 		btnConfirmarBaja_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int eleccion = JOptionPane.showConfirmDialog(null,
@@ -1392,7 +1439,7 @@ public class Menu extends JFrame {
 		btnConfirmarBaja_1_1.setForeground(Color.WHITE);
 		btnConfirmarBaja_1_1.setEnabled(false);
 		btnConfirmarBaja_1_1.setBackground(new Color(153, 193, 241));
-		btnConfirmarBaja_1_1.setBounds(678, 210, 182, 25);
+		btnConfirmarBaja_1_1.setBounds(769, 197, 63, 59);
 		panel_3.add(btnConfirmarBaja_1_1);
 
 		JButton btnNewButton_2_2_1 = new JButton("");
@@ -1424,7 +1471,7 @@ public class Menu extends JFrame {
 		btnNewButton_2_2_1.setIcon(new ImageIcon(Menu.class.getResource("/imgs/buscar1.png")));
 		btnNewButton_2_2_1.setContentAreaFilled(false);
 		btnNewButton_2_2_1.setBorderPainted(false);
-		btnNewButton_2_2_1.setBounds(732, 78, 41, 28);
+		btnNewButton_2_2_1.setBounds(744, 74, 41, 28);
 		panel_3.add(btnNewButton_2_2_1);
 
 		textField_18 = new JTextField();
@@ -1648,7 +1695,20 @@ public class Menu extends JFrame {
 		lblCedulaDelUsuario_1_3_1.setBounds(468, 39, 148, 15);
 		panel_4.add(lblCedulaDelUsuario_1_3_1);
 
-		JButton btnConfirmarBaja_1_2 = new JButton("Confirmar baja");
+		JButton btnConfirmarBaja_1_2 = new JButton("");
+		btnConfirmarBaja_1_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				btnConfirmarBaja_1_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/eliminar2.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				btnConfirmarBaja_1_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/eliminar1.png")));
+			}
+		});
+		btnConfirmarBaja_1_2.setIcon(new ImageIcon(Menu.class.getResource("/imgs/eliminar1.png")));
+		btnConfirmarBaja_1_2.setContentAreaFilled(false);
+		btnConfirmarBaja_1_2.setBorderPainted(false);
 		btnConfirmarBaja_1_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int eleccion = JOptionPane.showConfirmDialog(null,
@@ -1678,7 +1738,7 @@ public class Menu extends JFrame {
 		btnConfirmarBaja_1_2.setForeground(Color.WHITE);
 		btnConfirmarBaja_1_2.setEnabled(false);
 		btnConfirmarBaja_1_2.setBackground(new Color(153, 193, 241));
-		btnConfirmarBaja_1_2.setBounds(687, 225, 182, 25);
+		btnConfirmarBaja_1_2.setBounds(769, 197, 63, 59);
 		panel_4.add(btnConfirmarBaja_1_2);
 
 		JButton btnNewButton_2_2_2 = new JButton("");
